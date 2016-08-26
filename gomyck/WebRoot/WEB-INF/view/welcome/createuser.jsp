@@ -31,8 +31,25 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			beforeSubmit : function() {
+				if($.ckTrim($("#first_name").val()) == "" || $.ckTrim($("#last_name").val()) == ""){
+					$.showMsg("请输入姓名", 2);
+					$("#first_name").focus();
+					return false;
+				}
 				if($("#email").isEmail() == false){
 					$.showMsg("请输入正确的邮箱", 2);
+					return false;
+				}
+				if(!checkValueByCreate(1, $("#email")[0]) || !checkValueByCreate(2, $("#username")[0])){
+					return false;
+				}
+				if($.isPassword($("#password").val()) == false){
+					$.showMsg("密码必须为6-16个字母、数字、下划线", 2);
+					$("#password").focus();
+					return false;
+				}
+				if(!$.ckEquals("password", "password_confirm")){
+					$.showMsg("亲,密码不一致", 2);
 					return false;
 				}
 				layer.msg("正在处理...",{icon : 16,time : 0, shade: [0.1]});
@@ -49,28 +66,49 @@ $(function(){
 				}
 			},
 			error : function(result) {
-				parent.$.showMsg("亲!您的网络不给力哦~", 2);
+				$.showMsg("亲!您的网络不给力哦~", 2);
 			}
 		};
 		$("#createUserForm").ajaxSubmit(options);
 	});
 });
 
-function checkUserName(type, _this){
-	$.ckValidate({
+function checkValueByCreate(type, _this){
+	var flag = $.ckValidate({
 		self : _this,
+		async : false,
 		url : "asyn/reg/validataParam",
 		type : type,
+		sameValidate : true,
+		notBeNull : {
+			flag : true
+		},
+		onSuccess : function(){
+			return true;
+		}
+	});
+	return flag;
+}
+
+function checkValue(type, _this){
+	$.ckValidate({
+		type : type,
+		self : _this,
+		async : true,
+		sameValidate : false,
+		url : "asyn/reg/validataParam",
 		notBeNull : {
 			flag : true
 		}
 	});
-} 
+}
 
 function ifAgreeMyRaw(){
-	if(){
-	
-	}
+    if($("#agreeMyRaw").prop("checked")){
+   		$("#createUserBtn").attr("disabled",false);
+    }else{
+    	$("#createUserBtn").attr("disabled",true);
+    }
 }
 </script>
 <body class="templatemo-bg-gray">
@@ -92,13 +130,13 @@ function ifAgreeMyRaw(){
 			        <div class="form-group">
 			          <div class="col-md-12">		          	
 			            <label for="username" class="control-label">Email</label>
-			            <input type="email" maxlength="30" onblur="checkUserName(1, this)" defaultValue="" class="form-control" id="email" name="email" placeholder="常用的Email">		            		            		            
+			            <input type="email" maxlength="30" onblur="checkValue(1, this)" defaultValue="" class="form-control" id="email" name="email" placeholder="常用的Email">		            		            		            
 			          </div>              
 			        </div>			
 			        <div class="form-group">
 			          <div class="col-md-6">		          	
 			            <label for="username" class="control-label">用户名</label>
-			            <input type="text" maxlength="10" onblur="checkUserName(2, this)" defaultValue="" class="form-control" id="username" name="userName" placeholder="请输入您在本系统狂拽炫酷的代号">		            		            		            
+			            <input type="text" maxlength="10" onblur="checkValue(2, this)" defaultValue="" class="form-control" id="username" name="userName" placeholder="请输入您在本系统狂拽炫酷的代号">		            		            		            
 			          </div>
 			          <div class="col-md-6 templatemo-radio-group">
 			          	<label class="radio-inline">
@@ -112,7 +150,7 @@ function ifAgreeMyRaw(){
 			        <div class="form-group">
 			          <div class="col-md-6">
 			            <label for="password" class="control-label">密码</label>
-			            <input type="password" maxlength="16" class="form-control" name="password" id="password" value="" placeholder="请牢记密码">
+			            <input type="password" maxlength="16" class="form-control" name="password" id="password" value="" placeholder="6-16个字母、数字、下划线">
 			          </div>
 			          <div class="col-md-6">
 			            <label for="password" class="control-label">确认密码</label>

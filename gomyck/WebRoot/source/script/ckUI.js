@@ -242,6 +242,13 @@
 			}
 			return false;
 		},
+		isPassword :function(pwd){
+			var reg = /^(\w){6,16}$/;
+			if(reg.test(pwd)){
+				return true;
+			}
+			return false;
+		},
 		/**
 		 * 存储Cookie
 		 */
@@ -281,20 +288,22 @@
 			var _this = option.self;
 			var ck = $(_this);
 			var tempOption = {
-				notBeNull : {//是否可以输入空值
-					flag : false,
-					ifNUll : function(){
+				type : 1,//验证类型,用于方便后台判断
+				url : "",//校验地址
+				async : true,//同步校验,防止返回值因异步请求有误差,需要方法有返回值的时候必须为false
+				sameValidate : true,//输入的值无变化时需要检验否   true是需要 false是不需要
+				operatorFlag : "defaultValue",//对比原值,在input中定义的元素key值
+				callBackFlag : "result",//校验结果key
+				callBackMsg : "msg",//校验失败提示信息key
+				notBeNull : {//空值校验
+					flag : false,//true开启  false关闭
+					checkEmpty : function(){
 						if($.ckTrim(_this.value) == ""){
 							layer.tips("不能为空", _this, {tips : 1});
 							return false;
 						}
 					}
 				},
-				type : 1,//验证类型,用于方便后台判断
-				url : "",//校验地址
-				operatorFlag : "defaultValue",//对比原值,在input中定义的元素key值
-				callBackFlag : "result",//校验结果key
-				callBackMsg : "msg",//校验失败提示信息key
 				onSuccess : function(msg, _this){//校验通过回调函数
 					layer.tips(msg, _this, {tips : 2});
 				},
@@ -304,16 +313,18 @@
 			}
 			var ckOption = $.extend(true, {}, tempOption, option);
 			if(ckOption.notBeNull.flag){
-				if(ckOption.notBeNull.ifNUll() == false){
+				if(ckOption.notBeNull.checkEmpty() == false){
 					return false;
 				}
 			}
-			if(_this[ckOption.operatorFlag] == _this.value){
+			if(_this[ckOption.operatorFlag] == _this.value && ckOption.sameValidate == false){
 				return false;
 			}else{
 				_this[ckOption.operatorFlag] = _this.value
 			}
+			var validateResult = true;
 			$.ajax({
+				async : ckOption.async,
 				type : "post",
 				data : {"type" : ckOption.type, "value" : _this.value},
 				dataType : "json",
@@ -322,6 +333,7 @@
 					if(data[ckOption.callBackFlag]){
 						ckOption.onSuccess(data[ckOption.callBackMsg], _this);
 					}else{
+						validateResult = false;
 						ckOption.onFail(data[ckOption.callBackMsg], _this);
 					}
 				},
@@ -329,6 +341,13 @@
 					alert("与服务器通讯出现错误!");
 				}
 			});
+			return validateResult;
+		},
+		ckEquals :function(_idOne, _idTwo){
+			if($('#' + _idOne).val() != $('#' + _idTwo).val()){
+				return false;
+			}
+			return true;
 		}
 	});
 })(jQuery);
