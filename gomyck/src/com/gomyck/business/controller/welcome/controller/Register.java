@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.MessagingException;
@@ -60,8 +61,18 @@ public class Register
         user.setHoldeFlag("1");
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
-        this.regSer.saveUser(user);
+        this.regSer.save(user);
         final BizActivate ba = new BizActivate();
+        final StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 6; i = i + 1)
+        {
+            sb.append(getRandomChar());
+        }
+        ba.setCancleFlag("0");
+        ba.setSingTime(new Date());
+        ba.setUserId(user.getId());
+        ba.setValidateCode(sb.toString());
+        this.regSer.save(ba);
         try
         {
             sendEmail(user.getUserName(), user.getEmail());
@@ -75,6 +86,12 @@ public class Register
         result.put("result", true);
         result.put("msg", "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转");
         return result;
+    }
+    
+    private String getRandomChar()
+    {
+        final Random rd = new Random();
+        return String.valueOf(rd.nextInt(10));
     }
     
     @RequestMapping(value = "validataParam", method = RequestMethod.POST)

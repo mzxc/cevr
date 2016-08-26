@@ -23,7 +23,7 @@
     <!-- log4j 配置  结束 -->
     <servlet>
     	<servlet-name>defaultXmlServlet</servlet-name>
-    	<servlet-class>com.gomyck.component.core.xml.DefaultXmlReader</servlet-class>
+    	<servlet-class>com.gomyck.component.core.xml.CkDefaultXmlReader</servlet-class>
     	<init-param>
     		<param-name>sqlXmlPath</param-name>
     		<param-value>/config/ck.xml</param-value>

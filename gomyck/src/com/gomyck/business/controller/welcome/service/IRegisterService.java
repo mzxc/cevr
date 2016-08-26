@@ -10,8 +10,6 @@
  */
 package com.gomyck.business.controller.welcome.service;
 
-import com.gomyck.business.model.entity.welcome.BizUser;
-
 /**
  * <一句话功能简述> <功能详细描述>
  * 
@@ -22,5 +20,5 @@ import com.gomyck.business.model.entity.welcome.BizUser;
  */
 public interface IRegisterService
 {
-    void saveUser(BizUser user);
+    void save(Object obj);
 }

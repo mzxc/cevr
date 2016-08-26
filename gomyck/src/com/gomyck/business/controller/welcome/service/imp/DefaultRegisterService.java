@@ -13,7 +13,6 @@ package com.gomyck.business.controller.welcome.service.imp;
 import org.springframework.stereotype.Service;
 
 import com.gomyck.business.controller.welcome.service.IRegisterService;
-import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.core.dao.BaseDao;
 
 /**
@@ -33,8 +32,8 @@ public class DefaultRegisterService extends BaseDao implements IRegisterService
      * @param user
      */
     @Override
-    public void saveUser(final BizUser user)
+    public void save(final Object obj)
     {
-        this.save(user);
+        this.save(obj);
     }
 }
