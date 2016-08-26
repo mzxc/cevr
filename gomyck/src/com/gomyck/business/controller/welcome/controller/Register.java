@@ -137,7 +137,7 @@ public class Register
         });
         final String title = "gomyck";
         final StringBuffer mailBody = new StringBuffer();
-        mailBody.append("尊敬的用户:" + userName + "<br/>&nbsp;&nbsp;您的账号激活码为: " + validateCode + " , 请在登陆系统后输入激活,感谢您的注册!");
+        mailBody.append("尊敬的用户: " + userName + "<br/>&nbsp;&nbsp;您的账号激活码为: " + validateCode + " , 请在登陆系统后输入激活,感谢您的注册!");
         MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());
     }
 }
