@@ -34,12 +34,12 @@ import com.gomyck.component.util.StringUtil;
  * @since [产品/模块版本]
  */
 @SuppressWarnings("serial")
-public class DefaultXmlReader extends CkXmlReader
+public class CkDefaultXmlReader extends CkXmlReader
 {
     /**
      * 日志服务
      */
-    private static Logger log = Logger.getLogger(DefaultXmlReader.class);
+    private static Logger log = Logger.getLogger(CkDefaultXmlReader.class);
     
     public static final String DEFAULT_XML_PATH = "src/ck.xml";
     
@@ -61,7 +61,7 @@ public class DefaultXmlReader extends CkXmlReader
     /**
      * <默认构造函数>
      */
-    public DefaultXmlReader()
+    public CkDefaultXmlReader()
     {
         super();
     }
