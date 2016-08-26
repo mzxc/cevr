@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prop>
+	<sql id = "serachAll">
+		select * from table where id = ?;
+	</sql>
+	
+	<sql id = "deleteAll">
+		delete from table where id = ?;
+	</sql>
+	
+	<sql id = "update">
+		update table set id = ?;
+	</sql>
+</prop>
