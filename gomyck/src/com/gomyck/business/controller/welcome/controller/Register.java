@@ -10,9 +10,16 @@
  */
 package com.gomyck.business.controller.welcome.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.controller.welcome.service.IRegisterService;
 import com.gomyck.business.model.entity.welcome.BizUser;
+import com.gomyck.component.util.MailUtil;
+import com.gomyck.component.util.PropertiesReader;
 
 /**
  * <一句话功能简述> <功能详细描述>
@@ -44,15 +53,25 @@ public class Register
     @ResponseBody
     public Map<String, Object> getPwdByEmail(final BizUser user)
     {
+        final Map<String, Object> result = new HashMap<String, Object>();
         user.setDeleteFlag("0");
         user.setCancleFlag("0");
-        user.setHoldeFlag("0");
+        user.setHoldeFlag("1");
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
         this.regSer.saveUser(user);
-        final Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            sendEmail(user.getUserName(), user.getEmail());
+        }
+        catch (final Exception e)
+        {
+            result.put("result", false);
+            result.put("msg", "邮件系统出错,请稍后再试");
+            return result;
+        }
         result.put("result", true);
-        result.put("msg", "注册成功!");
+        result.put("msg", "邮件已发送!请登陆您的邮箱激活本账号!页面即将跳转");
         return result;
     }
     
@@ -78,5 +97,35 @@ public class Register
         result.put("result", true);
         result.put("msg", "没毛病!");
         return result;
+    }
+    
+    private static void sendEmail(final String userName, final String emailAddr) throws IOException
+    {
+        final PropertiesReader pr = new PropertiesReader(System.getProperty("gomyck.root") + "config\\mail.properties");
+        final String hostAccounts = pr.getValueByKey("mail.username");
+        final String sysUser = hostAccounts.substring(0, hostAccounts.indexOf("@"));
+        final String password = pr.getValueByKey("mail.password");
+        final Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.126.com");
+        props.put("mail.smtp.auth", "true");
+        final Session session = Session.getInstance(props, new Authenticator()
+        {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication(sysUser, password);
+            }
+        });
+        final String title = "gomyck";
+        final StringBuffer mailBody = new StringBuffer();
+        mailBody.append("尊敬的用户:" + userName + "<br/>你好, 010101为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
+        try
+        {
+            MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());
+        }
+        catch (final MessagingException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

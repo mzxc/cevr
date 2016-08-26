@@ -57,7 +57,7 @@ $(function(){
 			success : function(data) {
 				layer.closeAll();
 				if(data.result){
-					$.showMsg(data.msg, 6, 3, function(){
+					$.showMsg(data.msg, 6, 10, function(){
 						window.location.href = "common/forward/welcome/login";
 					});
 				}else{
