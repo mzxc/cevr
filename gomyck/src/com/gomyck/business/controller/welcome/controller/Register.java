@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.controller.welcome.service.IRegisterService;
+import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.util.MailUtil;
 import com.gomyck.component.util.PropertiesReader;
@@ -60,6 +61,7 @@ public class Register
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
         this.regSer.saveUser(user);
+        final BizActivate ba = new BizActivate();
         try
         {
             sendEmail(user.getUserName(), user.getEmail());
@@ -71,7 +73,7 @@ public class Register
             return result;
         }
         result.put("result", true);
-        result.put("msg", "邮件已发送!请登陆您的邮箱激活本账号!页面即将跳转");
+        result.put("msg", "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转");
         return result;
     }
     
@@ -118,7 +120,7 @@ public class Register
         });
         final String title = "gomyck";
         final StringBuffer mailBody = new StringBuffer();
-        mailBody.append("尊敬的用户:" + userName + "<br/>你好, 010101为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
+        mailBody.append("尊敬的用户:" + userName + "<br/>  你好, 010101为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
         try
         {
             MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());

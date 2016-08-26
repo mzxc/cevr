@@ -34,7 +34,6 @@
 			<list>
 				<!-- 标准配置 -->
 				<value>/config/application.properties</value>
-				<value>/config/mail.properties</value>
 			</list>
 		</property>
 	</bean>
