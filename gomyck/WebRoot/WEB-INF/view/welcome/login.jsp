@@ -13,10 +13,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="description" content="" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="plugins/layer/layer.js"></script>
+<script type="text/javascript" src="script/ckUI.js"></script>
+<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
 <link href="style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="style/welcome/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">	
+<link href="style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(function(){
+	remberMe();
+});
+
+function remberMe(){
+	$("#username").val($.getCookie("userName"));
+	$("#loginBtn").bind("click", function(){
+		if($("#remberMe").prop("checked")){
+			$.setCookie("userName", $("#username").val());
+		}
+	});
+}	
+</script>	
 </head>
 <body class="templatemo-bg-gray">
 	<div class="container" style="margin-top: 50px">
@@ -43,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		          <div class="col-md-12">
 	             	<div class="checkbox control-wrapper">
 	                	<label>
-	                  		<input type="checkbox"> 记住我
+	                  		<input type="checkbox" id="remberMe"> 记住我
                 		</label>
 	              	</div>
 		          </div>
@@ -51,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <div class="form-group">
 		          <div class="col-md-12">
 		          	<div class="control-wrapper">
-		          		<input type="submit" value="登陆" class="btn btn-info">
+		          		<input type="button" id="loginBtn" value="登陆" class="btn btn-info">
 		          		<a href="common/forward/welcome/forgotpwd" class="text-right pull-right">忘记密码?</a>
 		          	</div>
 		          </div>

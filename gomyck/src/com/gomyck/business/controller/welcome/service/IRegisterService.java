@@ -20,5 +20,5 @@ package com.gomyck.business.controller.welcome.service;
  */
 public interface IRegisterService
 {
-    void save(Object obj);
+    void saveObj(Object obj);
 }

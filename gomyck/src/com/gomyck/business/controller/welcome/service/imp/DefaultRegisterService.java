@@ -32,7 +32,7 @@ public class DefaultRegisterService extends BaseDao implements IRegisterService
      * @param user
      */
     @Override
-    public void save(final Object obj)
+    public void saveObj(final Object obj)
     {
         this.save(obj);
     }

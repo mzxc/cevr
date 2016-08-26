@@ -61,7 +61,7 @@ public class Register
         user.setHoldeFlag("1");
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
-        this.regSer.save(user);
+        this.regSer.saveObj(user);
         final BizActivate ba = new BizActivate();
         final StringBuffer sb = new StringBuffer();
         for (int i = 0; i < 6; i = i + 1)
@@ -72,10 +72,10 @@ public class Register
         ba.setSingTime(new Date());
         ba.setUserId(user.getId());
         ba.setValidateCode(sb.toString());
-        this.regSer.save(ba);
+        this.regSer.saveObj(ba);
         try
         {
-            sendEmail(user.getUserName(), user.getEmail());
+            sendEmail(user.getUserName(), user.getEmail(), sb.toString());
         }
         catch (final Exception e)
         {
@@ -118,7 +118,7 @@ public class Register
         return result;
     }
     
-    private static void sendEmail(final String userName, final String emailAddr) throws IOException, MessagingException
+    private static void sendEmail(final String userName, final String emailAddr, final String validateCode) throws IOException, MessagingException
     {
         final PropertiesReader pr = new PropertiesReader(System.getProperty("gomyck.root") + "config\\mail.properties");
         final String hostAccounts = pr.getValueByKey("mail.username");
@@ -137,7 +137,7 @@ public class Register
         });
         final String title = "gomyck";
         final StringBuffer mailBody = new StringBuffer();
-        mailBody.append("尊敬的用户:" + userName + "<br/>  你好, 010101为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
+        mailBody.append("尊敬的用户:" + userName + "<br/>  你好, " + validateCode + " 为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
         MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());
     }
 }
