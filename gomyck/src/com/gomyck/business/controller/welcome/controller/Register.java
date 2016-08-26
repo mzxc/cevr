@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.MessagingException;
@@ -33,6 +32,7 @@ import com.gomyck.business.controller.welcome.service.IRegisterService;
 import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.util.MailUtil;
+import com.gomyck.component.util.MathUtil;
 import com.gomyck.component.util.PropertiesReader;
 
 /**
@@ -64,10 +64,7 @@ public class Register
         this.regSer.saveObj(user);
         final BizActivate ba = new BizActivate();
         final StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < 6; i = i + 1)
-        {
-            sb.append(getRandomChar());
-        }
+        sb.append(MathUtil.getStringRandom(6));
         ba.setCancleFlag("0");
         ba.setSingTime(new Date());
         ba.setUserId(user.getId());
@@ -86,12 +83,6 @@ public class Register
         result.put("result", true);
         result.put("msg", "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转");
         return result;
-    }
-    
-    private String getRandomChar()
-    {
-        final Random rd = new Random();
-        return String.valueOf(rd.nextInt(10));
     }
     
     @RequestMapping(value = "validataParam", method = RequestMethod.POST)
