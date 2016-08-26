@@ -1,10 +1,14 @@
 package com.gomyck.business.model.entity.welcome;
+
 // default package
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -55,6 +59,7 @@ public class BizActivate implements java.io.Serializable
     
     // Property accessors
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     public Integer getId()
     {

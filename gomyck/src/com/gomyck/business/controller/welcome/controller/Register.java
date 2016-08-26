@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.controller.welcome.service.IRegisterService;
+import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.util.MailUtil;
 import com.gomyck.component.util.PropertiesReader;
@@ -60,6 +61,7 @@ public class Register
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
         this.regSer.saveUser(user);
+        final BizActivate ba = new BizActivate();
         try
         {
             sendEmail(user.getUserName(), user.getEmail());
