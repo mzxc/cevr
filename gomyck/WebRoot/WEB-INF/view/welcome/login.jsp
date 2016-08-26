@@ -15,8 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/layer/layer.js"></script>
-<script type="text/javascript" src="script/ckUI.js"></script>
+<script type="text/javascript" src="plugins/encrypted/des.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="script/ckUI.js"></script>
 <link href="style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="style/welcome/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(function(){
 	remberMe();
+	alert(encode("123123121"));
 });
 
 function remberMe(){
