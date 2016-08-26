@@ -19,7 +19,7 @@ package com.gomyck.component.core;
  * @since [产品/模块版本]
  */
 @SuppressWarnings("serial")
-public class DuplicateLabelException extends CkXmlException
+public class DuplicateLabelException extends XmlReaderException
 {
     /**
      * <默认构造函数>

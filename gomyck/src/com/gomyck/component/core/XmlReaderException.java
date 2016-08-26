@@ -19,13 +19,13 @@ package com.gomyck.component.core;
  * @since [产品/模块版本]
  */
 @SuppressWarnings("serial")
-public class CkXmlException extends RuntimeException
+public class XmlReaderException extends RuntimeException
 {
     
     /**
      * <默认构造函数>
      */
-    public CkXmlException()
+    public XmlReaderException()
     {
         super();
     }
@@ -33,7 +33,7 @@ public class CkXmlException extends RuntimeException
     /**
      * <默认构造函数>
      */
-    public CkXmlException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    public XmlReaderException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {
         super(message, cause, enableSuppression, writableStackTrace);
     }
@@ -41,7 +41,7 @@ public class CkXmlException extends RuntimeException
     /**
      * <默认构造函数>
      */
-    public CkXmlException(String message, Throwable cause)
+    public XmlReaderException(String message, Throwable cause)
     {
         super(message, cause);
     }
@@ -49,7 +49,7 @@ public class CkXmlException extends RuntimeException
     /**
      * <默认构造函数>
      */
-    public CkXmlException(String message)
+    public XmlReaderException(String message)
     {
         super(message);
     }
@@ -57,7 +57,7 @@ public class CkXmlException extends RuntimeException
     /**
      * <默认构造函数>
      */
-    public CkXmlException(Throwable cause)
+    public XmlReaderException(Throwable cause)
     {
         super(cause);
     }
