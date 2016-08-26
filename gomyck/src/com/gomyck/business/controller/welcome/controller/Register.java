@@ -101,7 +101,7 @@ public class Register
         return result;
     }
     
-    private static void sendEmail(final String userName, final String emailAddr) throws IOException
+    private static void sendEmail(final String userName, final String emailAddr) throws IOException, MessagingException
     {
         final PropertiesReader pr = new PropertiesReader(System.getProperty("gomyck.root") + "config\\mail.properties");
         final String hostAccounts = pr.getValueByKey("mail.username");
@@ -121,13 +121,6 @@ public class Register
         final String title = "gomyck";
         final StringBuffer mailBody = new StringBuffer();
         mailBody.append("尊敬的用户:" + userName + "<br/>  你好, 010101为您账号激活码, 请在登陆系统后输入激活,感谢您的注册!");
-        try
-        {
-            MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());
-        }
-        catch (final MessagingException e)
-        {
-            e.printStackTrace();
-        }
+        MailUtil.sendHTMLMessage(session, hostAccounts, emailAddr, title, mailBody.toString());
     }
 }
