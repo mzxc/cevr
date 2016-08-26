@@ -272,7 +272,7 @@
 		delCookie : function(name){
 			var exp = new Date();
 		    exp.setTime(exp.getTime() - 1);
-		    var cval=getCookie(name);
+		    var cval=$.getCookie(name);
 		    if(cval!=null){
 		    	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 		    }
@@ -348,6 +348,18 @@
 				return false;
 			}
 			return true;
+		},
+		/**
+		 * 是否是空的字段
+		 * 
+		 * @param s 字符串
+		 * @returns 为空则返回"";
+		 */
+		isEmpty : function(s){
+			if(s == undefined || s == 'undefined' || s == null || s == 'null' || s == '') {
+				return true;
+			}
+			return false;
 		}
 	});
 })(jQuery);
@@ -373,7 +385,7 @@ function balanceGoBack(obj){
  */
 function fmoney(s, n){
 	var rep= /^-?[1-9]\d*.?\d*$/g;
-	if(isEmpty(s) == "" || rep.test(s) == false || s == 0) return "";
+	if($.isEmpty(s) || rep.test(s) == false || s == 0) return "";
 	n = n > 0 && n <= 20 ? n : 2;
 	s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
 	var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
@@ -392,22 +404,10 @@ function fmoney(s, n){
  * @returns 如果没有小数则去掉小数点后面的金额
  */
 function rmoney(s){
-	if(isEmpty(s) == "" || s == 0) return "";
+	if($.isEmpty(s) || s == 0) return "";
 	return parseFloat((s + "").replace(/[^\d\.-]/g, "")); 
 }
 
-/**
- * 是否是空的字段
- * 
- * @param s 字符串
- * @returns 为空则返回"";
- */
-function isEmpty(s){
-	if(s == undefined || s == 'undefined' || s == null || s == 'null' || s == '') {
-		return ""
-	}
-	return s;
-}
 
 /**
  * 限制只能输入数字(现金流量表专用)
@@ -415,7 +415,7 @@ function isEmpty(s){
  * @param e event
  * @param obj 当前对象
  */
-function IsNum(e, obj) {
+function mustNumber(e, obj) {
 	var k = window.event ? e.keyCode : e.which;
 	if (((k >= 48) && (k <= 57)) || k == 8 || k == 0 || k == 45 || k == 46) {
 		var tempVal = obj.val();

@@ -24,18 +24,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(function(){
-	remberMe();
-	alert(encode("123123121"));
+	getUserName();
+	$("#loginBtn").bind("click", function(){
+		remberMe();
+		alert(encode("123123121"));
+	});
 });
 
-function remberMe(){
+//还原用户名
+function getUserName(){
+	if(!$.isEmpty($.getCookie("userName"))){
+		$("#remberMe").prop("checked", "checked");
+	}
 	$("#username").val($.getCookie("userName"));
-	$("#loginBtn").bind("click", function(){
-		if($("#remberMe").prop("checked")){
+}
+
+//记住我
+function remberMe(){
+	if($("#remberMe").prop("checked")){
 			$.setCookie("userName", $("#username").val());
-		}
-	});
-}	
+	}else{
+		$.delCookie("userName");
+	}
+}
 </script>	
 </head>
 <body class="templatemo-bg-gray">
