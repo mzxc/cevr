@@ -82,8 +82,8 @@
 		 * @param option
 		 * 
 		 * 说明 : 需要在jqgrid上添加两个属性: 
-		 * 			judgeId : "id",根据该属性来判断上下行是否属于同类型的数据
-		 * 			mergeCellFild : ["xx","xx"] 如果是同类型的数据,那么合并哪个ID的单元格,数组
+		 * 		  judgeId : "id",根据该属性来判断上下行是否属于同类型的数据
+		 * 		  mergeCellFild : ["xx","xx"] 如果是同类型的数据,那么合并哪个ID的单元格,数组
 		 */
 		jqCellMerge : function(option){
 			var ck = $(this);
@@ -134,7 +134,7 @@
 			});
 		},
 		/**
-		 * 必须输入0-9之间的数字
+		 * 可以输入金额规则的数字
 		 */
 		mustMoney: function(e){
 			$(this).keyup(function(e){
@@ -154,7 +154,7 @@
 			});
 		},
 		/**
-		 * 最大长度
+		 * 最大长度限制
 		 */
 		maxLength: function(len){
 			var tagName = $(this).prop("tagName");
@@ -166,7 +166,7 @@
 			}
 		},
 		/**
-		 * 清除内容
+		 * 清除标签内容
 		 */
 		clean: function(){
 			$(this).val("");
@@ -185,6 +185,11 @@
 			}
 			return true;
 		},
+		/**
+		 * 规定输入框最大输入最小输入
+		 * @param min 最小值
+		 * @param max 最大值
+		 */
 		numLimit: function(min, max){
 			$(this).keyup(function(){
 				$(this).val($(this).val().replace(/\D/g,''));
@@ -235,6 +240,9 @@
 			}
 			layer.msg(tips, {title:"提示:", icon : icon, time : 2500, area: ['275px', '140px'], offset: 'rb', shift :2}, func);
 		},
+		/**
+		 * 是否是电话号
+		 */
 		isMobile :　function(tel){
 			var reg = /^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/;
 			if(reg.test(tel)){
@@ -242,6 +250,9 @@
 			}
 			return false;
 		},
+		/**
+		 * 是否符合密码规则
+		 */
 		isPassword :function(pwd){
 			var reg = /^(\w){6,16}$/;
 			if(reg.test(pwd)){
@@ -277,9 +288,15 @@
 		    	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 		    }
 		},
+		/**
+		 * 字符串转JSON
+		 */
 		ckJson : function(obj){
 			return JSON.stringify(obj);
 		},
+		/**
+		 * 校验器
+		 */
 		ckValidate : function(option){
 			if(!option.self){
 				console.log("请在option中传入this对象,引用为self..");
@@ -343,6 +360,9 @@
 			});
 			return validateResult;
 		},
+		/**
+		 * 是否相等
+		 */
 		ckEquals :function(_idOne, _idTwo){
 			if($('#' + _idOne).val() != $('#' + _idTwo).val()){
 				return false;
