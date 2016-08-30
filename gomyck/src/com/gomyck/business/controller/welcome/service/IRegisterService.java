@@ -11,12 +11,12 @@
 package com.gomyck.business.controller.welcome.service;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 注册ser
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #saveObj
+ * @since 1.0
  */
 public interface IRegisterService
 {

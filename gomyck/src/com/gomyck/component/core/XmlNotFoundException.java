@@ -15,8 +15,8 @@ package com.gomyck.component.core;
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #XmlNotFoundException
+ * @since 1.0
  */
 @SuppressWarnings("serial")
 public class XmlNotFoundException extends XmlReaderException
@@ -32,7 +32,7 @@ public class XmlNotFoundException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public XmlNotFoundException(String message)
+    public XmlNotFoundException(final String message)
     {
         super(message);
     }
@@ -40,7 +40,7 @@ public class XmlNotFoundException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public XmlNotFoundException(String message, Throwable cause)
+    public XmlNotFoundException(final String message, final Throwable cause)
     {
         super(message, cause);
     }

@@ -16,12 +16,12 @@ import com.gomyck.component.core.NodesShapeException;
 import com.gomyck.component.util.StringUtil;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 默认xml节点集合类
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-24]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #CkDefaultXmlNodes
+ * @since 1.0
  */
 public class CkDefaultXmlNodes extends CkXmlNodes
 {

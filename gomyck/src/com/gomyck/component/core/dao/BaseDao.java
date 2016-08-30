@@ -38,12 +38,12 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 
 /**
  * 
- * 基础类DAO
+ * 通用持久层工具类
  * 
  * @author 郝洋
  * @version [版本号, 2016-3-17]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #BaseDao
+ * @since 2.1
  */
 @SuppressWarnings("rawtypes")
 public class BaseDao

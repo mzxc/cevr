@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author 郝洋
  * @version [版本号, 2016-4-8]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #CookieUtil
+ * @since 1.0
  */
 public class CookieUtil
 {
@@ -27,9 +27,9 @@ public class CookieUtil
      * @param value cookie值
      * @param maxAge cookie生命周期 以秒为单位
      */
-    public static Cookie addCookie(HttpServletResponse response, String name, String value, int maxAge)
+    public static Cookie addCookie(final HttpServletResponse response, final String name, final String value, final int maxAge)
     {
-        Cookie cookie = new Cookie(name, value);
+        final Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -43,12 +43,12 @@ public class CookieUtil
      * @param name cookie名字
      * @return Cookie Cookie对象
      */
-    public static Cookie getCookieByName(HttpServletRequest request, String name)
+    public static Cookie getCookieByName(final HttpServletRequest request, final String name)
     {
-        Map<String, Cookie> cookieMap = ReadCookieMap(request);
+        final Map<String, Cookie> cookieMap = ReadCookieMap(request);
         if (cookieMap.containsKey(name))
         {
-            Cookie cookie = (Cookie)cookieMap.get(name);
+            final Cookie cookie = cookieMap.get(name);
             return cookie;
         }
         else
@@ -63,13 +63,13 @@ public class CookieUtil
      * @param request 请求对象
      * @return Map<String, Cookie> key为cookie的name
      */
-    private static Map<String, Cookie> ReadCookieMap(HttpServletRequest request)
+    private static Map<String, Cookie> ReadCookieMap(final HttpServletRequest request)
     {
-        Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
-        Cookie[] cookies = request.getCookies();
+        final Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
+        final Cookie[] cookies = request.getCookies();
         if (null != cookies)
         {
-            for (Cookie cookie : cookies)
+            for (final Cookie cookie : cookies)
             {
                 cookieMap.put(cookie.getName(), cookie);
             }

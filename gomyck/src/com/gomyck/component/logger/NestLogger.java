@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
  * 
  * @author 郝洋
  * @version [版本号, 2016-4-13]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #NestLogger
+ * @since 1.2
  */
 public class NestLogger
 {

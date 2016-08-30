@@ -16,12 +16,12 @@ import com.gomyck.business.controller.welcome.service.IRegisterService;
 import com.gomyck.component.core.dao.BaseDao;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 注册ser
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #saveObj
+ * @since 1.0
  */
 @Service(value = "DefaultRegisterService")
 public class DefaultRegisterService extends BaseDao implements IRegisterService

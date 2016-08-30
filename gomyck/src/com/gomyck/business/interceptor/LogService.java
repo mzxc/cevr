@@ -17,7 +17,13 @@ import com.gomyck.component.util.DateUtil;
 import com.gomyck.component.util.DateUtil.DUF;
 
 /**
- * 日志服务
+ * 
+ * 日志切面
+ * 
+ * @author 郝洋
+ * @version [版本号, 2016-8-30]
+ * @see #LogService
+ * @since 1.0
  */
 public class LogService
 {

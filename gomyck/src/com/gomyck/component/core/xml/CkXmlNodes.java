@@ -11,12 +11,12 @@
 package com.gomyck.component.core.xml;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * xml节点通用接口
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-24]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #CkXmlNodes
+ * @since 1.0
  */
 public abstract class CkXmlNodes implements XmlNodes
 {

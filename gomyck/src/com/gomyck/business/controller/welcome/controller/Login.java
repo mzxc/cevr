@@ -14,12 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 登陆
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-3]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see Login
+ * @since 1.0
  */
 @Controller
 @RequestMapping(value = "asyn/login")

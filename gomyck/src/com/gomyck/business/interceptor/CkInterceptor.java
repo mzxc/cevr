@@ -10,6 +10,15 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 
+ * 业务类拦截器
+ * 
+ * @author 郝洋
+ * @version [版本号, 2016-8-30]
+ * @see #CkInterceptor
+ * @since 2.1
+ */
 public class CkInterceptor implements HandlerInterceptor
 {
     /**

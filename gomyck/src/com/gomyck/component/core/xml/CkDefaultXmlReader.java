@@ -26,12 +26,12 @@ import com.gomyck.component.core.XmlNotFoundException;
 import com.gomyck.component.util.StringUtil;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 默认xml加载器
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #CkDefaultXmlReader()
+ * @since 1.0
  */
 @SuppressWarnings("serial")
 public class CkDefaultXmlReader extends CkXmlReader

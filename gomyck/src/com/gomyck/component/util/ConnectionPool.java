@@ -16,8 +16,12 @@ import com.gomyck.component.logger.NestLogger;
 
 /**
  * 
- * @author h_yang
+ * 连接池
  * 
+ * @author 郝洋
+ * @version [版本号, 2016-8-30]
+ * @see #ConnectionPool
+ * @since 1.0
  */
 public class ConnectionPool extends Thread
 {
@@ -81,7 +85,7 @@ public class ConnectionPool extends Thread
             dbConfigPath = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
             dbConfigPath += "com/ctj/resource/db.properties";
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
             NestLogger.showException(e);
             dbConfigPath = "D:/WorkSpace/CTJ_MyEclipse_WorkSpace/Accounting/src/com/ctj/resource/db.properties";
@@ -98,30 +102,26 @@ public class ConnectionPool extends Thread
             final Connection conn = DriverManager.getConnection(jdbcUrl, userName, passWord);
             return conn;
         }
-        catch (SQLException sqlException)
+        catch (final SQLException sqlException)
         {
             NestLogger.showException(sqlException);
-            logger.error("can not get JDBConnection..." + sqlException.toString(),
-                new RuntimeException("can not get JDBConnection..." + sqlException.toString()));
+            logger.error("can not get JDBConnection..." + sqlException.toString(), new RuntimeException("can not get JDBConnection..." + sqlException.toString()));
             return createConnection();
         }
-        catch (ClassNotFoundException classNotFoundException)
+        catch (final ClassNotFoundException classNotFoundException)
         {
             NestLogger.showException(classNotFoundException);
-            logger.error("not found jdbcDriver..." + classNotFoundException.toString(),
-                new RuntimeException("not found jdbcDriver..." + classNotFoundException.toString()));
+            logger.error("not found jdbcDriver..." + classNotFoundException.toString(), new RuntimeException("not found jdbcDriver..." + classNotFoundException.toString()));
         }
-        catch (FileNotFoundException fileNotFoundException)
+        catch (final FileNotFoundException fileNotFoundException)
         {
             NestLogger.showException(fileNotFoundException);
-            logger.error("not found properties..." + fileNotFoundException.toString(),
-                new RuntimeException("not found properties..." + fileNotFoundException.toString()));
+            logger.error("not found properties..." + fileNotFoundException.toString(), new RuntimeException("not found properties..." + fileNotFoundException.toString()));
         }
-        catch (IOException ioException)
+        catch (final IOException ioException)
         {
             NestLogger.showException(ioException);
-            logger.error("load properties error..." + ioException.toString(),
-                new RuntimeException("load properties error..." + ioException.toString()));
+            logger.error("load properties error..." + ioException.toString(), new RuntimeException("load properties error..." + ioException.toString()));
         }
         return null;
     }
@@ -140,7 +140,7 @@ public class ConnectionPool extends Thread
     private static void distoryConnectionPool()
     {
         logger.info("正在销毁连接池...");
-        for (Connection conn : connPool)
+        for (final Connection conn : connPool)
         {
             if (conn != null)
             {
@@ -148,7 +148,7 @@ public class ConnectionPool extends Thread
                 {
                     conn.close();
                 }
-                catch (SQLException e)
+                catch (final SQLException e)
                 {
                     NestLogger.showException(e);
                     logger.error("销毁连接池时出现错误:" + e.toString());
@@ -173,7 +173,7 @@ public class ConnectionPool extends Thread
                 Thread.sleep(1200000L);
                 checkIt();
             }
-            catch (Exception e)
+            catch (final Exception e)
             {
                 NestLogger.showException(e);
                 new ConnectionPool().start();
@@ -205,7 +205,7 @@ public class ConnectionPool extends Thread
                     logger.info("存在异常的连接,重新初始化并更新..当前空闲连接数 : " + getFreeConnNum());
                 }
             }
-            catch (SQLException e)
+            catch (final SQLException e)
             {
                 conn = createConnection();
                 connPool.remove(i);
@@ -242,7 +242,7 @@ public class ConnectionPool extends Thread
                     connPool.add(i, conn);
                 }
             }
-            catch (SQLException e)
+            catch (final SQLException e)
             {
                 conn = createConnection();
                 connPool.remove(i);
@@ -263,8 +263,7 @@ public class ConnectionPool extends Thread
      * @param conn 正在使用的连接
      * @throws SQLException 异常
      */
-    public static synchronized void closeConnection(Connection conn)
-        throws SQLException
+    public static synchronized void closeConnection(Connection conn) throws SQLException
     {
         boolean ifGiveBack = false;
         for (int i = 0; i < poolInfo.length; i = i + 1)

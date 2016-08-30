@@ -15,8 +15,8 @@ package com.gomyck.component.core;
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-19]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #DuplicateLabelException
+ * @since 1.0
  */
 @SuppressWarnings("serial")
 public class DuplicateLabelException extends XmlReaderException
@@ -32,7 +32,7 @@ public class DuplicateLabelException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    public DuplicateLabelException(final String message, final Throwable cause, final boolean enableSuppression, final boolean writableStackTrace)
     {
         super(message, cause, enableSuppression, writableStackTrace);
     }
@@ -40,7 +40,7 @@ public class DuplicateLabelException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(String message, Throwable cause)
+    public DuplicateLabelException(final String message, final Throwable cause)
     {
         super(message, cause);
     }
@@ -48,7 +48,7 @@ public class DuplicateLabelException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(String message)
+    public DuplicateLabelException(final String message)
     {
         super(message);
     }
@@ -56,7 +56,7 @@ public class DuplicateLabelException extends XmlReaderException
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(Throwable cause)
+    public DuplicateLabelException(final Throwable cause)
     {
         super(cause);
     }

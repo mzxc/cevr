@@ -15,8 +15,8 @@ package com.gomyck.component.core;
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-24]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #NodesShapeException
+ * @since 1.0
  */
 @SuppressWarnings("serial")
 public class NodesShapeException extends RuntimeException

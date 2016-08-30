@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * <一句话功能简述> <功能详细描述>
+ * 忘记密码
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see #ForgotPwd
+ * @since 1.0
  */
 @Controller
 @RequestMapping(value = "asyn/pwd")

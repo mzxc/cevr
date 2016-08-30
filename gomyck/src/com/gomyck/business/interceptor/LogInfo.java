@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  * 日志注解
  * 
  * @author 郝洋
- * @see [相关类/方法]
- * @since [产品/模块版本]
+ * @see LogInfo
+ * @since 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
