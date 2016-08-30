@@ -35,6 +35,7 @@ import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.util.MailUtil;
 import com.gomyck.component.util.MathUtil;
 import com.gomyck.component.util.PropertiesReader;
+import com.gomyck.component.util.ResultBuild;
 
 /**
  * 注册
@@ -78,13 +79,9 @@ public class Register
         }
         catch (final Exception e)
         {
-            result.put("result", false);
-            result.put("msg", "邮件系统出错,请稍后再试");
-            return result;
+            return ResultBuild.init(false, "邮件系统出错,请稍后再试", null);
         }
-        result.put("result", true);
-        result.put("msg", "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转");
-        return result;
+        return ResultBuild.init(true, "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转", null);
     }
     
     @RequestMapping(value = "validataParam", method = RequestMethod.POST)
@@ -105,10 +102,7 @@ public class Register
             default:
                 System.out.println("-1" + value);
         }
-        final Map<String, Object> result = new HashMap<String, Object>();
-        result.put("result", true);
-        result.put("msg", "没毛病!");
-        return result;
+        return ResultBuild.init(true, "没毛病", null);
     }
     
     private static void sendEmail(final String userName, final String emailAddr, final String validateCode) throws IOException, MessagingException

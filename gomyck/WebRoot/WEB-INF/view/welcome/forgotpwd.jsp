@@ -67,7 +67,7 @@ $(function(){
 		        </div>		
 		        <div class="form-group">
 		          <div class="col-md-12">
-		            <input type="text" class="form-control" id="email" placeholder="邮箱地址 例:hao123@163.com">	            
+		            <input type="text" autocomplete="off" class="form-control" id="email" placeholder="邮箱地址 例:hao123@163.com">	            
 		          </div>              
 		        </div>
 		        <div class="form-group">

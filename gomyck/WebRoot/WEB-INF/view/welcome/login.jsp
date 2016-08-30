@@ -58,7 +58,7 @@ function remberMe(){
 		          <div class="col-xs-12">		            
 		            <div class="control-wrapper">
 		            	<label for="username" class="control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
-		            	<input type="text" class="form-control" id="username" placeholder="用户名">
+		            	<input type="text" class="form-control" autocomplete="off" id="username" placeholder="用户名">
 		            </div>		            	            
 		          </div>              
 		        </div>
@@ -66,7 +66,7 @@ function remberMe(){
 		          <div class="col-md-12">
 		          	<div class="control-wrapper">
 		            	<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
-		            	<input type="password" class="form-control" id="password" placeholder="密码">
+		            	<input type="password" class="form-control" autocomplete="off" id="password" placeholder="密码">
 		            </div>
 		          </div>
 		        </div>
