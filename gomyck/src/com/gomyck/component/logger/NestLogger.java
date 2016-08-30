@@ -30,20 +30,33 @@ public class NestLogger
     
     private static FileWriter fw;
     
+    private static String FILEPATH = "../sysLog/ckLog.log";
+    
     static
     {
-        file = new File("D://ckLog.log");
+        file = new File(FILEPATH);
         if (!file.exists())
         {
             try
             {
                 file.createNewFile();
-                fw = new FileWriter(file);
             }
             catch (final IOException e)
             {
                 logger.error("初始化本地日志文件错误...." + e);
             }
+        }
+        else if (file.length() > 536870912L)
+        {
+            file.renameTo(new File(FILEPATH + ".bak"));
+        }
+        try
+        {
+            fw = new FileWriter(file, true);
+        }
+        catch (final IOException e)
+        {
+            logger.error("初始化本地日志文件错误...." + e);
         }
     }
     
