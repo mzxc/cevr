@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.controller.welcome.service.IRegisterService;
+import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
 import com.gomyck.component.util.MailUtil;
@@ -51,6 +52,7 @@ public class Register
     @Qualifier(value = "DefaultRegisterService")
     private IRegisterService regSer;
     
+    @LogInfo(operateModelNm = "注册模块", operateFuncNm = "注册用户")
     @RequestMapping(value = "createUser", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getPwdByEmail(final BizUser user)

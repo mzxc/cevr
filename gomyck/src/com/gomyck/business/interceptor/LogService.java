@@ -2,7 +2,8 @@ package com.gomyck.business.interceptor;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.gomyck.component.logger.NestLogger;
+import com.gomyck.component.util.DateUtil;
+import com.gomyck.component.util.DateUtil.DUF;
 
 /**
  * 日志服务
@@ -20,7 +23,8 @@ public class LogService
 {
     private static final Logger logger = Logger.getLogger(LogService.class);
     
-    public void logAll(final JoinPoint joinPoint)
+    @SuppressWarnings("rawtypes")
+    public void logIt(final JoinPoint joinPoint)
     {
         try
         {
@@ -30,8 +34,6 @@ public class LogService
             final String classType = joinPoint.getTarget().getClass().getName();
             final String methodName = temp.substring(10, temp.length() - 1);
             final Class<?> className = Class.forName(classType);
-            // 日志动作
-            @SuppressWarnings("rawtypes")
             final Class[] args = new Class[joinPoint.getArgs().length];
             final String[] sArgs = (longTemp.substring(longTemp.lastIndexOf("(") + 1, longTemp.length() - 2)).split(",");
             for (int i = 0; i < args.length; i++)
@@ -69,43 +71,34 @@ public class LogService
                 }
             }
             final Method method = className.getMethod(methodName.substring(methodName.indexOf(".") + 1, methodName.indexOf("(")), args);
-            
-            // 如果该方法写了注解才做操作
+            final StringBuilder sb = new StringBuilder();
             if (method.isAnnotationPresent(LogInfo.class))
             {
                 final LogInfo logInfo = method.getAnnotation(LogInfo.class);
-                // String operateModelNm = logAnnotation.operateModelNm();
-                // String operateFuncNm = logAnnotation.operateFuncNm();
-                final StringBuilder sb = new StringBuilder();
-                sb.append("method:" + joinPoint.getSignature().getName());
+                final String operateModelNm = logInfo.operateModelNm();
+                final String operateFuncNm = logInfo.operateFuncNm();
                 final HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-                final Iterator<java.util.Map.Entry<String, String[]>> iter = request.getParameterMap().entrySet().iterator();
-                boolean isFirst = true;
-                sb.append("#paras:");
-                while (iter.hasNext())
+                Object operName = request.getSession().getAttribute("userName");
+                operName = operName == null ? "no sign" : operName;
+                sb.append(DateUtil.nowStr(DUF.CN_DATETIME_FORMAT) + ": " + operateModelNm + ": " + operateFuncNm + ", 操作人: " + operName + ", ");
+                sb.append("方法名: " + joinPoint.getSignature().getName() + ", 请求参数: ");
+                final Set<Entry<String, String[]>> entrySet = request.getParameterMap().entrySet();
+                for (final Entry<String, String[]> entry : entrySet)
                 {
-                    final java.util.Map.Entry<String, String[]> entry = iter.next();
-                    if (isFirst)
-                    {
-                        isFirst = false;
-                    }
-                    else
-                    {
-                        sb.append("#");
-                    }
+                    sb.append("#");
                     sb.append(entry.getKey() + "=");
                     final Object[] allValue = entry.getValue();
                     for (int i = 0; i < allValue.length; i++)
                     {
                         if (i != 0)
                         {
-                            sb.append(",");
+                            sb.append(", ");
                         }
-                        sb.append(allValue[i].toString());
+                        sb.append(allValue[i].toString() + " ");
                     }
                 }
-                
             }
+            NestLogger.locationLog(sb.toString());
         }
         catch (final Exception e)
         {

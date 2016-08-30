@@ -1,8 +1,12 @@
 package com.gomyck.component.logger;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -20,6 +24,29 @@ public class NestLogger
      */
     public static final boolean DEVELOP_MODEL = true;
     
+    private static final Logger logger = Logger.getLogger(NestLogger.class);
+    
+    private static final File file;
+    
+    private static FileWriter fw;
+    
+    static
+    {
+        file = new File("D://ckLog.log");
+        if (!file.exists())
+        {
+            try
+            {
+                file.createNewFile();
+                fw = new FileWriter(file);
+            }
+            catch (final IOException e)
+            {
+                logger.error("初始化本地日志文件错误...." + e);
+            }
+        }
+    }
+    
     /**
      * 
      * 异常处理方法
@@ -27,7 +54,7 @@ public class NestLogger
      * @param e
      * @see [类、类#方法、类#成员]
      */
-    public static void showException(Exception e)
+    public static void showException(final Exception e)
     {
         if (DEVELOP_MODEL)
         {
@@ -43,7 +70,7 @@ public class NestLogger
      * @param ifGetTraceInfo 是否打印详细信息
      * @return 日志信息
      */
-    public static String buildLog(String whatWork, Exception e, boolean ifGetTraceInfo)
+    public static String buildLog(final String whatWork, final Exception e, final boolean ifGetTraceInfo)
     {
         return "Logger Info : 日志详情: " + whatWork + (e == null ? "" : " , 当前异常信息为: " + (ifGetTraceInfo ? getTrace(e) : e.toString()));
     }
@@ -54,12 +81,54 @@ public class NestLogger
      * @param t 异常
      * @return string信息
      */
-    private static String getTrace(Throwable t)
+    private static String getTrace(final Throwable t)
     {
         final StringWriter stringWriter = new StringWriter();
         final PrintWriter writer = new PrintWriter(stringWriter);
         t.printStackTrace(writer);
         final StringBuffer buffer = stringWriter.getBuffer();
         return buffer.toString();
+    }
+    
+    public static void locationLog(final String logInfo)
+    {
+        try
+        {
+            fw.append(logInfo + "\n");
+            fw.flush();
+        }
+        catch (final IOException e)
+        {
+            new GotoLog(logInfo).start();
+            e.printStackTrace();
+        }
+    }
+    
+    static class GotoLog extends Thread
+    {
+        private final String logStr;
+        
+        public GotoLog(final String logStr)
+        {
+            this.logStr = logStr;
+        }
+        
+        /**
+         * 重载方法
+         */
+        @Override
+        public void run()
+        {
+            super.run();
+            try
+            {
+                sleep(5000);
+            }
+            catch (final InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            locationLog(this.logStr);
+        }
     }
 }

@@ -17,6 +17,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface LogInfo
 {
+    
+    /**
+     * 
+     * 操作描述
+     * 
+     * @return String String
+     */
+    String operateFuncNm();
+    
     /**
      * 
      * 模块名称
@@ -24,13 +33,4 @@ public @interface LogInfo
      * @return String String
      */
     String operateModelNm();
-    
-    /**
-     * 
-     * 操作描述
-     * 
-     * @return String String
-     * @see [类、类#方法、类#成员]
-     */
-    String operateFuncNm();
 }

@@ -111,14 +111,13 @@
     </bean>
     
     
-    <!-- 注入日志服务
-    <bean id="logService" class="com.jf.framework.springInterceptor.LogService"></bean>
+    <!-- 注入日志服务-->
+    <bean id="logService" class="com.gomyck.business.interceptor.LogService"></bean>
     <aop:config>
-	 <aop:aspect id="myAspect" ref="logService">
-	  <aop:pointcut expression="execution(* com.jf.framework.*.controller.*.*(..))" id="logPointCut"/>
-	  <aop:before method="logAll" pointcut-ref="logPointCut"/>
-	 </aop:aspect>
+		<aop:aspect id="myAspect" ref="logService">
+			<aop:pointcut id="logPointCut" expression="execution(* com.gomyck.business.controller.*.controller.*.*(..))" />
+			<aop:before pointcut-ref="logPointCut" method="logIt" />
+		</aop:aspect>
 	</aop:config>  
-	-->
 </beans>
            
