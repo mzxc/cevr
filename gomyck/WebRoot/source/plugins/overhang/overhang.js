@@ -76,7 +76,7 @@ $.fn.overhang = function (arguments) {
 
   // Style colors
   $overhang.css("background-color", attributes.primary);
-  $overhang.css("border-bottom", "6px solid " + attributes.accent);
+  //$overhang.css("border-bottom", "6px solid " + attributes.accent);
 
   // Message
   var $message = $("<span class='message'></span>");
