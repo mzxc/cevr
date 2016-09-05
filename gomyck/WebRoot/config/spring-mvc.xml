@@ -48,7 +48,7 @@
 		配置/WEB-INF/views/目录里面的jsp文件不被DispatcherServlet处理,可以直接通过浏览器访问。
 		view-name  /WEB-INF/view/里面的jsp文件名(不许后缀即可) path 访问地址
 	-->
-	<mvc:view-controller path="/" view-name="welcome/login" />
+	<mvc:view-controller path="/" view-name="${main.view}" />
 
 	<!--JSP页面解析器,当Controller返回XXX字符串时,先通过拦截器,然后该类就会在/WEB-INF/view/目录下,查找XXX.jsp文件-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -61,8 +61,7 @@
 	<mvc:interceptors>
 		<!-- 网页版拦截器配置 -->
 		<mvc:interceptor>
-	   		<mvc:mapping path="/asyn/**"/>
-	   		<mvc:mapping path="/common/**"/>
+			<mvc:mapping path="/*"/>
 	   		<bean class="com.gomyck.business.interceptor.CkInterceptor">
 	   			<property name="allowUrls">  
 		            <list>

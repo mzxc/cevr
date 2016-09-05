@@ -122,7 +122,7 @@ public class CkInterceptor implements HandlerInterceptor
                 }
             }
         }
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/common/forward/welcome/login");
         return false;
     }
 }
