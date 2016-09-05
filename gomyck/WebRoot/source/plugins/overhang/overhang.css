@@ -16,6 +16,9 @@
   right       : 0; 
   font-family : "Roboto", sans-serif;
   text-align  : center;
+  filter      : alpha(opacity=80);  /*支持 IE 浏览器*/
+  -moz-opacity: 0.80; /*支持 FireFox 浏览器*/
+  opacity     : 0.80;  /*支持 Chrome, Opera, Safari 等浏览器*/
 }
 
 .overhang .message {

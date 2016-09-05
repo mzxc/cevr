@@ -35,24 +35,24 @@ $(function(){
 			dataType : 'json',
 			beforeSubmit : function() {
 				if($.ckTrim($("#first_name").val()) == "" || $.ckTrim($("#last_name").val()) == ""){
-					$.showMsg("请输入姓名", 2);
+					$.showMsg("请输入姓名", 3);
 					$("#first_name").focus();
 					return false;
 				}
 				if($("#email").isEmail() == false){
-					$.showMsg("请输入正确的邮箱", 2);
+					$.showMsg("请输入正确的邮箱", 3);
 					return false;
 				}
 				if(!checkValueByCreate(1, $("#email")[0]) || !checkValueByCreate(2, $("#username")[0])){
 					return false;
 				}
 				if($.isPassword($("#password").val()) == false){
-					$.showMsg("密码必须为6-16个字母、数字、下划线", 2);
+					$.showMsg("密码必须为6-16个字母、数字、下划线", 3);
 					$("#password").focus();
 					return false;
 				}
 				if(!$.ckEquals("password", "password_confirm")){
-					$.showMsg("亲,密码不一致", 2);
+					$.showMsg("亲,密码不一致", 3);
 					return false;
 				}
 				layer.msg("正在处理...",{icon : 16,time : 0, shade: [0.1]});
@@ -69,7 +69,7 @@ $(function(){
 				}
 			},
 			error : function(result) {
-				$.showMsg("亲!您的网络不给力哦~", 2);
+				$.showMsg("亲!您的网络不给力哦~", 3);
 			}
 		};
 		$("#createUserForm").ajaxSubmit(options);

@@ -233,9 +233,12 @@
 		 * layer插件扩展功能
 		 */
 		showMsg : function(tips, icon, time, func){
+			var model = '{"1":"success", "2":"error", "3":"warn", "4":"info", "5":"prompt", "6":"confirm", "7":"blank"}';
 			$("body").overhang({
-				type: "success",
-				message: "Woohoo! It works!"
+				type     : $.ckJson(model)[icon],
+				duration : time,
+				message  : tips,
+				callback : func
 			});
 			//if(time){
 			//	time = time * 1000;
@@ -296,7 +299,8 @@
 		 * 字符串转JSON
 		 */
 		ckJson : function(obj){
-			return JSON.stringify(obj);
+			return eval('(' + obj + ')');
+			//return JSON.stringify(obj);
 		},
 		/**
 		 * 校验器
