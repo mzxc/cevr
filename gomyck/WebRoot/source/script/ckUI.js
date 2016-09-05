@@ -233,13 +233,10 @@
 		 * layer插件扩展功能
 		 */
 		showMsg : function(tips, icon, time, func){
-
-
 			$("body").overhang({
 				type: "success",
 				message: "Woohoo! It works!"
 			});
-			
 			//if(time){
 			//	time = time * 1000;
 			//	layer.msg(tips, {title:"提示:", icon : icon, time : time, area: ['275px', '140px'], offset: 'rb', shift :2}, func);
