@@ -42,7 +42,7 @@
 		WebRoot里面的静态文件位置目录 location 访问地址
 		<mvc:default-servlet-handler/>
 	-->
-	<mvc:resources location="/source/"    mapping="/**" />
+	<mvc:resources location="/source/" mapping="/source/**" />
 	 
 	<!--
 		配置/WEB-INF/views/目录里面的jsp文件不被DispatcherServlet处理,可以直接通过浏览器访问。
@@ -61,10 +61,12 @@
 	<mvc:interceptors>
 		<!-- 网页版拦截器配置 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/*"/>
+			<mvc:mapping path="/**"/>
 	   		<bean class="com.gomyck.business.interceptor.CkInterceptor">
 	   			<property name="allowUrls">  
 		            <list>
+		            	<!-- 资源文件放行 -->
+		            	<value>/source/</value>
 		            	<!-- 登陆 -->
 		            	<value>/common/forward/welcome/login</value>
 		            	<!-- 注册 -->

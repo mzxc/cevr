@@ -13,14 +13,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="description" content="" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="plugins/layer/layer.js"></script>
-<script type="text/javascript" src="script/ckUI.js"></script>
-<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
-<link href="style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="style/welcome/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link href="style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="source/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="source/script/ckUI.js"></script>
+<link href="source/style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(function(){
 	$("#email").maxLength(30);

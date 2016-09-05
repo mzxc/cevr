@@ -13,11 +13,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="shortcut icon" href="" />
 <link rel="Bookmark" href="" />
 <title>gomyck!</title>
-<script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="plugins/layer/layer.js"></script>
-<link rel="stylesheet" type="text/css" href="plugins/bootstrap/js/bootstrap.min.js"/>
-<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap-theme.min.css"/>
+<script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="source/plugins/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/js/bootstrap.min.js"/>
+<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/css/bootstrap-theme.min.css"/>
 <script>
 
 
