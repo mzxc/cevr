@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="source/plugins/jquery/jquery-ui.js"></script>
 <script type="text/javascript" src="source/plugins/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="source/plugins/overhang/overhang.js"></script>
