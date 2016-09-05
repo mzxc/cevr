@@ -11,7 +11,6 @@
 package com.gomyck.business.controller.welcome.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -46,9 +45,9 @@ public class ForgotPwd
     @ResponseBody
     public Map<String, Object> getPwdByEmail(final String emailAddr)
     {
-        final Map<String, Object> result = new HashMap<String, Object>();
         try
         {
+            System.out.println(emailAddr);
             sendEmail(emailAddr, MathUtil.getStringRandom(6));
         }
         catch (final Exception e)
