@@ -81,7 +81,7 @@ public class Register
         {
             return ResultBuild.init(false, "邮件系统出错,请稍后再试", null);
         }
-        return ResultBuild.init(true, "邮件已发送!请登陆您的邮箱查看激活码!页面即将跳转", null);
+        return ResultBuild.init(true, "邮件已发送!请登陆您的邮箱查看激活码!点击确定返回首页", null);
     }
     
     @RequestMapping(value = "validataParam", method = RequestMethod.POST)

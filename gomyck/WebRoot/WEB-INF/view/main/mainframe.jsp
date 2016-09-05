@@ -15,9 +15,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>gomyck!</title>
 <script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
-<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/js/bootstrap.min.js"/>
-<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="source/plugins/bootstrap/css/bootstrap-theme.min.css"/>
+<script type="text/javascript" src="source/plugins/overhang/overhang.js"></script>
+<script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="source/script/ckUI.js"></script>
+<link href="source/plugins/overhang/overhang.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/welcome/css/templatemo_style.css" rel="stylesheet" type="text/css">
 <script>
 
 

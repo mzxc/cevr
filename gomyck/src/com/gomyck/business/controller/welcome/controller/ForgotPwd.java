@@ -53,6 +53,7 @@ public class ForgotPwd
         }
         catch (final Exception e)
         {
+            e.printStackTrace();
             return ResultBuild.init(false, "邮件系统发送出错,请稍后再试!", null);
         }
         return ResultBuild.init(true, "邮件已发送!", null);
