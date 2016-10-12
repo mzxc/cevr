@@ -36,7 +36,7 @@ $(function(){
 		}
 		$.ajax({
 			type : "post",
-			data : {"email" : email},
+			data : {"emailAddr" : email},
 			dataType : "json",
 			url : "asyn/pwd/getPwdByEmail",
 			success : function(data){

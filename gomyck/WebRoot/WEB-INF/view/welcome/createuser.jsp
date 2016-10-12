@@ -34,9 +34,14 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			beforeSubmit : function() {
-				if($.ckTrim($("#first_name").val()) == "" || $.ckTrim($("#last_name").val()) == ""){
-					$.showMsg("请输入姓名", 3);
+				if($.ckTrim($("#first_name").val()) == ""){
+					$.showMsg("请输入姓氏", 2);
 					$("#first_name").focus();
+					return false;
+				}
+				if($.ckTrim($("#last_name").val()) == ""){
+					$.showMsg("请输入名字", 3);
+					$("#last_name").focus();
 					return false;
 				}
 				if($("#email").isEmail() == false){
