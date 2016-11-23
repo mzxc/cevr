@@ -72,7 +72,7 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
             final DocumentBuilder db = dbf.newDocumentBuilder();
             XML_PATH = System.getProperty("gomyck.root") + XML_PATH;
             final InputSource is = new InputSource(new FileInputStream(XML_PATH));
-            this.currentDocument = this.currentDocument != null ? this.currentDocument : (this.currentDocument = db.parse(is));
+            this.currentDocument = this.currentDocument != null ? this.currentDocument : db.parse(is);
             refresh();
             final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
             if (ccl == CkXmlReader.class.getClassLoader())
