@@ -24,7 +24,8 @@ public class SpringContextUtil implements ApplicationContextAware
 {
     private static ApplicationContext applicationContext = null;
     
-    public void setApplicationContext(ApplicationContext applicationContext)
+    @SuppressWarnings("static-access")
+	public void setApplicationContext(ApplicationContext applicationContext)
         throws BeansException
     {
         this.applicationContext = applicationContext;
