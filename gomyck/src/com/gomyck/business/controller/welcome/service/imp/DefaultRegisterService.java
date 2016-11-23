@@ -26,14 +26,12 @@ import com.gomyck.component.core.dao.BaseDao;
 @Service(value = "DefaultRegisterService")
 public class DefaultRegisterService extends BaseDao implements IRegisterService
 {
-    /**
-     * 重载方法
-     * 
-     * @param user
-     */
-    @Override
-    public void saveObj(final Object obj)
-    {
-        this.save(obj);
-    }
+
+	@Override
+	public void regUser(Object... objs) {
+		for(Object obj : objs){
+			this.save(obj);
+		}
+	}
+	
 }

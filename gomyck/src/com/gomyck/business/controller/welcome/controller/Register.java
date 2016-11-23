@@ -12,7 +12,6 @@ package com.gomyck.business.controller.welcome.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -58,13 +57,11 @@ public class Register
     @ResponseBody
     public Map<String, Object> getPwdByEmail(final BizUser user)
     {
-        final Map<String, Object> result = new HashMap<String, Object>();
         user.setDeleteFlag("0");
         user.setCancleFlag("0");
         user.setHoldeFlag("1");
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
-        this.regSer.saveObj(user);
         final BizActivate ba = new BizActivate();
         final StringBuffer sb = new StringBuffer();
         sb.append(MathUtil.getStringRandom(6));
@@ -72,7 +69,7 @@ public class Register
         ba.setSingTime(new Date());
         ba.setUserId(user.getId());
         ba.setValidateCode(sb.toString());
-        this.regSer.saveObj(ba);
+        this.regSer.regUser(user,ba);
         try
         {
             sendEmail(user.getUserName(), user.getEmail(), sb.toString());
