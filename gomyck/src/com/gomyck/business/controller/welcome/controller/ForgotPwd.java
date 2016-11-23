@@ -47,7 +47,6 @@ public class ForgotPwd
     {
         try
         {
-            System.out.println(emailAddr);
             sendEmail(emailAddr, MathUtil.getStringRandom(6));
         }
         catch (final Exception e)

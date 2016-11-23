@@ -69,10 +69,10 @@ public class Register
         ba.setSingTime(new Date());
         ba.setUserId(user.getId());
         ba.setValidateCode(sb.toString());
-        this.regSer.regUser(user,ba);
         try
         {
             sendEmail(user.getUserName(), user.getEmail(), sb.toString());
+            this.regSer.regUser(user,ba);
         }
         catch (final Exception e)
         {
