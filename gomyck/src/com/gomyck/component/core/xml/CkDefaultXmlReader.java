@@ -17,6 +17,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -27,6 +29,9 @@ import com.gomyck.component.util.StringUtil;
 
 /**
  * 默认xml加载器
+ * 
+ * XmlNodes cxn = (XmlNodes)CkXmlReader.getCurrentContext().getAttribute(CkXmlReader.XML_TAG);
+ * System.out.println(cxn.getElementValue("sql", "serachAll"));
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]

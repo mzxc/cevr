@@ -13,6 +13,9 @@ package com.gomyck.business.controller.welcome.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gomyck.component.core.xml.CkXmlReader;
+import com.gomyck.component.core.xml.XmlNodes;
+
 /**
  * 登陆
  * 
@@ -25,5 +28,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "asyn/login")
 public class Login
 {
-    
+	
 }
