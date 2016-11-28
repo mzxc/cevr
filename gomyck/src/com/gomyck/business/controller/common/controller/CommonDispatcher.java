@@ -10,15 +10,14 @@
  */
 package com.gomyck.business.controller.common.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gomyck.business.interceptor.LogInfo;
-import com.gomyck.component.core.xml.CkDefaultXmlReader;
-import com.gomyck.component.core.xml.CkXmlReader;
-import com.gomyck.component.core.xml.XmlNodes;
 import com.gomyck.component.core.xml.context.CkXmlGetter;
 
 /**
@@ -34,11 +33,11 @@ import com.gomyck.component.core.xml.context.CkXmlGetter;
 @RequestMapping(value = "common")
 public class CommonDispatcher
 {
+	
     @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "欢迎页通用跳转")
     @RequestMapping(value = "forward/welcome/{page}", method = RequestMethod.GET)
     public String gotoLogin(@PathVariable final String page)
     {
-    	System.out.println(CkXmlGetter.getXmlNodes("sql", "update2"));
         return "welcome/" + page;
     }
     
