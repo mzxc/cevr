@@ -17,8 +17,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -54,6 +52,8 @@ public class CkDefaultXmlReader extends CkXmlReader
     
     public static final String DEFAULT_XML_ADAPTER = "defaultXmlLoader";
     
+    public static final String DEFAULT_XML_ADAPTER_NAME = CkDefaultXmlReader.class.getName() + ".ck";
+    
     private static final String[] TAG_NAMES = {"prop", "sql"};
     
     {
@@ -61,6 +61,7 @@ public class CkDefaultXmlReader extends CkXmlReader
         XML_PATH = DEFAULT_XML_PATH;
         XML_ENTITY = DEFAULT_XML_ENTITY;
         XML_ADAPTER = DEFAULT_XML_ADAPTER;
+        XML_ADAPTER_NAME = DEFAULT_XML_ADAPTER_NAME;
     }
     
     /**
@@ -84,7 +85,8 @@ public class CkDefaultXmlReader extends CkXmlReader
         super.init(config);
         final String thisXmlPath = config.getInitParameter(INIT_PARAM);
         XML_PATH = (thisXmlPath == null ? XML_PATH : thisXmlPath);
-        getCurrentContextByPro().setAttribute("XML_ADAPTER_NAME", XML_ADAPTER);
+        getCurrentContextByPro().setAttribute(XML_ADAPTER, this);
+        getCurrentContextByPro().setAttribute(XML_ADAPTER_NAME, DEFAULT_XML_ADAPTER_NAME);
         getCurrentContextByPro().setAttribute(XML_ENTITY, loadXml());
         final CkDefaultXmlNodes ckDefaultNodes = new CkDefaultXmlNodes();
         ckDefaultNodes.setXML_TAGS(getXmlTags());

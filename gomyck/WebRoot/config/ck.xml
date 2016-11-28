@@ -11,4 +11,12 @@
 	<sql id = "update">
 		update table set id = ?;
 	</sql>
+	
+	<sql id = "update1">
+		update table set id = ?;
+	</sql>
+	
+	<sql id = "update2">
+		update table set id = 123?;
+	</sql>
 </prop>

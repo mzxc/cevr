@@ -19,6 +19,7 @@ import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.component.core.xml.CkDefaultXmlReader;
 import com.gomyck.component.core.xml.CkXmlReader;
 import com.gomyck.component.core.xml.XmlNodes;
+import com.gomyck.component.core.xml.context.CkXmlGetter;
 
 /**
  * 通用转发器
@@ -37,6 +38,7 @@ public class CommonDispatcher
     @RequestMapping(value = "forward/welcome/{page}", method = RequestMethod.GET)
     public String gotoLogin(@PathVariable final String page)
     {
+    	System.out.println(CkXmlGetter.getXmlNodes("sql", "update2"));
         return "welcome/" + page;
     }
     

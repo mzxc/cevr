@@ -39,19 +39,23 @@ import com.gomyck.component.core.XmlNotFoundException;
 @SuppressWarnings("serial")
 public abstract class CkXmlReader extends HttpServlet implements XmlReader
 {
-    public Document currentDocument;
+	private static ServletContext currentServletContext;
+	
+	protected Document currentDocument;
     
-    private static ServletContext currentServletContext;
+    protected static String XML_PATH = "ck.xml";
     
-    public static String XML_PATH = "ck.xml";
+    protected static String XML_TAG = "ckXmlTags";
     
-    public static String XML_TAG = "ckXmlTags";
+    protected static String XML_ENTITY = "ckXmlEntity";
     
-    public static String XML_ENTITY = "ckXmlEntity";
+    protected static String XML_ADAPTER = "ckXmlLoader";
     
-    public static String XML_ADAPTER = "ckXmlLoader";
+    protected static String XML_ADAPTER_NAME = CkXmlReader.class.getName() + ".ck";
     
-    public static final String INIT_PARAM = "sqlXmlPath";
+    protected static final String INIT_PARAM = "sqlXmlPath";
+    
+    protected static boolean CK_INIT = false;
     
     private static volatile Map<String, Map<String, String>> XML_TAG_ENTITY = new Hashtable<String, Map<String, String>>();
     
@@ -69,24 +73,29 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try
         {
-            final DocumentBuilder db = dbf.newDocumentBuilder();
-            XML_PATH = System.getProperty("gomyck.root") + XML_PATH;
+        	final DocumentBuilder db = dbf.newDocumentBuilder();
+        	if(!CK_INIT){
+        		XML_PATH = System.getProperty("gomyck.root") + XML_PATH;
+        	}
             final InputSource is = new InputSource(new FileInputStream(XML_PATH));
-            this.currentDocument = this.currentDocument != null ? this.currentDocument : db.parse(is);
+            this.currentDocument = this.currentDocument != null && !CK_INIT ? this.currentDocument : db.parse(is);
             refresh();
             final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-            if (ccl == CkXmlReader.class.getClassLoader())
+            if (ccl == CkXmlReader.class.getClassLoader() && !CK_INIT)
             {
                 currentContextPerThread.put(ccl, currentServletContext);
             }
+            CK_INIT = true;
             return this.currentDocument;
         }
         catch (final IOException e)
         {
+        	CK_INIT = false;
             throw new XmlNotFoundException("xml file is not found in : " + XML_PATH, e);
         }
         catch (final Exception e)
         {
+        	CK_INIT = false;
             throw new RuntimeException(e);
         }
     }
@@ -110,9 +119,10 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
     {
         super.init();
         currentServletContext = getServletContext();
+        
     }
-    
-    protected void putIntoXmlTags(final String tagName, final Map<String, String> nodeMap)
+
+	protected void putIntoXmlTags(final String tagName, final Map<String, String> nodeMap)
     {
         XML_TAG_ENTITY.put(tagName, nodeMap);
     }
@@ -122,7 +132,7 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
         return XML_TAG_ENTITY;
     }
     
-    public static ServletContext getCurrentContext()
+    protected static ServletContext getCurrentContext()
     {
         final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
         if (ccl != null)
