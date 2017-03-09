@@ -1,4 +1,4 @@
-package com.wb.framework.commonUtil;
+package com.gomyck.component.util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

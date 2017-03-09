@@ -1,4 +1,4 @@
-package com.wb.framework.commonUtil;
+package com.gomyck.component.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

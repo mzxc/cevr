@@ -1,4 +1,4 @@
-package com.wb.framework.commonUtil;
+package com.gomyck.component.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

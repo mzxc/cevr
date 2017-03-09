@@ -8,7 +8,7 @@
  * 修改单号:  <修改单号>
  * 修改内容:  <修改内容>
  */
-package com.wb.framework.commonUtil;
+package com.gomyck.component.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
