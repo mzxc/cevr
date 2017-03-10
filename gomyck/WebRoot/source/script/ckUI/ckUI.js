@@ -847,11 +847,13 @@ $.extend({
 			return result;
 		}
 		try{
-			if(typeof obj === "string" && $("#" + obj) instanceof jQuery){
-				result.push($("#" + obj));
-				result.push($("#" + obj).val());
-				result.push(true);
-				return result;
+			if(obj != undefined && obj != 'undefined' && obj != null && obj != 'null' && obj.replace(/(^\s*)|(\s*$)/g,'').replace("&#160;","") != '') {
+				if(typeof obj === "string" && $("#" + obj) instanceof jQuery){
+					result.push($("#" + obj));
+					result.push($("#" + obj).val());
+					result.push(true);
+					return result;
+				}
 			}
 		}catch(e){
 			
