@@ -36,75 +36,95 @@ import org.w3c.dom.NodeList;
  * @see XmlParser #parseXml(File)
  * @since 1.0
  */
-public class XmlParser
-{
+public class XmlParser {
     private static final XmlParser xp = new XmlParser();;
     
     private static final Map<Thread, Document> doc = new HashMap<Thread, Document>();
     
-    private XmlParser()
-    {
+    private XmlParser() {
         super();
     }
     
-    public static XmlParser parseXml(final String xmlBody)
-    {
-        try
-        {
+    /**
+     * 
+     * 解析字符串类型的xml
+     * 
+     * @param xmlBody
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
+    public static XmlParser parseXml(final String xmlBody) {
+        try {
             final DocumentBuilderFactory _dbf = DocumentBuilderFactory.newInstance();
             final DocumentBuilder _db = _dbf.newDocumentBuilder();
             final Document _doc = _db.parse(new ByteArrayInputStream(xmlBody.getBytes()));
             doc.put(Thread.currentThread(), _doc);
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e) {
             System.out.println(getExceptionDetail(e));
             return null;
         }
         return xp;
     }
     
-    public static XmlParser parseXml(final File xmlBody)
-    {
-        try
-        {
+    /**
+     * 
+     * 加载文件形式的xml
+     * 
+     * @param xmlBody
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
+    public static XmlParser parseXml(final File xmlBody) {
+        try {
             final DocumentBuilderFactory _dbf = DocumentBuilderFactory.newInstance();
             final DocumentBuilder _db = _dbf.newDocumentBuilder();
             final Document _doc = _db.parse(xmlBody);
             doc.put(Thread.currentThread(), _doc);
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e) {
             System.out.println(getExceptionDetail(e));
             return null;
         }
         return xp;
     }
     
-    public static XmlParser parseXml(final InputStream xmlBody)
-    {
-        try
-        {
+    /**
+     * 
+     * 解析流文件类型的xml
+     * 
+     * @param xmlBody
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
+    public static XmlParser parseXml(final InputStream xmlBody) {
+        try {
             final DocumentBuilderFactory _dbf = DocumentBuilderFactory.newInstance();
             final DocumentBuilder _db = _dbf.newDocumentBuilder();
             final Document _doc = _db.parse(xmlBody);
             doc.put(Thread.currentThread(), _doc);
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e) {
             System.out.println(getExceptionDetail(e));
             return null;
         }
         return xp;
     }
     
+    /**
+     * 
+     * xml转实体
+     * 
+     * @param clazz
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
     @SuppressWarnings("unchecked")
-    public <T extends Object> T convertEntity(final Class<T> clazz){
-        try
-        {
+    public <T extends Object> T convertEntity(final Class<T> clazz) {
+        try {
             final Object target = clazz.newInstance();
             final Field[] fields = clazz.getDeclaredFields();
-            for(int i = 0; i < fields.length; i = i + 1){
+            for (int i = 0; i < fields.length; i = i + 1) {
                 final Field field = fields[i];
                 String fieldName = field.getName();
                 final String headChar = fieldName.substring(0, 1).toUpperCase();
@@ -114,19 +134,27 @@ public class XmlParser
             }
             return (T)target;
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e) {
             System.out.println(getExceptionDetail(e));
         }
         return null;
     }
     
-    private static String getNodeVlaue(final String tagName)
-    {
-        final NodeList _nl =  doc.get(Thread.currentThread()).getElementsByTagName(tagName);
-        if (_nl == null) return "";
+    /**
+     * 
+     * 获取节点值
+     * 
+     * @param tagName
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
+    private static String getNodeVlaue(final String tagName) {
+        final NodeList _nl = doc.get(Thread.currentThread()).getElementsByTagName(tagName);
+        if (_nl == null)
+            return "";
         final Node _node = _nl.item(0);
-        if (_node == null) return "";
+        if (_node == null)
+            return "";
         return _node.getTextContent() == null ? "" : _node.getTextContent().trim();
     }
     
@@ -136,8 +164,7 @@ public class XmlParser
      * @param t 异常
      * @return string信息
      */
-    private static String getExceptionDetail(final Throwable t)
-    {
+    private static String getExceptionDetail(final Throwable t) {
         final StringWriter _stringWriter = new StringWriter();
         final PrintWriter _writer = new PrintWriter(_stringWriter);
         t.printStackTrace(_writer);
