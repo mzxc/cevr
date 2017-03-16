@@ -29,13 +29,6 @@ public class DuplicateLabelException extends XmlReaderException
         super();
     }
     
-    /**
-     * <默认构造函数>
-     */
-    public DuplicateLabelException(final String message, final Throwable cause, final boolean enableSuppression, final boolean writableStackTrace)
-    {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
     
     /**
      * <默认构造函数>

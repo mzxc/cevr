@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.wb.framework.nestLogger.NestLogger;
+import com.gomyck.component.logger.NestLogger;
 
 public class ExcelUtil
 {
