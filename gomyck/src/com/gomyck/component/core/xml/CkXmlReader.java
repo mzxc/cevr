@@ -34,6 +34,7 @@ import com.gomyck.component.core.XmlNotFoundException;
  * @author 郝洋
  * @version [版本号, 2016-8-16]
  * @see #CkXmlReader
+ * 本类为xml加载器核心类。负责加载xml实体，具体如何去操作xml，则调用refresh();
  * @since 1.0
  */
 @SuppressWarnings("serial")
