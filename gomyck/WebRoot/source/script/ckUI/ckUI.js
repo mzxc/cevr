@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.7.4
- * beforeVersion:1.7.3
+ * version:1.7.5
+ * beforeVersion:1.7.4
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
@@ -41,6 +41,7 @@
  * 2017-03-07更新日志: $.ckIsUrl(),              是否是URL地址 
  * 2017-03-09更新日志: $.ckGotoView(uri),        带项目根路径的跳转
  * 2017-03-09更新日志: $.ckCheckCard(card, ifAlert), 检测身份证号 card: 身份证号||元素ID||jquery对象  ifAlert: 是否打印错误信息
+ * 2017-03-13更新日志: 修复$.ckIsEmpty对入参的校验规则
  * 
  */
 ;(function($){
@@ -450,15 +451,11 @@ $.extend({
 	 * @param s 字符串
 	 * @returns 为空则返回true, 否则返回false;
 	 */
-	ckIsEmpty : function(strObj, ifAlert){
-		var jqObj  = $.ckGetSomeThing(strObj)[0];
-		var str    = $.ckGetSomeThing(strObj)[1];
-		var ifCanFocus = $.ckGetSomeThing(strObj)[2];
-		if(str == undefined || str == 'undefined' || str == null || str == 'null' || str == '') {
+	ckIsEmpty : function(str, ifAlert){
+		if(str == undefined || str == 'undefined' || str == null || str == 'null' || (typeof str == "string" && str.replace(/(^\s*)|(\s*$)/g,'').replace("&#160;","") == '')) {
+			if(ifAlert === true) alert("请输入有效字符");
 			return true;
 		}
-		if(ifAlert === true) alert("请输入有效字符");
-		if(ifCanFocus === true) jqObj.focus();
 		return false;
 	},
 	/**
@@ -487,7 +484,8 @@ $.extend({
 	    try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
 	    try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
 	    m=Math.pow(10,Math.max(r1,r2)) 
-	    return (arg1 * m + arg2 * m) / m 
+	    var result = (arg1 * m + arg2 * m) / m;
+	    return result;
 	},
 	/**
 	 * 减法
@@ -496,8 +494,9 @@ $.extend({
 	 * arg2 被减数
 	 * @returns 减法结果
 	 */
-	ckSub : function(arg1, arg2){     
-	    return $.ckAdd(arg1, -arg2); 
+	ckSub : function(arg1, arg2){   
+		var result = $.ckAdd(arg1, -arg2);
+	    return result;
 	},
 	/**
 	 * 除法
@@ -847,8 +846,8 @@ $.extend({
 			return result;
 		}
 		try{
-			if(obj != undefined && obj != 'undefined' && obj != null && obj != 'null' && obj.replace(/(^\s*)|(\s*$)/g,'').replace("&#160;","") != '') {
-				if(typeof obj === "string" && $("#" + obj) instanceof jQuery){
+			if(!$.ckIsEmpty(obj)) {
+				if(typeof obj === "string" && $("#" + obj) instanceof jQuery && $("#" + obj) != null && $("#" + obj)[0] != undefined && $("#" + obj)[0] != "undefined"){
 					result.push($("#" + obj));
 					result.push($("#" + obj).val());
 					result.push(true);
