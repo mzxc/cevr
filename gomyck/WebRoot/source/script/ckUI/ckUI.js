@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.7.5
- * beforeVersion:1.7.4
+ * version:1.7.6
+ * beforeVersion:1.7.5
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
@@ -27,6 +27,7 @@
  * $.ckGetContext(), 返回应用程序上下文全路径
  * $.ckGotoView(uri), 跳转带上下文的地址,uri: 请求地址,如果uri第一位不是/ 则自动加/
  * $.ckCheckCard(str, ifAlert), 返回是否是正确身份证号, str: jquery对象||元素ID||字符串 ifAlert: 是否弹出错误信息
+ *
  * 
  * 更新日志: 
  * 2017-01-10更新日志: $.ckShade(true)           遮罩功能,一次调起为开启,在遮罩参数为true的时候再次调起会终止线程, $.ckShade(false) 为关闭遮罩
@@ -42,6 +43,7 @@
  * 2017-03-09更新日志: $.ckGotoView(uri),        带项目根路径的跳转
  * 2017-03-09更新日志: $.ckCheckCard(card, ifAlert), 检测身份证号 card: 身份证号||元素ID||jquery对象  ifAlert: 是否打印错误信息
  * 2017-03-13更新日志: 修复$.ckIsEmpty对入参的校验规则
+ * 2017-04-05更新日志: 加入两种限制函数，ckMustEnAndNumber & ckMustEnAndCN
  * 
  */
 ;(function($){
@@ -247,6 +249,22 @@ $.fn.extend({
 			if($(this).val().length > _length){
 				$(this).val($(this).val().slice(0, _length));
 			}
+		});
+	},
+	/**
+	 * 只能输入英文和汉字
+	 */
+	ckMustEnAndNumber: function(){
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(/[^\w\.\/]/ig,''));
+		});
+	},
+	/**
+	 * 只能输入英文和汉字
+	 */
+	ckMustEnAndCN: function(){
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(/[\d]/g,''));
 		});
 	},
 	/**
