@@ -202,6 +202,14 @@ $.fn.extend({
 		});
 	},
 	/**
+	 * 必须输入汉字英文数字
+	 */
+	ckMustEnAndNumberAndCn : function(){
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+		});
+	},
+	/**
 	 * 必须输入钱币规则的数字
 	 */
 	ckMustMoney : function(e){
