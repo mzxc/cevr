@@ -43,7 +43,7 @@
  * 2017-03-09更新日志: $.ckGotoView(uri),        带项目根路径的跳转
  * 2017-03-09更新日志: $.ckCheckCard(card, ifAlert), 检测身份证号 card: 身份证号||元素ID||jquery对象  ifAlert: 是否打印错误信息
  * 2017-03-13更新日志: 修复$.ckIsEmpty对入参的校验规则
- * 2017-04-05更新日志: 加入两种限制函数，ckMustEnAndNumber & ckMustEnAndCN
+ * 2017-04-05更新日志: 加入两种限制函数，ckMustEnAndNumber & ckMustEnAndCN & ckMustEnAndNumberAndCn
  * 
  */
 ;(function($){
