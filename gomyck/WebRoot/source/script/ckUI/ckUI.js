@@ -43,7 +43,8 @@
  * 2017-03-09更新日志: $.ckGotoView(uri),        带项目根路径的跳转
  * 2017-03-09更新日志: $.ckCheckCard(card, ifAlert), 检测身份证号 card: 身份证号||元素ID||jquery对象  ifAlert: 是否打印错误信息
  * 2017-03-13更新日志: 修复$.ckIsEmpty对入参的校验规则
- * 2017-04-05更新日志: 加入两种限制函数，ckMustEnAndNumber & ckMustEnAndCN & ckMustEnAndNumberAndCn
+ * 2017-04-05更新日志: 加入两种限制函数，$.ckMustEnAndNumber(适配 . -) & $.ckMustEnAndCN & $.ckMustEnAndNumberAndCn
+ * 2017-04-07更新日志: 加入自定义过滤，$.ckRegular(expression)  expression 为正则表达式
  * 
  */
 ;(function($){
@@ -210,6 +211,28 @@ $.fn.extend({
 		});
 	},
 	/**
+	 * 只能输入英文和数字
+	 */
+	ckMustEnAndNumber: function(){
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
+		});
+	},
+	/**
+	 * 只能输入英文和汉字
+	 */
+	ckMustEnAndCN: function(){
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(/[\d]/g,''));
+		});
+	},
+	ckRegular: function(expression){
+		if($.ckIsEmpty(expression)) console.log("expression is null");
+		$(this).keyup(function(){
+			$(this).val($(this).val().replace(expression,''));
+		});
+	},
+	/**
 	 * 必须输入钱币规则的数字
 	 */
 	ckMustMoney : function(e){
@@ -257,22 +280,6 @@ $.fn.extend({
 			if($(this).val().length > _length){
 				$(this).val($(this).val().slice(0, _length));
 			}
-		});
-	},
-	/**
-	 * 只能输入英文和汉字
-	 */
-	ckMustEnAndNumber: function(){
-		$(this).keyup(function(){
-			$(this).val($(this).val().replace(/[^\w\.\/]/ig,''));
-		});
-	},
-	/**
-	 * 只能输入英文和汉字
-	 */
-	ckMustEnAndCN: function(){
-		$(this).keyup(function(){
-			$(this).val($(this).val().replace(/[\d]/g,''));
 		});
 	},
 	/**
