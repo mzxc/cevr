@@ -586,7 +586,7 @@ $.extend({
 	 */
 	ckFmtMoney : function(s, n){
 		var rep= /^-?[1-9]\d*.?\d*$/g;
-		if(ckIsEmpty(s) == "" || rep.test(s) == false || s == 0) return "";
+		if($.ckIsEmpty(s) == "" || rep.test(s) == false || s == 0) return "";
 		n = n > 0 && n <= 20 ? n : 2;
 		s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
 		var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
