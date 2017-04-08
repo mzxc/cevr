@@ -896,17 +896,15 @@ $.extend({
 		result.push(false);
 		return result;
 	},
-	ckPostToNewView:function(url,args){
-        var form = $("<form method='post'></form>"),
-            input;
-        form.attr({"action":url});
-        $.each(args,function(key,value){
-            input = $("<input type='hidden'>");
-            input.attr({"name":key});
-            input.val(value);
-            form.append(input);
-        });
-        form.submit();
+	ckPostToNewView: function(url,args){
+		$('body').append("<form id='ckForm' style='display: none;' method='post'></form>");
+        $("#ckForm").attr({"action":url});
+        for (arg in args)
+        {
+            var input = '<input name="' + arg + '" value="' + args[arg] + '" type="hidden">';
+            $("#ckForm").append(input);
+        }
+        $("#ckForm").submit();
     }
 });
 //$.ckAnchor();
