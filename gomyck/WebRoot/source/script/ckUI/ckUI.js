@@ -612,6 +612,7 @@ $.extend({
 	 * @param url 跳转地址
 	 */
 	ckGoto : function(url){
+		if($.ckIsEmpty(url)) return;
 		window.location.href = url;
 	},
 	/**
