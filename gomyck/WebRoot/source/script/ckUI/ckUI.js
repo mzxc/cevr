@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.7.6
- * beforeVersion:1.7.5
+ * version:1.7.7
+ * beforeVersion:1.7.6
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
