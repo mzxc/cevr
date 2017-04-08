@@ -27,7 +27,7 @@
  * $.ckGetContext(), 返回应用程序上下文全路径
  * $.ckGotoView(uri), 跳转带上下文的地址,uri: 请求地址,如果uri第一位不是/ 则自动加/
  * $.ckCheckCard(str, ifAlert), 返回是否是正确身份证号, str: jquery对象||元素ID||字符串 ifAlert: 是否弹出错误信息
- *
+ * $.ckPostToNewView(url, args) post形式跳转页面，避免参数暴露在地址栏中
  * 
  * 更新日志: 
  * 2017-01-10更新日志: $.ckShade(true)           遮罩功能,一次调起为开启,在遮罩参数为true的时候再次调起会终止线程, $.ckShade(false) 为关闭遮罩
