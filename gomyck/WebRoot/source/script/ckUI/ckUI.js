@@ -204,12 +204,21 @@ $.fn.extend({
 		});
 	},
 	/**
-	 * 必须输入汉字英文数字
+	 * 必须输入汉字,英文,数字
 	 */
 	ckMustEnAndNumberAndCn : function(){
-		$(this).on("input", function() {
-			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
-        });
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			$(this).on("input", function() {
+				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+	        });
+		}else{
+			$(this).on("keyup", function() {
+				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+	        });
+			$(this).on("change", function() {
+				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+	        });
+		}
 	},
 	/**
 	 * 只能输入英文和数字
@@ -223,15 +232,18 @@ $.fn.extend({
 	 * 只能输入英文和汉字
 	 */
 	ckMustEnAndCN: function(){
-		$(this).on("input", function() {
-			$(this).val($(this).val().replace(/[\d]/g,''));
-		});
-	},
-	ckRegular: function(expression){
-		if($.ckIsEmpty(expression)) console.log("expression is null");
-		$(this).on("input", function() {
-			$(this).val($(this).val().replace(expression,''));
-		});
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			$(this).on("input", function() {
+				$(this).val($(this).val().replace(/[\d]/g,''));
+			});
+		}else{
+			$(this).on("keyup", function() {
+				$(this).val($(this).val().replace(/[\d]/g,''));
+	        });
+			$(this).on("change", function() {
+				$(this).val($(this).val().replace(/[\d]/g,''));
+	        });
+		}
 	},
 	/**
 	 * 必须输入钱币规则的数字
@@ -284,26 +296,21 @@ $.fn.extend({
 		});
 	},
 	/**
-	 * 当前运行平台
-	 * 
-	 * @returns {Number}
+	 * 正则过滤
 	 */
-	ckWhatFrameWork : function(){
-		var u = navigator.userAgent;
-		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
-			//andriod
-			return 0;
-		} 
-		else if (u.indexOf('iPhone') > -1) {
-			//iphone
-			return 1;
-		} 
-		else if (u.indexOf('Windows Phone') > -1) {
-			//winphone
-			return 2;
+	ckRegular: function(expression){
+		if($.ckIsEmpty(expression)) console.log("expression is null");
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			$(this).on("input", function() {
+				$(this).val($(this).val().replace(expression,''));
+			});
 		}else{
-			//other
-			return 3;
+			$(this).on("keyup", function() {
+				$(this).val($(this).val().replace(expression,''));
+	        });
+			$(this).on("change", function() {
+				$(this).val($(this).val().replace(expression,''));
+	        });
 		}
 	}
 });
@@ -335,6 +342,29 @@ $.extend({
 	showMsg : function(tips, icon, func, time){
 		if($.ckIsEmpty(time)){time = 2500;}
 		layer.msg(tips, {title:"提示:", icon : icon, time : time, area: ['275px', '140px'], offset: 'rb', shift :2}, func);
+	},
+	/**
+	 * 当前运行平台
+	 * 
+	 * @returns {Number}
+	 */
+	ckWhatFrameWork : function(){
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+			//andriod
+			return 0;
+		} 
+		else if (u.indexOf('iPhone') > -1) {
+			//iphone
+			return 1;
+		} 
+		else if (u.indexOf('Windows Phone') > -1) {
+			//winphone
+			return 2;
+		}else{
+			//other
+			return 3;
+		}
 	},
 	/**
 	 * 去前后空格插件
@@ -661,6 +691,9 @@ $.extend({
 			$.ckShadeFlag = true;
 		}
 	},
+	/**
+	 * 获取项目上下文
+	 */
 	ckGetContext : function(){
 		try{
 			var urlArr = window.location.href.split("/");
@@ -670,54 +703,9 @@ $.extend({
 			return "/";
 		}
 	},
-	ckAlert : function(_option){
-		var url = $.ckGetContext();
-		var _tempOption = {
-			info : (typeof _option == "string" || typeof _option == "number") ? _option : "", // 提示信息
-			type : 1,               // 显示类型1:弹出框 2:提示确定 默认为1
-			icon : 1,               // 显示图标,默认是1
-			button : {left : "确定", right : "取消"}, //自定义按钮
-			onSure: function() {    // 点击确定回调
-				// do somthing
-			},
-			onRefuse : function(){	// 点击取消回调
-				// do somthing
-			}
-		}
-		// 以下为层级坐标__不要动
-		var index = $("#showInfo").attr("mes");
-		if(!index){
-			index = 0;
-		}else{
-			index = Number(index) + 1;
-		}
-		// 以上为层级坐标__不要动
-		var _thisOption = $.extend(true,{},_tempOption, _option);
-		var refuse = "";
-		var style = "width:50%; float:left;";
-		switch(_thisOption.type){
-			case 1 : size = 12;style  = 'width:100%; float:left;';break;
-			case 2 : size =  6;refuse = '<a id="onRefuse' + index + '" class="btn" style="' + style + 'background-color:#f5ab74 ;color:#fff;padding:6px 12px;">' + _thisOption.button.right + '</a>';break;
-		}
-		$("body").append(
-			'<div id="showInfo" mes="' + index + '" class="container" style="width:100%;height:100%;position: fixed;z-index:999;background: rgba(0,0,0,0.4);top:0;"><div style="width:80%;background: #fff;position: absolute;margin:auto;top:34%;left:0;right:0;border-radius: 10px;text-align: center;">' 
-			+ '<div class="col-xs-12" style="margin-top:-20px;"><img src="' + url + '/js/ckUI/image/alertImg/' + _thisOption.icon + '.png" width="30%" alt=""/></div>'
-			+ '<div class="col-xs-12" style="padding:10% 0;margin-top:-20px;">' + _thisOption.info + '</div>'
-			+ '<a id="onSure' + index + '" class="btn" style="' + style + 'background-color:#f83030; color:#fff;padding:6px 12px;">'+ _thisOption.button.left +'</a>'
-			+ refuse
-			+ '</div></div>'
-		);
-		// 确定回调
-		$("#onSure" + index).bind("click", function(){
-			_thisOption.onSure();
-			$("div[mes='"+ index +"']").hide().remove();
-		});
-		// 失败回调
-		$("#onRefuse" + index).bind("click", function(){
-			_thisOption.onRefuse();
-			$("div[mes='"+ index +"']").hide().remove();
-		});
-	},
+	/**
+	 * 锚点
+	 */
 	ckAnchor : function(){
 		if($.ckIsEmpty($('ckAnchor'))){
 			return;
@@ -758,6 +746,9 @@ $.extend({
 			console.log("锚点已启用: " + $.ckGetCookie(url));
 		});
 	},
+	/**
+	 * 跳转视图
+	 */
 	ckGotoView : function(uri){
 		if($.ckIsEmpty(uri)){
 			return;
@@ -767,6 +758,9 @@ $.extend({
 		}
 		$.ckGoto($.ckGetContext() + uri);
 	},
+	/**
+	 * 身份证校验
+	 */
 	ckCheckCard : function(cardObj, ifAlert){
 		var jqObj  = $.ckGetSomeThing(cardObj)[0];
 		var card   = $.ckGetSomeThing(cardObj)[1];
@@ -872,6 +866,9 @@ $.extend({
 	    }
 	    return true;
 	},
+	/**
+	 * 获取id制定的jquery对象和一些数据
+	 */
 	ckGetSomeThing : function(obj){
 		var result = [];
 		if(obj instanceof jQuery){
@@ -897,6 +894,9 @@ $.extend({
 		result.push(false);
 		return result;
 	},
+	/**
+	 * 使用Post方式提交并跳转页面
+	 */
 	ckPostToNewView: function(url,args){
 		$('body').append("<form id='ckForm' style='display: none;' method='post'></form>");
         $("#ckForm").attr({"action":url});
