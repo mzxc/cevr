@@ -199,57 +199,96 @@ $.fn.extend({
 	 * 必须输入0-9之间的数字,jquery方法级函数
 	 */
 	ckMustNumber : function(){
-		$(this).on("input", function() {
+		var _press = "change";
+		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
-		});
+        });
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			_press = "input"
+		}else{
+			_press = "keyup"
+		}
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/\D/g,''));
+        });
 	},
 	/**
 	 * 必须输入汉字,英文,数字
 	 */
 	ckMustEnAndNumberAndCn : function(){
+		var _press = "change";
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+        });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
-			$(this).on("input", function() {
-				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
-	        });
+			_press = "input"
 		}else{
-			$(this).on("keyup", function() {
-				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
-	        });
-			$(this).on("change", function() {
-				$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
-	        });
+			_press = "keyup"
 		}
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
+        });
 	},
 	/**
 	 * 只能输入英文和数字
 	 */
 	ckMustEnAndNumber: function(){
-		$(this).on("input", function() {
+		var _press = "change";
+		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
-		});
+        });
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			_press = "input"
+		}else{
+			_press = "keyup"
+		}
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
+        });
 	},
 	/**
 	 * 只能输入英文和汉字
 	 */
 	ckMustEnAndCN: function(){
+		var _press = "change";
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/[\d]/g,''));
+        });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
-			$(this).on("input", function() {
-				$(this).val($(this).val().replace(/[\d]/g,''));
-			});
+			_press = "input"
 		}else{
-			$(this).on("keyup", function() {
-				$(this).val($(this).val().replace(/[\d]/g,''));
-	        });
-			$(this).on("change", function() {
-				$(this).val($(this).val().replace(/[\d]/g,''));
-	        });
+			_press = "keyup"
 		}
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/[\d]/g,''));
+        });
 	},
 	/**
 	 * 必须输入钱币规则的数字
 	 */
 	ckMustMoney : function(e){
-		$(this).on("input", function(e) {
+		var _press = "change";
+		$(this).on(_press, function(e) {
+			var str = $(this).val();
+			if(e.keyCode == 190){
+				if(str.indexOf(".")!=str.lastIndexOf(".")){
+					var firstStr = str.substring(0,str.lastIndexOf('.'));
+					firstStr = firstStr.substring(0,(firstStr.indexOf(".")+3));
+					$(this).val(firstStr);
+					return;
+				}
+			}
+			if(str.indexOf(".")!=-1){
+				str = str.substring(0,(str.indexOf(".")+3));
+			}
+			$(this).val(str.replace(/[^\-?\d.]/g,''));
+		});
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			_press = "input"
+		}else{
+			_press = "keyup"
+		}
+		$(this).on(_press, function(e) {
 			var str = $(this).val();
 			if(e.keyCode == 190){
 				if(str.indexOf(".")!=str.lastIndexOf(".")){
@@ -272,7 +311,23 @@ $.fn.extend({
 	 * @param max 最大值
 	 */
 	ckNumLimit : function(min, max){
-		$(this).on("input", function() {
+		var _press = "change";
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(/\D/g,''));
+			var thisVal = $(this).val();
+			if(Number(thisVal) > Number(max)){
+				$(this).val(max);
+			}
+			if(Number(thisVal) < Number(min)){
+				$(this).val(min);
+			}
+		});
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			_press = "input"
+		}else{
+			_press = "keyup"
+		}
+		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
 			var thisVal = $(this).val();
 			if(Number(thisVal) > Number(max)){
@@ -289,7 +344,18 @@ $.fn.extend({
 	 * @param _length 长度
 	 */
 	ckMaxLength : function(_length){
-		$(this).on("input", function() {
+		var _press = "change";
+		$(this).on(_press, function() {
+			if($(this).val().length > _length){
+				$(this).val($(this).val().slice(0, _length));
+			}
+		});
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+			_press = "input"
+		}else{
+			_press = "keyup"
+		}
+		$(this).on(_press, function() {
 			if($(this).val().length > _length){
 				$(this).val($(this).val().slice(0, _length));
 			}
@@ -300,18 +366,18 @@ $.fn.extend({
 	 */
 	ckRegular: function(expression){
 		if($.ckIsEmpty(expression)) console.log("expression is null");
+		var _press = "change";
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(expression,''));
+		});
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
-			$(this).on("input", function() {
-				$(this).val($(this).val().replace(expression,''));
-			});
+			_press = "input"
 		}else{
-			$(this).on("keyup", function() {
-				$(this).val($(this).val().replace(expression,''));
-	        });
-			$(this).on("change", function() {
-				$(this).val($(this).val().replace(expression,''));
-	        });
+			_press = "keyup"
 		}
+		$(this).on(_press, function() {
+			$(this).val($(this).val().replace(expression,''));
+		});
 	}
 });
 /**
