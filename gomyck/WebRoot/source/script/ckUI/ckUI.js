@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.7.7
- * beforeVersion:1.7.6
+ * version:1.8.1
+ * beforeVersion:1.7.7
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
@@ -45,6 +45,7 @@
  * 2017-03-13更新日志: 修复$.ckIsEmpty对入参的校验规则
  * 2017-04-05更新日志: 加入两种限制函数，$.ckMustEnAndNumber(适配 . -) & $.ckMustEnAndCN & $.ckMustEnAndNumberAndCn
  * 2017-04-07更新日志: 加入自定义过滤，$.ckRegular(expression)  expression 为正则表达式
+ * 2017-04-07更新日志: 改进了must相关函数的触发条件，现在可以兼容移动端了
  * 
  */
 ;(function($){
@@ -198,7 +199,7 @@ $.fn.extend({
 	 * 必须输入0-9之间的数字,jquery方法级函数
 	 */
 	ckMustNumber : function(){
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(/\D/g,''));
 		});
 	},
@@ -206,15 +207,15 @@ $.fn.extend({
 	 * 必须输入汉字英文数字
 	 */
 	ckMustEnAndNumberAndCn : function(){
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
-		});
+        });
 	},
 	/**
 	 * 只能输入英文和数字
 	 */
 	ckMustEnAndNumber: function(){
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
 		});
 	},
@@ -222,13 +223,13 @@ $.fn.extend({
 	 * 只能输入英文和汉字
 	 */
 	ckMustEnAndCN: function(){
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(/[\d]/g,''));
 		});
 	},
 	ckRegular: function(expression){
 		if($.ckIsEmpty(expression)) console.log("expression is null");
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(expression,''));
 		});
 	},
@@ -236,7 +237,7 @@ $.fn.extend({
 	 * 必须输入钱币规则的数字
 	 */
 	ckMustMoney : function(e){
-		$(this).keyup(function(e){
+		$(this).on("input", function() {
 			var str = $(this).val();
 			if(e.keyCode == 190){
 				if(str.indexOf(".")!=str.lastIndexOf(".")){
@@ -259,7 +260,7 @@ $.fn.extend({
 	 * @param max 最大值
 	 */
 	ckNumLimit : function(min, max){
-		$(this).keyup(function(){
+		$(this).on("input", function() {
 			$(this).val($(this).val().replace(/\D/g,''));
 			var thisVal = $(this).val();
 			if(Number(thisVal) > Number(max)){
@@ -276,7 +277,7 @@ $.fn.extend({
 	 * @param _length 长度
 	 */
 	ckMaxLength : function(_length){
-		$(this).keyup(function(e){
+		$(this).on("input", function() {
 			if($(this).val().length > _length){
 				$(this).val($(this).val().slice(0, _length));
 			}
