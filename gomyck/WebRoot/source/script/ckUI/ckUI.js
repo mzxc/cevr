@@ -249,7 +249,7 @@ $.fn.extend({
 	 * 必须输入钱币规则的数字
 	 */
 	ckMustMoney : function(e){
-		$(this).on("input", function() {
+		$(this).on("input", function(e) {
 			var str = $(this).val();
 			if(e.keyCode == 190){
 				if(str.indexOf(".")!=str.lastIndexOf(".")){
