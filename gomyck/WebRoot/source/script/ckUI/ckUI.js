@@ -203,7 +203,7 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
         });
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -220,7 +220,7 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
         });
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -237,7 +237,7 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
         });
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -254,7 +254,7 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[\d]/g,''));
         });
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -283,7 +283,7 @@ $.fn.extend({
 			}
 			$(this).val(str.replace(/[^\-?\d.]/g,''));
 		});
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -322,7 +322,7 @@ $.fn.extend({
 				$(this).val(min);
 			}
 		});
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -350,7 +350,7 @@ $.fn.extend({
 				$(this).val($(this).val().slice(0, _length));
 			}
 		});
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
@@ -370,7 +370,7 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(expression,''));
 		});
-		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 1 || $.ckWhatFrameWork() == 2){
+		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
 			_press = "input"
 		}else{
 			_press = "keyup"
