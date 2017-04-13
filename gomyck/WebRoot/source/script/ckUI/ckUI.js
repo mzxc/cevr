@@ -749,7 +749,7 @@ $.extend({
 			var showDiv =  
 				'<article id="shade_article" style="width:100%;height:100%;position:fixed;background: rgba(0,0,0,0.5);top:0;z-index:1000">'
 					+ '<div style="position:absolute;text-align: center;left:0;right:0;margin-top:50%;color:#fff;">'
-						+ '<img id="ck_shade_showImg" style="-webkit-animation:circle 0.8s infinite linear;-ms-animation:circle 0.8s infinite linear;-moz-animation:circle 0.8s infinite linear;-o-animation:circle 0.8s infinite linear;" src="' + url + '/resources/images/alertImage/wait.png" alt="" width="10%"/> <br/><br/>'
+						+ '<img id="ck_shade_showImg" style="-webkit-animation:circle 0.8s infinite linear;-ms-animation:circle 0.8s infinite linear;-moz-animation:circle 0.8s infinite linear;-o-animation:circle 0.8s infinite linear;" src="' + url + '/resources/image/alertImage/wait.png" alt="" width="10%"/> <br/><br/>'
 						+ '正在处理，请稍后...'
 					+ '</div>'
 			    + '</article>';
