@@ -37,7 +37,7 @@ $.extend({
 		var style_btn_right      = 'style="padding:15px 15%; text-align: center;border-bottom-right-radius: 5px;' + (_thisOption.type == 1 ? "border-bottom-left-radius: 5px;" : "") + 'background: #ff6d60;color: #fff;border: 1px solid #ff6d60;"';
 		var style_padding_TB_10 = 'style="padding:10px 0;"';
 		var style_padding_TB_20 = 'style="padding:20px 0;"';
-		var style_padding_TB_40 = 'style="padding:40px 0;"color:#000;';
+		var style_padding_TB_40 = 'style="padding:40px 0;color:#000;"';
 		//CSS 结束
 		var sure_btn   = "";//按钮1
 		var refuse_btn = "";//按钮2
