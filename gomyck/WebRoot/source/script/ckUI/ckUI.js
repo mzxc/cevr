@@ -972,6 +972,13 @@ $.extend({
             $("#ckForm").append(input);
         }
         $("#ckForm").submit();
+    },
+    ckHistory: function(){
+    	var href = window.loaction.href;
+    	
+    	var history = $.ckAddCookie("ckHistory");
+    	
+    	$.ckAddCookie();
     }
 });
 //$.ckAnchor();
