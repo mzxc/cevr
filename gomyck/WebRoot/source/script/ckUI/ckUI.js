@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.8.1
- * beforeVersion:1.7.7
+ * version:1.8.2
+ * beforeVersion:1.8.1
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
@@ -46,6 +46,7 @@
  * 2017-04-05更新日志: 加入两种限制函数，$.ckMustEnAndNumber(适配 . -) & $.ckMustEnAndCN & $.ckMustEnAndNumberAndCn
  * 2017-04-07更新日志: 加入自定义过滤，$.ckRegular(expression)  expression 为正则表达式
  * 2017-04-07更新日志: 改进了must相关函数的触发条件，现在可以兼容移动端了
+ * 2017-04-21更新日志: 修复了isUrl的正则
  * 
  */
 ;(function($){
@@ -480,8 +481,9 @@ $.extend({
 			if(ifCanFocus === true) jqObj.focus();
 			return false;
 		}
-		var reg=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-		if(reg.test(url)){
+		var strRegex = "^(((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$";
+		var re = new RegExp(strRegex);
+		if(re.test(url)){
 			return true;
 		}else{
 			if(ifAlert === true) alert("请输入正确格式的URL");
@@ -972,13 +974,6 @@ $.extend({
             $("#ckForm").append(input);
         }
         $("#ckForm").submit();
-    },
-    ckHistory: function(){
-    	var href = window.loaction.href;
-    	
-    	var history = $.ckAddCookie("ckHistory");
-    	
-    	$.ckAddCookie();
     }
 });
 //$.ckAnchor();
