@@ -31,8 +31,6 @@ import com.gomyck.business.controller.welcome.service.IRegisterService;
 import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
-import com.gomyck.component.core.xml.CkDefaultXmlNodes;
-import com.gomyck.component.core.xml.CkXmlReader;
 import com.gomyck.component.util.MailUtil;
 import com.gomyck.component.util.MathUtil;
 import com.gomyck.component.util.PropertiesReader;
