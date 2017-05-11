@@ -1,8 +1,8 @@
 /**
  * ckUI
  * author:h_yang
- * version:1.8.2
- * beforeVersion:1.8.1
+ * version:1.8.3
+ * beforeVersion:1.8.2
  * 
  * API(属性级): 
  * $.ckTrim(str),返回值为去掉前后空格  str: jquery对象||元素ID||字符串
@@ -47,6 +47,7 @@
  * 2017-04-07更新日志: 加入自定义过滤，$.ckRegular(expression)  expression 为正则表达式
  * 2017-04-07更新日志: 改进了must相关函数的触发条件，现在可以兼容移动端了
  * 2017-04-21更新日志: 修复了isUrl的正则
+ * 2017-05-11更新日志: 修复了ckNumLimit 在文本框数字不可以全部删除的bug
  * 
  */
 ;(function($){
@@ -316,10 +317,11 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
 			var thisVal = $(this).val();
-			if(Number(thisVal) > Number(max)){
+			var thisValStr = thisVal + "";
+			if(Number(thisVal) > Number(max) && thisVal.length > 0){
 				$(this).val(max);
 			}
-			if(Number(thisVal) < Number(min)){
+			if(Number(thisVal) < Number(min)  && thisVal.length > 0){
 				$(this).val(min);
 			}
 		});
@@ -331,10 +333,11 @@ $.fn.extend({
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
 			var thisVal = $(this).val();
-			if(Number(thisVal) > Number(max)){
+			var thisValStr = thisVal + "";
+			if(Number(thisVal) > Number(max) && thisVal.length > 0){
 				$(this).val(max);
 			}
-			if(Number(thisVal) < Number(min)){
+			if(Number(thisVal) < Number(min)  && thisVal.length > 0){
 				$(this).val(min);
 			}
 		});
