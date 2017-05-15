@@ -31,13 +31,13 @@ $.extend({
 		// 以上为层级坐标__不要动
 		var _thisOption = $.extend(true,{},_tempOption, _option);
 		//CSS 开始
-		var style_main       = 'style="width: 100%; height: 100%; position: fixed; background: rgba(0,0,0,0.4); top:0; z-index: 999;display: none;"';
-		var style_alert_main = 'style="background:#fff;position:absolute;top:30%;left:0;right:0;margin:0 auto;border-radius: 5px;"';
+		var style_main           = 'style="width: 100%; height: 100%; position: fixed; background: rgba(0,0,0,0.4); top:0; z-index: 999;display: none;"';
+		var style_alert_main     = 'style="background:#fff;position:absolute;top:30%;left:0;right:0;margin:0 auto;border-radius: 5px;"';
 		var style_btn_left       = 'style="padding:15px 15%; text-align: center;border-bottom-left-radius : 5px;background: #bebebe;color: #fff;border: 1px solid #bebebe;"';
 		var style_btn_right      = 'style="padding:15px 15%; text-align: center;border-bottom-right-radius: 5px;' + (_thisOption.type == 1 ? "border-bottom-left-radius: 5px;" : "") + 'background: #ff6d60;color: #fff;border: 1px solid #ff6d60;"';
-		var style_padding_TB_10 = 'style="padding:10px 0;"';
-		var style_padding_TB_20 = 'style="padding:20px 0;"';
-		var style_padding_TB_40 = 'style="padding:40px 0;color:#000;"';
+		var style_padding_TB_10  = 'style="padding:10px 0;"';
+		var style_padding_TB_20  = 'style="padding:20px 0;"';
+		var style_padding_TB_40  = 'style="padding:40px 0;color:#000;"';
 		//CSS 结束
 		var sure_btn   = "";//按钮1
 		var refuse_btn = "";//按钮2
@@ -53,7 +53,7 @@ $.extend({
 			+ '<li class="col-xs-12 paddingTB10"></li>';
 		var _targetHtml = "";
 		if(_thisOption.target != null){
-			var _targetHtml = $.ckGetSomeThing(_thisOption.target)[0].prop("outerHTML");
+			_targetHtml = $.ckGetSomeThing(_thisOption.target)[0].prop("outerHTML");
 			context = '<li class="col-xs-12" ' + style_padding_TB_10 + '></li>';
 			context = context + _targetHtml;
 			context = context + '<li class="col-xs-12" ' + style_padding_TB_10 + '></li>';
