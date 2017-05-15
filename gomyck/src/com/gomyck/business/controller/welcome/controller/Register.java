@@ -20,6 +20,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import com.gomyck.business.controller.welcome.service.IRegisterService;
 import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.business.model.entity.welcome.BizActivate;
 import com.gomyck.business.model.entity.welcome.BizUser;
+import com.gomyck.component.logger.NestLogger;
 import com.gomyck.component.util.MailUtil;
 import com.gomyck.component.util.MathUtil;
 import com.gomyck.component.util.PropertiesReader;
@@ -48,6 +50,8 @@ import com.gomyck.component.util.ResultBuild;
 @RequestMapping(value = "asyn/reg")
 public class Register
 {
+	Logger log = Logger.getLogger(this.getClass());
+	
     @Autowired
     @Qualifier(value = "DefaultRegisterService")
     private IRegisterService regSer;
@@ -62,20 +66,23 @@ public class Register
         user.setHoldeFlag("1");
         user.setLastLoginTime(new Date());
         user.setPowerId(0);
-        final BizActivate ba = new BizActivate();
         final StringBuffer sb = new StringBuffer();
         sb.append(MathUtil.getStringRandom(6));
-        ba.setCancleFlag("0");
-        ba.setSingTime(new Date());
-        ba.setUserId(user.getId());
-        ba.setValidateCode(sb.toString());
         try
         {
+        	this.regSer.regUser(user);
+        	final BizActivate ba = new BizActivate();
+        	ba.setCancleFlag("0");
+            ba.setSingTime(new Date());
+            ba.setUserId(user.getId());
+            ba.setValidateCode(sb.toString());
+        	this.regSer.regUser(ba);
             sendEmail(user.getUserName(), user.getEmail(), sb.toString());
-            this.regSer.regUser(user,ba);
+            log.info("注册事件：email：" + user.getEmail());
         }
         catch (final Exception e)
         {
+        	NestLogger.showException(e);
             return ResultBuild.init(false, "邮件系统出错,请稍后再试", null);
         }
         return ResultBuild.init(true, "邮件已发送!请登陆您的邮箱查看激活码!点击确定返回首页", null);
@@ -104,7 +111,7 @@ public class Register
     
     private static void sendEmail(final String userName, final String emailAddr, final String validateCode) throws IOException, MessagingException
     {
-        final PropertiesReader pr = new PropertiesReader(System.getProperty("gomyck.root") + "config\\mail.properties");
+        final PropertiesReader pr = new PropertiesReader(System.getProperty("gomyck.root") + "config/mail.properties");
         final String hostAccounts = pr.getValueByKey("mail.username");
         final String sysUser = hostAccounts.substring(0, hostAccounts.indexOf("@"));
         final String password = pr.getValueByKey("mail.password");

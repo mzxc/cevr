@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="source/plugins/overhang/overhang.js"></script>
 <script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="source/script/ckUI.js"></script>
+<script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <link href="source/plugins/overhang/overhang.css" rel="stylesheet" type="text/css">
 <link href="source/style/welcome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="source/style/welcome/css/bootstrap.min.css" rel="stylesheet" type="text/css">

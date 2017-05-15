@@ -69,6 +69,7 @@ public class NestLogger
      */
     public static void showException(final Exception e)
     {
+    	logger.error(getTrace(e));
         if (DEVELOP_MODEL)
         {
             e.printStackTrace();
