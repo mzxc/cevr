@@ -462,6 +462,50 @@ $.fn.extend({
  * Jquery属性添加
  */
 $.extend({
+	ckLoadJS: function(option){
+		if(typeof option == "string"){
+			option = {url: option};
+		}
+		var tempOption = {
+			url: "",
+			timeout: (60 * 60 * 10000),
+			onReady: function(){
+				//console.log("JS [" + option.url + "] LOAD OK");
+			}
+		}
+		var ckOption = $.extend(true, {}, tempOption, option);
+		var lastTime = $.ckGetCookie("timeout_ckLoadJS");
+		var date = new Date();
+		var now = date.getTime();
+		var version = now;
+		if(!$.ckIsEmpty(lastTime) && (Number(now) - Number(lastTime)) < Number(ckOption.timeout)){
+			version = lastTime;
+		}else{
+			version = now;
+		}
+		var jsUrl = ckOption.url;
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		if (script.readyState) {
+			script.onreadystatechange = function () {
+		        if (script.readyState == "loaded" || script.readyState == "complete") {
+		          script.onreadystatechange = null;
+		          ckOption.onReady();
+		          $.ckSetCookie("timeout_ckLoadJS", version);
+		          console.log("JS [" + ckOption.url + "] LOAD OK");
+		        }
+			};
+		}
+		else {
+	    	script.onload = function () {
+	    		ckOption.onReady();
+	    		$.ckSetCookie("timeout_ckLoadJS", version);
+	    		console.log("JS [" + ckOption.url + "] LOAD OK");
+	    	};
+		}
+		script.src = jsUrl + "?ver=" + version;
+		document.body.appendChild(script);
+	},
 	/**
 	 * jqgrid单元格添加属性插件,参数默认jqgrid传入
 	 * 
