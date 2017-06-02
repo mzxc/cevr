@@ -56,6 +56,8 @@
  * --------------------------------------------------------------------------------------------------------
  * $.ckGetSomeThing(obj), 获取jquery对象的一些值, 返回为array  0:jquery对象，1:元素内的值， 2:是否可以获取焦点
  * --------------------------------------------------------------------------------------------------------
+ * $.ckLoadJS(option), 动态加载js  option常用参数： url: js地址 timeout: js超时时间 onReady: 加载完成触发事件
+ * --------------------------------------------------------------------------------------------------------
  * --------------------------------------------------------------------------------------------------------
  * API(方法级)
  * --------------------------------------------------------------------------------------------------------
@@ -478,10 +480,12 @@ $.extend({
 		var date = new Date();
 		var now = date.getTime();
 		var version = now;
+		var tips = "JS LOAD OK : ";
 		if(!$.ckIsEmpty(lastTime) && (Number(now) - Number(lastTime)) < Number(ckOption.timeout)){
 			version = lastTime;
 		}else{
 			version = now;
+			tips = "JS RELOAD OK : ";
 		}
 		var jsUrl = ckOption.url;
 		var script = document.createElement("script");
@@ -492,7 +496,7 @@ $.extend({
 		          script.onreadystatechange = null;
 		          ckOption.onReady();
 		          $.ckSetCookie("timeout_ckLoadJS", version);
-		          console.log("JS [" + ckOption.url + "] LOAD OK");
+		          console.log(tips + "[" + ckOption.url + "]");
 		        }
 			};
 		}
@@ -500,7 +504,7 @@ $.extend({
 	    	script.onload = function () {
 	    		ckOption.onReady();
 	    		$.ckSetCookie("timeout_ckLoadJS", version);
-	    		console.log("JS [" + ckOption.url + "] LOAD OK");
+	    		console.log(tips + "[" + ckOption.url + "]");
 	    	};
 		}
 		script.src = jsUrl + "?ver=" + version;
