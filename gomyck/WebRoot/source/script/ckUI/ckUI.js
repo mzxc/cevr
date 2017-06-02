@@ -478,10 +478,12 @@ $.extend({
 		var date = new Date();
 		var now = date.getTime();
 		var version = now;
+		var tips = "JS LOAD OK : ";
 		if(!$.ckIsEmpty(lastTime) && (Number(now) - Number(lastTime)) < Number(ckOption.timeout)){
 			version = lastTime;
 		}else{
 			version = now;
+			tips = "JS RELOAD OK : ";
 		}
 		var jsUrl = ckOption.url;
 		var script = document.createElement("script");
@@ -492,7 +494,7 @@ $.extend({
 		          script.onreadystatechange = null;
 		          ckOption.onReady();
 		          $.ckSetCookie("timeout_ckLoadJS", version);
-		          console.log("JS [" + ckOption.url + "] LOAD OK");
+		          console.log(tips + ckOption.url);
 		        }
 			};
 		}
