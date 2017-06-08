@@ -43,7 +43,7 @@ public class IndexHandler {
 	@RequestMapping(value="getCarInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> searchCarInfo(){
-		List<BizCar> searchCarInfo = iis.searchCarInfo();
+		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo();
 		return ResultBuild.init(true, "查询成功", searchCarInfo);
 	}
 }

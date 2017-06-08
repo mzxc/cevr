@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="source/plugins/swiper/swiper-3.3.1.min.js"></script>
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
+<style type="text/css">
+	html{text-align:center;}
+	body{width:65%;margin:0 auto;text-align:left;}
+</style>
 <script>
 	$(function(){
 		$.ajax({
@@ -29,16 +33,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			dataType: "json",
 			success: function(reuslt){
 				var carInfo = reuslt.data;
+				var groupId = "";
 				for(var index = 0; index < carInfo.length; index = index + 1){
+					if(groupId != carInfo[index].carGroupId){
+						var breakUp = '<li class="col-xs-12 paddingTBLR5_3">&nbsp;</li>';
+						var groupLi = '<li class="col-xs-12 text-center"><span style="font-size: 50px;">' + carInfo[index].carGroup + '</span></li>';
+						
+						$("#carInfo").append(breakUp).append(groupLi);
+						groupId = carInfo[index].carGroupId;
+					}
 					var carLi = '<li class="col-xs-4">'
-									 + '<img class="col-xs-12 paddingLR5" alt="" src="http://192.168.1.166:8080/cevr_img/car.png">'
-									 + '<span class="col-xs-12 text-center">' + carInfo[index].carName + '</span>'
+									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
+									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
+									 +     '<span class="col-xs-5 text-right " style="font-size: 20px;">' + carInfo[index].carName + '</span>'
+									 + 	   '<div class="col-xs-4 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
+									 + 	   '<div class="col-xs-3 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3" type="button" value="投票"/></div>'
+									 + '</div>'
 								+ '</li>';
 					$("#carInfo").append(carLi);
 				}
 			}
 		});
 	});
+	
+	function clickTicket(){
+		layer.open({
+			type: 1,
+			area: ['420px', '240px'], //宽高
+			content: $("#ticketUserInfo")
+		});
+	}
 </script>
 </head>
 <body>
@@ -46,6 +70,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul id="carInfo" class="col-xs-12">
 
 		</ul>
+	</div>
+	
+	<div id="ticketUserInfo">
+		啊啊啊啊啊 啊啊
 	</div>
 </body>
 </html>

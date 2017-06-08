@@ -23,7 +23,6 @@ import org.w3c.dom.NodeList;
 
 import com.cevr.component.core.DuplicateLabelException;
 import com.cevr.component.core.XmlNotFoundException;
-import com.cevr.component.core.xml.context.CkXmlGetter;
 import com.cevr.component.util.StringUtil;
 
 /**
@@ -46,7 +45,7 @@ public class CkDefaultXmlReader extends CkXmlReader
     
     public static final String DEFAULT_XML_PATH = "src/ck.xml";
     
-    public static final String DEFAULT_XML_ENTITY = "src/ck.xml";
+    public static final String DEFAULT_XML_ENTITY = "defaultCkXmlEntity";
     
     public static final String DEFAULT_XML_TAG = "defaultXmlTags";
     

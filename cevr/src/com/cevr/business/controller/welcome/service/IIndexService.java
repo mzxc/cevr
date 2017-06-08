@@ -11,6 +11,7 @@
 package com.cevr.business.controller.welcome.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cevr.business.model.entity.BizCar;
 
@@ -24,5 +25,5 @@ import com.cevr.business.model.entity.BizCar;
  */
 public interface IIndexService
 {
-	 List<BizCar> searchCarInfo();
+	List<Map<String, Object>> searchCarInfo();
 }

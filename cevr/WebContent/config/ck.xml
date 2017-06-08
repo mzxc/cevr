@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prop>
 	<sql id="serachAll_car">
-		select * from biz_car;
+		SELECT
+			bc.id AS carId,
+			bc.car_name AS carName,
+			bc.car_no AS carNo,
+			GROUP_CONCAT(bci.img_uri SEPARATOR '|') AS carImgs,
+			bcg.group_name AS carGroup,
+			bcg.id AS carGroupId,
+			IFNULL(sum(bt.ticket_num), 0) as ticketNum
+		FROM
+			biz_car bc
+		INNER JOIN biz_car_group bcg ON bc.group_id = bcg.id
+		LEFT JOIN biz_car_imgs bci ON bc.id = bci.car_id
+		LEFT JOIN biz_ticket bt ON bc.id = bt.click_car_id
+		WHERE
+			bc.deleteflag = 0
+		AND bc.cancleflag = 0
+		AND bc.holdflag = 0
+		GROUP BY
+			bc.id
+		ORDER BY
+			bcg.order_num,
+			bc.car_no
 	</sql>
 </prop>

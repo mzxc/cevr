@@ -20,6 +20,7 @@ public class BizCar implements java.io.Serializable {
 	private String carNickname;
 	private String carInfo;
 	private String carNo;
+	private String groupId;
 	private String deleteflag;
 	private String cancleflag;
 	private String holdflag;
@@ -35,13 +36,14 @@ public class BizCar implements java.io.Serializable {
 		this.carName = carName;
 	}
 
-	public BizCar(String id, String carName, String carNickname, String carInfo, String carNo, String deleteflag,
+	public BizCar(String id, String carName, String carNickname, String carInfo, String carNo,String groupId, String deleteflag,
 			String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
 		this.id = id;
 		this.carName = carName;
 		this.carNickname = carNickname;
 		this.carInfo = carInfo;
 		this.carNo = carNo;
+		this.groupId = groupId;
 		this.deleteflag = deleteflag;
 		this.cancleflag = cancleflag;
 		this.holdflag = holdflag;
@@ -95,6 +97,15 @@ public class BizCar implements java.io.Serializable {
 
 	public void setCarNo(String carNo) {
 		this.carNo = carNo;
+	}
+
+	@Column(name = "group_id", length = 30)
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	@Column(name = "deleteflag", length = 2)
