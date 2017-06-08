@@ -23,13 +23,13 @@ import org.w3c.dom.NodeList;
 
 import com.cevr.component.core.DuplicateLabelException;
 import com.cevr.component.core.XmlNotFoundException;
+import com.cevr.component.core.xml.context.CkXmlGetter;
 import com.cevr.component.util.StringUtil;
 
 /**
  * 默认xml加载器
  * 
- * XmlNodes cxn = (XmlNodes)CkXmlReader.getCurrentContext().getAttribute(CkXmlReader.XML_TAG);
- * System.out.println(cxn.getElementValue("sql", "serachAll"));
+ * CkXmlGetter.getXmlNodes("sql", "serachAll")
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]

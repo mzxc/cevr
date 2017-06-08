@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prop>
-	<sql id = "serachAll">
-		select * from table where id = ?;
+	<sql id="serachAll_car">
+		select * from biz_car;
 	</sql>
 </prop>

@@ -67,20 +67,9 @@
 		            <list>
 		            	<!-- 资源文件放行 -->
 		            	<value>/source/</value>
-		            	<!-- 登陆 -->
-		            	<value>/common/forward/welcome/login</value>
-		            	<!-- 注册 -->
-		            	<value>/common/forward/welcome/createuser</value>
-		            	<!-- 忘记密码 -->
-		            	<value>/common/forward/welcome/forgotpwd</value>
-		            	<!-- 反馈 -->
-		            	<value>/common/forward/welcome/sendfeedback</value>
-		            	<!-- 注册请求 -->
-		            	<value>/asyn/reg/createUser</value>
-		            	<!-- 重置密码请求 -->
-		            	<value>/asyn/pwd/getPwdByEmail</value>
-		            	<!-- 表单校验 -->
-		            	<value>/asyn/reg/validataParam</value>
+		            	<!-- 首页 -->
+		            	<value>/</value>
+		            	
 		            </list>
 	         	</property>
 	   		</bean>

@@ -10,6 +10,10 @@
  */
 package com.cevr.business.controller.welcome.service;
 
+import java.util.List;
+
+import com.cevr.business.model.entity.BizCar;
+
 /**
  * 注册ser
  * 
@@ -18,7 +22,7 @@ package com.cevr.business.controller.welcome.service;
  * @see #saveObj
  * @since 1.0
  */
-public interface IRegisterService
+public interface IIndexService
 {
-    void regUser(Object... objs);
+	 List<BizCar> searchCarInfo();
 }
