@@ -30,18 +30,10 @@ import com.cevr.business.interceptor.LogInfo;
 @RequestMapping(value = "common")
 public class CommonDispatcher
 {
-	
-    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "欢迎页通用跳转")
-    @RequestMapping(value = "forward/welcome/{page}", method = RequestMethod.GET)
-    public String gotoLogin(@PathVariable final String page)
+    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "页面通用跳转")
+    @RequestMapping(value = "forward/{view}/{page}", method = RequestMethod.GET)
+    public String gotoMain(@PathVariable final String view, @PathVariable final String page)
     {
-        return "welcome/" + page;
-    }
-    
-    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "主界面通用跳转")
-    @RequestMapping(value = "forward/main/{page}", method = RequestMethod.GET)
-    public String gotoMain(@PathVariable final String page)
-    {
-        return "main/" + page;
+        return view + "/" + page;
     }
 }
