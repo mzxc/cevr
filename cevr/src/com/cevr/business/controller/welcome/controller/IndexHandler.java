@@ -1,5 +1,5 @@
 /*
- * 文 件 名:  Login.java
+ * 文 件 名:  IndexHandler.java
  * 版    权:  gomyck
  * 描    述:  <描述>
  * 修 改 人:  郝洋
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-3]
- * @see Login
+ * @see IndexHandler
  * @since 1.0
  */
 @Controller
-@RequestMapping(value = "asyn/login")
-public class Login
-{
+@RequestMapping(value = "asyn/index")
+public class IndexHandler {
+	
 	
 }
