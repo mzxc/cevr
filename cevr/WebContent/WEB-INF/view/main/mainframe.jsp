@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 </head>
 <body>
-	<input id="ticketType" type="hidden" value="2" />
+	<input id="ticketType" type="hidden" value="1" />
 	<div class="col-xs-12">
 		<ul id="carInfo" class="col-xs-12">
 
@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$.ajax({
 			url: "asyn/index/getCarInfo",
 			type: "post",
-			data: {ticketTypeId: 1},
+			data: {ticketTypeId: $("#ticketType").val()},
 			dataType: "json",
 			success: function(reuslt){
 				var carInfo = reuslt.data;
