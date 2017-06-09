@@ -28,6 +28,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 <script>
 	$(function(){
+		initCarInfo();
+		$("#userName").ckMustEnAndCN();
+		$("#userName").ckMaxLength(10);
+		$("#userTel").ckMustNumber();
+		$("#userTel").ckMaxLength(11);
+		$("#userEmail").ckMaxLength(50);
+		$("#ifInputUserInfo").val("0");
+	});
+	
+	var userInfoDiv;
+	function clickTicket(){
+		userInfoDiv = layer.open({
+			type: 1,
+			area: ['320px', '240px'], //宽高
+			content: $("#ticketUserInfo")
+		});
+	}
+	
+	function sureUserInfo(){
+		if(!$.ckIsMobile("userTel")){
+			alert("请输入正确的手机号");
+			return;
+		}
+		if(!$.ckIsEmail("userEmail")){
+			alert("请输入正确的邮箱");
+			return;
+		}
+		$("#ifInputUserInfo").val("1");
+		layer.close(userInfoDiv);
+	}
+</script>
+</head>
+<body>
+	<div class="col-xs-12">
+		<ul id="carInfo" class="col-xs-12">
+
+		</ul>
+	</div>
+	
+	<div id="ticketUserInfo" style="display: none;">
+		<input id="ifInputUserInfo" type="hidden" value="0"/>
+		<ul class="col-xs-12">
+			<div class="col-xs-12 text-center paddingTBLR5_3 ">
+				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			<div class="col-xs-12 text-center paddingTBLR5_3 ">
+				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			<div class="col-xs-12 text-center paddingTBLR5_3 ">
+				<li class="col-xs-3 text-right paddingTB5 ">邮&emsp;箱:&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			<div class="col-xs-12 text-center paddingTBLR10_3 ">
+				<div class="col-xs-3"></div>
+				<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
+				<div class="col-xs-3"></div>
+			</div>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript">
+	function initCarInfo(){
 		$.ajax({
 			url: "asyn/index/getCarInfo",
 			type: "post",
@@ -55,44 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			}
 		});
-	});
-	
-	function clickTicket(){
-		layer.open({
-			type: 1,
-			area: ['320px', '240px'], //宽高
-			content: $("#ticketUserInfo")
-		});
 	}
 </script>
-</head>
-<body>
-	<div class="col-xs-12">
-		<ul id="carInfo" class="col-xs-12">
-
-		</ul>
-	</div>
-	
-	<div id="ticketUserInfo" style="display: none;">
-		<ul class="col-xs-12">
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
-				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
-				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
-				<li class="col-xs-3 text-right paddingTB5 ">邮&emsp;箱:&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			<div class="col-xs-12 text-center paddingTBLR10_3 ">
-				<div class="col-xs-3"></div>
-				<input type="button" value="确定" class="col-xs-6 mybtn btn-pink" />
-				<div class="col-xs-3"></div>
-			</div>
-		</ul>
-	</div>
-</body>
 </html>
