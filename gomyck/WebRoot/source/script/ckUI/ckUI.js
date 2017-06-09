@@ -588,7 +588,7 @@ $.extend({
 		var mailContext = $.ckGetSomeThing(mailContextObj)[1];
 		var ifCanFocus  = $.ckGetSomeThing(mailContextObj)[2];
 		var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-		if(!reg.test(mailContext) && $.trim(mailContext) != ""){
+		if(!reg.test(mailContext) || $.ckIsEmpty(mailContext)){
 			if(ifAlert === true) alert("请输入有效的邮箱地址");
 			if(ifCanFocus === true) jqObj.focus();
 			return false;
