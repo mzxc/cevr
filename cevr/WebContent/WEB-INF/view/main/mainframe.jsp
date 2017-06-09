@@ -74,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="ticketUserInfo" style="display: none;">
+<<<<<<< HEAD
 		<ul class="col-xs-12">
 			<div class="col-xs-12 text-center paddingTBLR5_3 ">
 				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;</li>
@@ -93,6 +94,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-xs-3"></div>
 			</div>
 		</ul>
+=======
+		啊啊啊啊啊 啊啊
+>>>>>>> branch 'master' of https://github.com/mzxc/mzxc.git
 	</div>
 </body>
 </html>
