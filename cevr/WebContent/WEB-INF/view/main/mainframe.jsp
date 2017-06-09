@@ -38,12 +38,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	
 	var userInfoDiv;
-	function clickTicket(){
-		userInfoDiv = layer.open({
-			type: 1,
-			area: ['320px', '240px'], //宽高
-			content: $("#ticketUserInfo")
-		});
+	var showDivCarId;
+	function clickTicket(carId){
+		showDivCarId = carId;
+		if($("#ifInputUserInfo").val() == "0"){
+			userInfoDiv = layer.open({
+				type: 1,
+				area: ['320px', '240px'], //宽高
+				content: $("#ticketUserInfo")
+			});
+		}else{
+			changeButton(carId);
+		}
+	}
+	
+	function changeButton(carId){
+		var _input = $("#clickInput_" + carId);
+		if(_input.attr("mes") == "0"){
+			_input.val("取消投票");
+			_input.attr("mes", "1");
+			var group = _input.attr("group");
+			$("input[group='" + group + "']").not(_input).attr("mes", "0");
+			$("input[group='" + group + "']").not(_input).attr("value", "投票");
+		}else{
+			_input.val("投票");
+			_input.attr("mes", "0");
+		}
 	}
 	
 	function sureUserInfo(){
@@ -56,6 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return;
 		}
 		$("#ifInputUserInfo").val("1");
+		changeButton(showDivCarId);
 		layer.close(userInfoDiv);
 	}
 </script>
@@ -103,7 +124,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(groupId != carInfo[index].carGroupId){
 						var breakUp = '<li class="col-xs-12 paddingTBLR5_3">&nbsp;</li>';
 						var groupLi = '<li class="col-xs-12 text-center"><span style="font-size: 50px;">' + carInfo[index].carGroup + '</span></li>';
-						
 						$("#carInfo").append(breakUp).append(groupLi);
 						groupId = carInfo[index].carGroupId;
 					}
@@ -112,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
 									 +     '<span class="col-xs-5 text-right paddingTBLR5_3" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
 									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
-									 + 	   '<div class="col-xs-2 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3 mybtn" type="button" value="投票"/></div>'
+									 + 	   '<div class="col-xs-2 text-left"><input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green paddingTBLR5_3 mybtn" type="button" value="投票"/></div>'
 									 + '</div>'
 								+ '</li>';
 					$("#carInfo").append(carLi);
