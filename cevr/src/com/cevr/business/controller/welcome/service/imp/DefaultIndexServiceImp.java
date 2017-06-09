@@ -55,7 +55,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 	@SuppressWarnings("unchecked")
 	@Override
 	public ResultMessage addTicketInfo(TicketInfo ti) {
-		// TODO 新增投票信息,先判断是否投过
+		// TODO 新增投票信息,先判断是否投过 
 		try{
 			BizCar bc = (BizCar)this.findByPrimaryKey(BizCar.class, ti.getCarId());
 			String sql = CkXmlGetter.getXmlNodes("sql", "findTicketInfo");
