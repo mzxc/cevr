@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="source/style/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/swiper.min.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/stylepublic.css" rel="stylesheet" type="text/css">
+<link href="source/plugins/layer/skin/layer.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/styleall.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
@@ -23,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <style type="text/css">
 	html{text-align:center;}
-	body{width:65%;margin:0 auto;text-align:left;}
+	body{width:70%;margin:0 auto;text-align:left;}
 </style>
 <script>
 	$(function(){
@@ -46,8 +47,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
 									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
 									 +     '<span class="col-xs-5 text-right " style="font-size: 20px;">' + carInfo[index].carName + '</span>'
-									 + 	   '<div class="col-xs-4 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
-									 + 	   '<div class="col-xs-3 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3" type="button" value="投票"/></div>'
+									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
+									 + 	   '<div class="col-xs-2 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3" type="button" value="投票"/></div>'
 									 + '</div>'
 								+ '</li>';
 					$("#carInfo").append(carLi);
@@ -72,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
 	
-	<div id="ticketUserInfo">
+	<div id="ticketUserInfo" style="display: none;">
 		啊啊啊啊啊 啊啊
 	</div>
 </body>
