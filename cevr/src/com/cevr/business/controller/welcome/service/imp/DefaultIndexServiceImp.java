@@ -45,10 +45,10 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> searchCarInfo() {
+	public List<Map<String, Object>> searchCarInfo(TicketInfo ti) {
 		// TODO 查询车辆信息
 		String sql = CkXmlGetter.getXmlNodes("sql", "serachAll_car");
-		return this.createSqlQuery(sql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
+		return this.createSqlQuery(sql, ti.getTicketTypeId()).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
 		//return this.findAll(BizCar.class);
 	}
 	
@@ -59,7 +59,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		try{
 			BizCar bc = (BizCar)this.findByPrimaryKey(BizCar.class, ti.getCarId());
 			String sql = CkXmlGetter.getXmlNodes("sql", "findTicketInfo");
-			BigInteger num = (BigInteger)this.createSqlQuery(sql, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"), ti.getFromIp(), bc.getGroupId()).uniqueResult();
+			BigInteger num = (BigInteger)this.createSqlQuery(sql, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"), ti.getFromIp(), ti.getTicketTypeId(), bc.getGroupId()).uniqueResult();
 			if(num != null && num.intValue() > 0){
 				return ResultMessage.initMsg(false, "3000", "您今日已为该组投票，请明天再来吧");
 			}
@@ -83,7 +83,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		}else{
 			btp = btps.get(0);
 		}
-		BizTicket bt = new BizTicket(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
+		BizTicket bt = new BizTicket(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
 		try{
 			this.save(bt);
 		}catch(Exception e){
@@ -105,6 +105,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 			param.put("clickTime", ticketTime);
 			param.put("cancleflag", "0");
 			param.put("clickCarId", ti.getCarId());
+			param.put("ticketTypeId", ti.getTicketTypeId());
 			BizTicket bt = (BizTicket)this.findByProperties(BizTicket.class, param).get(0);
 			bt.setCancleflag("1");
 			bt.setUpdatetime(new Date());

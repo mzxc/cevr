@@ -4,13 +4,14 @@ import java.util.Date;
 
 public class TicketInfo {
 	
-	String userName;
-	String userTel;
-	String userEmail;
-	String carId;
-	String fromIp;
-	int ticketNum;
-	Date ticketTime;
+	private String userName;
+	private String userTel;
+	private String userEmail;
+	private String carId;
+	private String fromIp;
+	private int ticketNum;
+	private Date ticketTime;
+	private String ticketTypeId;
 	
 	public String getUserName() {
 		return userName;
@@ -51,9 +52,18 @@ public class TicketInfo {
 	public Date getTicketTime() {
 		return new Date();
 	}
+	
+	public String getTicketTypeId() {
+		return ticketTypeId;
+	}
+	public void setTicketTypeId(String ticketTypeId) {
+		this.ticketTypeId = ticketTypeId;
+	}
 	@Override
 	public String toString() {
-		return "TicketInfo [userName=" + userName + ", userTel=" + userTel + ", userEmail=" + userEmail + ", carId="
-				+ carId + ", fromIp=" + fromIp + ", ticketNum=" + ticketNum + ", ticketTime=" + ticketTime + "]";
+		return "TicketInfo [userName=" + userName + ", userTel=" + userTel
+				+ ", userEmail=" + userEmail + ", carId=" + carId + ", fromIp="
+				+ fromIp + ", ticketNum=" + ticketNum + ", ticketTime="
+				+ ticketTime + ", ticketTypeId=" + ticketTypeId + "]";
 	}
 }

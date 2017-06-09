@@ -48,8 +48,9 @@ public class IndexHandler {
 	@LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
 	@RequestMapping(value="getCarInfo", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> searchCarInfo(){
-		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo();
+	public Map<String, Object> searchCarInfo(TicketInfo ti){
+		System.out.println(ti.getTicketTypeId());
+		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
 		return ResultBuild.init(true, "查询成功", searchCarInfo);
 	}
 	

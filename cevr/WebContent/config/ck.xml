@@ -21,7 +21,7 @@
 		AND bci.deleteflag = 0
 		AND bci.cancleflag = 0
 		AND bci.holdflag = 0
-		LEFT JOIN biz_ticket bt ON bc.id = bt.click_car_id
+		LEFT JOIN biz_ticket bt ON bc.id = bt.click_car_id AND bt.ticket_type_id = ?
 		AND bt.deleteflag = 0
 		AND bt.cancleflag = 0
 		AND bt.holdflag = 0
@@ -40,7 +40,7 @@
 			count(1)
 		FROM
 			biz_car bc
-		INNER JOIN biz_ticket bt ON bt.click_car_id = bc.id and bt.click_time > ? AND bt.from_ip = ?
+		INNER JOIN biz_ticket bt ON bt.click_car_id = bc.id and bt.click_time > ? AND bt.from_ip = ? AND bt.ticket_type_id = ?
 		AND bt.deleteflag = 0
 		AND bt.cancleflag = 0
 		AND bt.holdflag = 0

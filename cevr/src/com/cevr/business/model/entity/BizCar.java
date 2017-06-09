@@ -54,7 +54,7 @@ public class BizCar implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "id", unique = true, nullable = false, length = 30)
+	@Column(name = "id", unique = true, nullable = false, length = 50)
 	public String getId() {
 		return this.id;
 	}
@@ -155,7 +155,7 @@ public class BizCar implements java.io.Serializable {
 		this.updatetime = updatetime;
 	}
 
-	@Column(name = "operator_id", length = 20)
+	@Column(name = "operator_id", length = 50)
 	public String getOperatorId() {
 		return this.operatorId;
 	}

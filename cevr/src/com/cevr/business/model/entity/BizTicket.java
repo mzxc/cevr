@@ -19,6 +19,7 @@ public class BizTicket implements java.io.Serializable {
 	private String fromIp;
 	private Date clickTime;
 	private int ticketNum;
+	private String ticketTypeId;
 	private String clickPeopleId;
 	private String clickCarId;
 	private String deleteflag;
@@ -38,13 +39,14 @@ public class BizTicket implements java.io.Serializable {
 		this.clickCarId = clickCarId;
 	}
 
-	public BizTicket(String id, String fromIp, Date clickTime, int ticketNum, String clickPeopleId, String clickCarId,
+	public BizTicket(String id, String fromIp, Date clickTime, int ticketNum, String ticketTypeId, String clickPeopleId, String clickCarId,
 			String deleteflag, String cancleflag, String holdflag, Date createtime, Date updatetime,
 			String operatorId) {
 		this.id = id;
 		this.fromIp = fromIp;
 		this.clickTime = clickTime;
 		this.ticketNum = ticketNum;
+		this.ticketTypeId = ticketTypeId;
 		this.clickPeopleId = clickPeopleId;
 		this.clickCarId = clickCarId;
 		this.deleteflag = deleteflag;
@@ -57,7 +59,7 @@ public class BizTicket implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "id", unique = true, nullable = false, length = 30)
+	@Column(name = "id", unique = true, nullable = false, length = 50)
 	public String getId() {
 		return this.id;
 	}
@@ -94,7 +96,16 @@ public class BizTicket implements java.io.Serializable {
 		this.ticketNum = ticketNum;
 	}
 
-	@Column(name = "click_people_id", nullable = false, length = 20)
+	@Column(name = "ticket_type_id", length = 50)
+	public String getTicketTypeId() {
+		return ticketTypeId;
+	}
+
+	public void setTicketTypeId(String ticketTypeId) {
+		this.ticketTypeId = ticketTypeId;
+	}
+
+	@Column(name = "click_people_id", nullable = false, length = 50)
 	public String getClickPeopleId() {
 		return this.clickPeopleId;
 	}
@@ -103,7 +114,7 @@ public class BizTicket implements java.io.Serializable {
 		this.clickPeopleId = clickPeopleId;
 	}
 
-	@Column(name = "click_car_id", nullable = false, length = 20)
+	@Column(name = "click_car_id", nullable = false, length = 50)
 	public String getClickCarId() {
 		return this.clickCarId;
 	}
@@ -159,7 +170,7 @@ public class BizTicket implements java.io.Serializable {
 		this.updatetime = updatetime;
 	}
 
-	@Column(name = "operator_id", length = 20)
+	@Column(name = "operator_id", length = 50)
 	public String getOperatorId() {
 		return this.operatorId;
 	}

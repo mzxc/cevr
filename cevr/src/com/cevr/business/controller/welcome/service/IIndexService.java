@@ -31,7 +31,7 @@ public interface IIndexService
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> searchCarInfo();
+	List<Map<String, Object>> searchCarInfo(TicketInfo ti);
 	
 	/**
 	 * 新增投票

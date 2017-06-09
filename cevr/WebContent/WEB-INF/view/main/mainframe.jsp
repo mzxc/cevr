@@ -79,9 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var userName = $("#userName").val();
 		var userTel = $("#userTel").val();
 		var userEmail = $("#userEmail").val();
+		var ticketType = $("#ticketType").val();
 		$.ajax({
 			url: "asyn/index/ticketCar",
-			data: {userName: userName, userTel: userTel, userEmail: userEmail, carId: carId},
+			data: {userName: userName, userTel: userTel, userEmail: userEmail, carId: carId, ticketTypeId: ticketType},
 			type: "post",
 			dataType: "json",
 			success: function(result){
@@ -105,9 +106,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	function unSureTicket(carId){
 		var _input = $("#clickInput_" + carId);
+		var ticketType = $("#ticketType").val();
 		$.ajax({
 			url: "asyn/index/unTicketCar",
-			data: {carId: carId},
+			data: {carId: carId, ticketTypeId: ticketType},
 			type: "post",
 			dataType: "json",
 			success: function(result){
@@ -128,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 </head>
 <body>
+	<input id="ticketType" type="hidden" value="2" />
 	<div class="col-xs-12">
 		<ul id="carInfo" class="col-xs-12">
 
@@ -162,6 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$.ajax({
 			url: "asyn/index/getCarInfo",
 			type: "post",
+			data: {ticketTypeId: 1},
 			dataType: "json",
 			success: function(reuslt){
 				var carInfo = reuslt.data;
