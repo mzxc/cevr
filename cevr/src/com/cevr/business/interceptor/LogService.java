@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cevr.component.logger.NestLogger;
 import com.cevr.component.util.DateUtil;
+import com.cevr.component.util.IpUtil;
 import com.cevr.component.util.DateUtil.DUF;
 
 /**
@@ -103,6 +104,7 @@ public class LogService
                         sb.append(allValue[i].toString() + " ");
                     }
                 }
+                sb.append("  请求ip: " + IpUtil.getRemoteAddr(request));
             }
             NestLogger.locationLog(sb.toString());
         }

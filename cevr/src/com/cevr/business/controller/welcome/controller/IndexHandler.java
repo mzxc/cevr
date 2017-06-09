@@ -13,6 +13,8 @@ package com.cevr.business.controller.welcome.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cevr.business.controller.common.message.ResultMessage;
 import com.cevr.business.controller.welcome.service.IIndexService;
-import com.cevr.business.model.entity.BizCar;
+import com.cevr.business.interceptor.LogInfo;
+import com.cevr.business.model.to.TicketInfo;
+import com.cevr.component.util.IpUtil;
 import com.cevr.component.util.ResultBuild;
 
 /**
@@ -40,10 +45,31 @@ public class IndexHandler {
 	@Qualifier("DefaultIndexServiceImp")
 	private IIndexService iis;
 	
+	@LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
 	@RequestMapping(value="getCarInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> searchCarInfo(){
 		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo();
 		return ResultBuild.init(true, "查询成功", searchCarInfo);
+	}
+	
+	@LogInfo(operateModelNm="投票首页", operateFuncNm="新增投票")
+	@RequestMapping(value="ticketCar", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ticketCar(TicketInfo ti, HttpServletRequest request){
+		ti.setFromIp(IpUtil.getRemoteAddr(request));
+		ti.setTicketNum(1);
+		ResultMessage rm = iis.addTicketInfo(ti);
+		return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
+	}
+	
+	@LogInfo(operateModelNm="投票首页", operateFuncNm="删除投票")
+	@RequestMapping(value="unTicketCar", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> unTicketCar(TicketInfo ti, HttpServletRequest request){
+		ti.setFromIp(IpUtil.getRemoteAddr(request));
+		ti.setTicketNum(1);
+		ResultMessage rm = iis.delTicketInfo(ti);
+		return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
 	}
 }

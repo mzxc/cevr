@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prop>
 	<sql id="serachAll_car">
-		SELECT
-			bc.id AS carId,
-			bc.car_name AS carName,
-			bc.car_no AS carNo,
-			GROUP_CONCAT(bci.img_uri SEPARATOR '|') AS carImgs,
-			bcg.group_name AS carGroup,
-			bcg.id AS carGroupId,
-			IFNULL(sum(bt.ticket_num), 0) as ticketNum
+	    SELECT
+			bc.id AS carId ,
+			bc.car_name AS carName ,
+			bc.car_no AS carNo ,
+			GROUP_CONCAT(
+				DISTINCT bci.img_uri SEPARATOR '|'
+			) AS carImgs ,
+			bcg.group_name AS carGroup ,
+			bcg.id AS carGroupId ,
+			IFNULL(sum(bt.ticket_num) , 0) AS ticketNum
 		FROM
 			biz_car bc
 		INNER JOIN biz_car_group bcg ON bc.group_id = bcg.id
+		AND bcg.deleteflag = 0
+		AND bcg.cancleflag = 0
+		AND bcg.holdflag = 0
 		LEFT JOIN biz_car_imgs bci ON bc.id = bci.car_id
+		AND bci.deleteflag = 0
+		AND bci.cancleflag = 0
+		AND bci.holdflag = 0
 		LEFT JOIN biz_ticket bt ON bc.id = bt.click_car_id
+		AND bt.deleteflag = 0
+		AND bt.cancleflag = 0
+		AND bt.holdflag = 0
 		WHERE
-			bc.deleteflag = 0
+		bc.deleteflag = 0
 		AND bc.cancleflag = 0
 		AND bc.holdflag = 0
 		GROUP BY
 			bc.id
 		ORDER BY
-			bcg.order_num,
+			bcg.order_num ,
 			bc.car_no
 	</sql>
+	<sql id="findTicketInfo">
+		SELECT
+			count(1)
+		FROM
+			biz_car bc
+		INNER JOIN biz_ticket bt ON bt.click_car_id = bc.id and bt.click_time > ? AND bt.from_ip = ?
+		AND bt.deleteflag = 0
+		AND bt.cancleflag = 0
+		AND bt.holdflag = 0
+		INNER JOIN biz_car_group bcg ON bc.group_id = bcg.id AND bcg.id = ?
+		AND bcg.deleteflag = 0
+		AND bcg.cancleflag = 0
+		AND bcg.holdflag = 0
+		WHERE
+		bc.deleteflag = 0
+		AND bc.cancleflag = 0
+		AND bc.holdflag = 0
+	</sql>
+	
 </prop>

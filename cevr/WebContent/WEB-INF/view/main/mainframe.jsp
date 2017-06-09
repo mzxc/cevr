@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 <link rel="shortcut icon" href="" />
 <link rel="Bookmark" href="" />
-<title>gomyck!</title>
+<title>环青海湖（国际）电动汽车挑战赛|QingHai Lake China</title> 
 <link href="source/style/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/swiper.min.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/stylepublic.css" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if($("#ifInputUserInfo").val() == "0"){
 			userInfoDiv = layer.open({
 				type: 1,
-				area: ['320px', '240px'], //宽高
+				area: ['320px', '250px'], //宽高
 				content: $("#ticketUserInfo")
 			});
 		}else{
@@ -55,29 +55,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function changeButton(carId){
 		var _input = $("#clickInput_" + carId);
 		if(_input.attr("mes") == "0"){
-			_input.val("取消投票");
-			_input.attr("mes", "1");
-			var group = _input.attr("group");
-			$("input[group='" + group + "']").not(_input).attr("mes", "0");
-			$("input[group='" + group + "']").not(_input).attr("value", "投票");
+			sureTicket(carId);
 		}else{
-			_input.val("投票");
-			_input.attr("mes", "0");
+			unSureTicket(carId);
 		}
 	}
 	
 	function sureUserInfo(){
 		if(!$.ckIsMobile("userTel")){
-			alert("请输入正确的手机号");
+			layer.msg("请输入正确的手机号");
 			return;
 		}
-		if(!$.ckIsEmail("userEmail")){
-			alert("请输入正确的邮箱");
+		if(!$.ckIsEmail("userEmail") && !$.ckIsEmpty($("#userEmail").val())){
+			layer.msg("请输入正确的邮箱");
 			return;
 		}
 		$("#ifInputUserInfo").val("1");
 		changeButton(showDivCarId);
 		layer.close(userInfoDiv);
+	}
+	
+	function sureTicket(carId){
+		var userName = $("#userName").val();
+		var userTel = $("#userTel").val();
+		var userEmail = $("#userEmail").val();
+		$.ajax({
+			url: "asyn/index/ticketCar",
+			data: {userName: userName, userTel: userTel, userEmail: userEmail, carId: carId},
+			type: "post",
+			dataType: "json",
+			success: function(result){
+				if(result.result){
+					var _input = $("#clickInput_" + carId);
+					_input.val("取消投票");
+					_input.attr("mes", "1");
+					var group = _input.attr("group");
+					$("input[group='" + group + "']").not(_input).attr("disabled", "disabled");
+					$("input[group='" + group + "']").not(_input).attr("value", "投票");
+					layer.msg("投票成功");
+				}else{
+					layer.msg(result.msg);
+				}
+			},
+			error: function(){
+				layer.msg("服务器开小差，请稍后再试!");
+			}
+		});
+	}
+	
+	function unSureTicket(carId){
+		var _input = $("#clickInput_" + carId);
+		$.ajax({
+			url: "asyn/index/unTicketCar",
+			data: {carId: carId},
+			type: "post",
+			dataType: "json",
+			success: function(result){
+				if(result.result){
+					_input.val("投票");
+					_input.attr("mes", "0");
+					var group = _input.attr("group");
+					$("input[group='" + group + "']").removeAttr("disabled");
+				}else{
+					layer.msg(result.msg);
+				}
+			},
+			error: function(){
+				layer.msg("服务器开小差，请稍后再试!");
+			}
+		});
 	}
 </script>
 </head>
@@ -91,19 +137,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="ticketUserInfo" style="display: none;">
 		<input id="ifInputUserInfo" type="hidden" value="0"/>
 		<ul class="col-xs-12">
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
+			<div class="col-xs-12 text-center paddingTBLR5_3">
 				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;</li>
 				<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
 			</div>
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
+			<div class="col-xs-12 text-center paddingTBLR5_3">
 				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;</li>
 				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
 			</div>
-			<div class="col-xs-12 text-center paddingTBLR5_3 ">
-				<li class="col-xs-3 text-right paddingTB5 ">邮&emsp;箱:&nbsp;</li>
+			<div class="col-xs-12 text-center paddingTBLR5_3">
+				<li class="col-xs-3 text-right paddingTB5">邮&emsp;箱:&nbsp;</li>
 				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
 			</div>
-			<div class="col-xs-12 text-center paddingTBLR10_3 ">
+			<div class="col-xs-12 text-center paddingTBLR10_3">
 				<div class="col-xs-3"></div>
 				<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
 				<div class="col-xs-3"></div>
@@ -130,12 +176,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var carLi = '<li class="col-xs-4">'
 									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
 									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
-									 +     '<span class="col-xs-5 text-right paddingTBLR5_3" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
-									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
-									 + 	   '<div class="col-xs-2 text-left"><input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green paddingTBLR5_3 mybtn" type="button" value="投票"/></div>'
+									 +     '<span class="col-xs-5 text-right paddingTBLR5_3 textover" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
+									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
+									 + 	   '<div class="col-xs-2 text-left"><input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/></div>'
 									 + '</div>'
 								+ '</li>';
-					$("#carInfo").append(carLi);
+					$("#carInfo").append(carLi); 
 				}
 			}
 		});

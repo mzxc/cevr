@@ -3,6 +3,7 @@ package com.cevr.component.core.dao;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,14 @@ public class BaseDao
     @Autowired
     @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
+    
+    public static final String SYMBOL = "symbol";
+
+    public static final String VALUE = "value";
+    
+    public static final String BEFORE_VALUE = "beforeValue";
+    
+    public static final String AFTER_VALUE = "aftervalue";
     
     private SessionFactory getSessionFactory()
     {
@@ -373,7 +382,26 @@ public class BaseDao
         final Criteria criteria = getSession().createCriteria(clazz);
         for (final String propName : properties.keySet())
         {
-            criteria.add(Restrictions.eq(propName, properties.get(propName)));
+        	if(properties.get(propName) instanceof Map){
+        		Map<String, Object> param = (Map<String, Object>)properties.get(propName);
+        		String symbol = (String)param.get(SYMBOL);
+        		Object value = param.get(VALUE);
+        		if(symbol.equals("<")){
+        			criteria.add(Restrictions.lt(propName, value));
+        		}else if(symbol.equals("<=")){
+        			criteria.add(Restrictions.le(propName, value));
+        		}else if(symbol.equals(">")){
+        			criteria.add(Restrictions.gt(propName, value));
+        		}else if(symbol.equals(">=")){
+        			criteria.add(Restrictions.ge(propName, value));
+        		}else if(symbol.equals("<>")){
+        			criteria.add(Restrictions.ne(propName, value));
+        		}else {
+        			criteria.add(Restrictions.eq(propName, value));
+        		}
+        	}else{
+        		criteria.add(Restrictions.eq(propName, properties.get(propName)));
+        	}
         }
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
         if (cache != null)
@@ -851,5 +879,19 @@ public class BaseDao
     public org.hibernate.Cache getCache()
     {
         return getSessionFactory().getCache();
+    }
+    
+    public void addAwaysParam(Map<String, Object> param){
+    	param.put("deleteflag", "0");
+		param.put("cancleflag", "0");
+		param.put("holdflag", "0");
+    }
+    
+    public Map<String, Object> initParams(){
+    	Map<String, Object> param = new HashMap<String, Object>();
+    	param.put("deleteflag", "0");
+		param.put("cancleflag", "0");
+		param.put("holdflag", "0");
+		return param;
     }
 }
