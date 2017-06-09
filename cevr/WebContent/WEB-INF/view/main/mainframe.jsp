@@ -46,9 +46,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var carLi = '<li class="col-xs-4">'
 									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
 									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
+<<<<<<< HEAD
 									 +     '<span class="col-xs-5 text-right paddingTBLR5_3" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
 									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
 									 + 	   '<div class="col-xs-2 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3 mybtn" type="button" value="投票"/></div>'
+=======
+									 +     '<span class="col-xs-5 text-right " style="font-size: 20px;">' + carInfo[index].carName + '</span>'
+									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
+									 + 	   '<div class="col-xs-2 text-left"><input onclick="clickTicket()" class="btn-green paddingTBLR5_3" type="button" value="投票"/></div>'
+>>>>>>> branch 'master' of https://github.com/mzxc/mzxc.git
 									 + '</div>'
 								+ '</li>';
 					$("#carInfo").append(carLi);
@@ -74,6 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="ticketUserInfo" style="display: none;">
+<<<<<<< HEAD
 		<ul class="col-xs-12">
 			<div class="col-xs-12 text-center paddingTBLR5_3 ">
 				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;</li>
@@ -93,6 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-xs-3"></div>
 			</div>
 		</ul>
+=======
+		啊啊啊啊啊 啊啊
+>>>>>>> branch 'master' of https://github.com/mzxc/mzxc.git
 	</div>
 </body>
 </html>
