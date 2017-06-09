@@ -58,12 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			_input.val("取消投票");
 			_input.attr("mes", "1");
 			var group = _input.attr("group");
-			$("input[group='" + group + "']").not(_input).attr("disabled", "disabled");
+			$("input[group='" + group + "']").not(_input).attr("mes", "0");
+			$("input[group='" + group + "']").not(_input).attr("value", "投票");
 		}else{
 			_input.val("投票");
 			_input.attr("mes", "0");
-			var group = _input.attr("group");
-			$("input[group='" + group + "']").removeAttr("disabled");
 		}
 	}
 	
