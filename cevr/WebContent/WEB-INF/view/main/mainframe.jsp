@@ -224,7 +224,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#carInfo").append(carLi); 
 				}
 				var mySwiper = new Swiper('.swiper-container', {
-					autoplay: 3000,
+					centeredSlides: true,
+			        autoplay: 4500,
+			        loop:true,
+			        autoplayDisableOnInteraction: false
 				})
 			}
 		});
