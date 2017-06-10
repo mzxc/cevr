@@ -90,6 +90,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var _input = $("#clickInput_" + carId);
 					_input.val("取消投票");
 					_input.attr("mes", "1");
+					var _span = $("#clickSpan_" + carId);
+					_span.text($.ckAdd(_span.text(), 1));
 					var group = _input.attr("group");
 					$("input[group='" + group + "']").not(_input).attr("disabled", "disabled");
 					$("input[group='" + group + "']").not(_input).attr("value", "投票");
@@ -116,6 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(result.result){
 					_input.val("投票");
 					_input.attr("mes", "0");
+					var _span = $("#clickSpan_" + carId);
+					_span.text($.ckSub(_span.text(), 1));
 					var group = _input.attr("group");
 					$("input[group='" + group + "']").removeAttr("disabled");
 				}else{
@@ -181,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
 									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
 									 +     '<span class="col-xs-5 text-right paddingTBLR5_3 textover" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
-									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: ' + carInfo[index].ticketNum + ' 票</div>'
+									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: <span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span> 票</div>'
 									 + 	   '<div class="col-xs-2 text-left"><input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/></div>'
 									 + '</div>'
 								+ '</li>';
