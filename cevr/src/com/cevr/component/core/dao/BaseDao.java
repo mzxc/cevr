@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -865,7 +865,7 @@ public class BaseDao
     @SuppressWarnings("unchecked")
     public String getTableName(final Class clazz)
     {
-        final Entity entity = (Entity)clazz.getAnnotation(Entity.class);
+        final Table entity = (Table)clazz.getAnnotation(Table.class);
         return " " + entity.name() + " ";
     }
     
