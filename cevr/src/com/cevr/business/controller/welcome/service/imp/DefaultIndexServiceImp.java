@@ -27,6 +27,7 @@ import com.cevr.business.model.entity.BizTicketPeople2002;
 import com.cevr.business.model.to.TicketInfo;
 import com.cevr.component.core.dao.BaseDao;
 import com.cevr.component.core.xml.context.CkXmlGetter;
+import com.cevr.component.core.xml.invoke.CkSQLBuilder;
 import com.cevr.component.logger.NestLogger;
 import com.cevr.component.util.DateUtil;
 import com.cevr.component.util.IdUtil;
@@ -47,8 +48,8 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 	@Override
 	public List<Map<String, Object>> searchCarInfo(TicketInfo ti) {
 		// TODO 查询车辆信息
-		String sql = CkXmlGetter.getXmlNodes("sql", "serachAll_car");
-		return this.createSqlQuery(sql, ti.getImgType(), ti.getTicketTypeId()).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
+		String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "serachAll_car"), ti);
+		return this.createSqlQuery(sql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
 		//return this.findAll(BizCar.class);
 	}
 	
@@ -58,8 +59,9 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		// TODO 新增投票信息,先判断是否投过
 		try{
 			BizCar1001 bc = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
-			String sql = CkXmlGetter.getXmlNodes("sql", "findTicketInfo");
-			BigInteger num = (BigInteger)this.createSqlQuery(sql, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"), ti.getFromIp(), ti.getTicketTypeId(), bc.getGroupId()).uniqueResult();
+			ti.setGroupId(bc.getGroupId());
+			String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "findTicketInfo"), ti);
+			BigInteger num = (BigInteger)this.createSqlQuery(sql).uniqueResult();
 			if(num != null && num.intValue() > 0){
 				return ResultMessage.initMsg(false, "3000", "您今日已为该组投票，请明天再来吧");
 			}

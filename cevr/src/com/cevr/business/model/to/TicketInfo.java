@@ -2,6 +2,8 @@ package com.cevr.business.model.to;
 
 import java.util.Date;
 
+import com.cevr.component.util.DateUtil;
+
 public class TicketInfo {
 	
 	private String userName;
@@ -13,6 +15,8 @@ public class TicketInfo {
 	private Date ticketTime;
 	private String ticketTypeId;
 	private String imgType;
+	private String todayTime;
+	private String groupId;
 	
 	public String getUserName() {
 		return userName;
@@ -66,10 +70,20 @@ public class TicketInfo {
 	public void setImgType(String imgType) {
 		this.imgType = imgType;
 	}
+	public String getTodayTime() {
+		return DateUtil.nowStr("yyyy-MM-dd");
+	}
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
 	@Override
 	public String toString() {
 		return "TicketInfo [userName=" + userName + ", userTel=" + userTel + ", userEmail=" + userEmail + ", carId="
 				+ carId + ", fromIp=" + fromIp + ", ticketNum=" + ticketNum + ", ticketTime=" + ticketTime
-				+ ", ticketTypeId=" + ticketTypeId + ", imgType=" + imgType + "]";
+				+ ", ticketTypeId=" + ticketTypeId + ", imgType=" + imgType + ", todayTime=" + todayTime + ", groupId="
+				+ groupId + "]";
 	}
 }
