@@ -63,13 +63,15 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 	   		<bean class="com.cevr.business.interceptor.CkInterceptor">
+	   			<property name="loginFlag">  
+		            <value>userInfo</value>
+	         	</property>
+	         	<property name="ifNeedLogin">  
+		            <value>false</value>
+	         	</property>
 	   			<property name="allowUrls">  
 		            <list>
-		            	<!-- 资源文件放行 -->
-		            	<value>/source/</value>
-		            	<!-- 首页 -->
-		            	<value>/</value>
-		            	
+		            
 		            </list>
 	         	</property>
 	   		</bean>

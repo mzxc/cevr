@@ -26,9 +26,21 @@ public class CkInterceptor implements HandlerInterceptor
      */
     private static final Logger logger = Logger.getLogger(CkInterceptor.class);
     
+    public String loginFlag;
+    
     public String[] allowUrls;
     
-    public void setAllowUrls(final String[] allowUrls)
+    public boolean ifNeedLogin;
+    
+    public void setIfNeedLogin(boolean ifNeedLogin) {
+		this.ifNeedLogin = ifNeedLogin;
+	}
+
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
+	}
+
+	public void setAllowUrls(final String[] allowUrls)
     {
         this.allowUrls = allowUrls;
     }
@@ -106,10 +118,15 @@ public class CkInterceptor implements HandlerInterceptor
                 }
             }
         }
-        final Object obj = request.getSession().getAttribute("userInfo");
+        final Object obj = request.getSession().getAttribute(loginFlag);
         if (obj != null)
         {
             return true;
+        }
+        if(!ifNeedLogin){
+        	request.getSession().setAttribute(loginFlag, "login");
+        	response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
+        	return false;
         }
         final String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
         if (null != this.allowUrls && this.allowUrls.length >= 1)
