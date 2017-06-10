@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<input id="ticketType" type="hidden" value="1" />
 	<div class="col-xs-12">
 		<ul id="carInfo" class="col-xs-12">
-
+			
 		</ul>
 	</div>
 	
@@ -181,16 +181,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#carInfo").append(breakUp).append(groupLi);
 						groupId = carInfo[index].carGroupId;
 					}
-					var carLi = '<li class="col-xs-4">'
-									 + '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">'
-									 + '<div class="col-xs-12 text-center paddingTBLR15_3">'
+					
+					var carLi = '<li class="col-xs-4">';
+					var imgHtml = "";
+					if($.ckIsEmpty(carInfo[index].carImgs)){
+						imgHtml = '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
+					}else{
+						var carImgs = carInfo[index].carImgs.split("|");
+						var swiperHtmlHead = '<div class="col-xs-12 swiper-container"><div class="swiper-wrapper col-xs-12">'
+						var swiperHtmlEnd = '</div></div>';
+						imgHtml = imgHtml + swiperHtmlHead;
+						for(var i = 0; i < carImgs.length;i = i + 1){
+							var img = '<div class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
+							imgHtml = imgHtml + img;
+						}
+						imgHtml = imgHtml + swiperHtmlEnd;
+					}
+					carLi = carLi + imgHtml;
+					carLi = carLi + '<div class="col-xs-12 text-center paddingTBLR15_3">'
 									 +     '<span class="col-xs-5 text-right paddingTBLR5_3 textover" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
 									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: <span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span> 票</div>'
-									 + 	   '<div class="col-xs-2 text-left"><input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/></div>'
+									 + 	   '<div class="col-xs-2 text-left">'
+									 +         '<input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/>'
+									 +     '</div>'
 									 + '</div>'
 								+ '</li>';
 					$("#carInfo").append(carLi); 
 				}
+				var mySwiper = new Swiper('.swiper-container', {
+					autoplay: 3000,
+				})
 			}
 		});
 	}
