@@ -12,16 +12,16 @@
 			bcg.id AS carGroupId ,
 			IFNULL(sum(bt.ticket_num) , 0) AS ticketNum
 		FROM
-			biz_car bc
-		INNER JOIN biz_car_group bcg ON bc.group_id = bcg.id
+			biz_car_1001 bc
+		INNER JOIN biz_car_group_1002 bcg ON bc.group_id = bcg.id
 		AND bcg.deleteflag = 0
 		AND bcg.cancleflag = 0
 		AND bcg.holdflag = 0
-		LEFT JOIN biz_car_imgs bci ON bc.id = bci.car_id
+		LEFT JOIN biz_car_imgs_1003 bci ON bc.id = bci.car_id and bci.img_type_id = ?
 		AND bci.deleteflag = 0
 		AND bci.cancleflag = 0
 		AND bci.holdflag = 0
-		LEFT JOIN biz_ticket bt ON bc.id = bt.click_car_id AND bt.ticket_type_id = ?
+		LEFT JOIN biz_ticket_2001 bt ON bc.id = bt.click_car_id AND bt.ticket_type_id = ?
 		AND bt.deleteflag = 0
 		AND bt.cancleflag = 0
 		AND bt.holdflag = 0
@@ -39,12 +39,12 @@
 		SELECT
 			count(1)
 		FROM
-			biz_car bc
-		INNER JOIN biz_ticket bt ON bt.click_car_id = bc.id and bt.click_time > ? AND bt.from_ip = ? AND bt.ticket_type_id = ?
+			biz_car_1001 bc
+		INNER JOIN biz_ticket_2001 bt ON bt.click_car_id = bc.id and bt.click_time > ? AND bt.from_ip = ? AND bt.ticket_type_id = ?
 		AND bt.deleteflag = 0
 		AND bt.cancleflag = 0
 		AND bt.holdflag = 0
-		INNER JOIN biz_car_group bcg ON bc.group_id = bcg.id AND bcg.id = ?
+		INNER JOIN biz_car_group_1002 bcg ON bc.group_id = bcg.id AND bcg.id = ?
 		AND bcg.deleteflag = 0
 		AND bcg.cancleflag = 0
 		AND bcg.holdflag = 0

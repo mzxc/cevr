@@ -12,6 +12,7 @@ public class TicketInfo {
 	private int ticketNum;
 	private Date ticketTime;
 	private String ticketTypeId;
+	private String imgType;
 	
 	public String getUserName() {
 		return userName;
@@ -59,11 +60,16 @@ public class TicketInfo {
 	public void setTicketTypeId(String ticketTypeId) {
 		this.ticketTypeId = ticketTypeId;
 	}
+	public String getImgType() {
+		return imgType;
+	}
+	public void setImgType(String imgType) {
+		this.imgType = imgType;
+	}
 	@Override
 	public String toString() {
-		return "TicketInfo [userName=" + userName + ", userTel=" + userTel
-				+ ", userEmail=" + userEmail + ", carId=" + carId + ", fromIp="
-				+ fromIp + ", ticketNum=" + ticketNum + ", ticketTime="
-				+ ticketTime + ", ticketTypeId=" + ticketTypeId + "]";
+		return "TicketInfo [userName=" + userName + ", userTel=" + userTel + ", userEmail=" + userEmail + ", carId="
+				+ carId + ", fromIp=" + fromIp + ", ticketNum=" + ticketNum + ", ticketTime=" + ticketTime
+				+ ", ticketTypeId=" + ticketTypeId + ", imgType=" + imgType + "]";
 	}
 }

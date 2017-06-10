@@ -21,9 +21,9 @@ import org.springframework.stereotype.Service;
 
 import com.cevr.business.controller.common.message.ResultMessage;
 import com.cevr.business.controller.welcome.service.IIndexService;
-import com.cevr.business.model.entity.BizCar;
-import com.cevr.business.model.entity.BizTicket;
-import com.cevr.business.model.entity.BizTicketPeople;
+import com.cevr.business.model.entity.BizCar1001;
+import com.cevr.business.model.entity.BizTicket2001;
+import com.cevr.business.model.entity.BizTicketPeople2002;
 import com.cevr.business.model.to.TicketInfo;
 import com.cevr.component.core.dao.BaseDao;
 import com.cevr.component.core.xml.context.CkXmlGetter;
@@ -48,7 +48,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 	public List<Map<String, Object>> searchCarInfo(TicketInfo ti) {
 		// TODO 查询车辆信息
 		String sql = CkXmlGetter.getXmlNodes("sql", "serachAll_car");
-		return this.createSqlQuery(sql, ti.getTicketTypeId()).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
+		return this.createSqlQuery(sql, ti.getImgType(), ti.getTicketTypeId()).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
 		//return this.findAll(BizCar.class);
 	}
 	
@@ -57,7 +57,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 	public ResultMessage addTicketInfo(TicketInfo ti) {
 		// TODO 新增投票信息,先判断是否投过
 		try{
-			BizCar bc = (BizCar)this.findByPrimaryKey(BizCar.class, ti.getCarId());
+			BizCar1001 bc = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
 			String sql = CkXmlGetter.getXmlNodes("sql", "findTicketInfo");
 			BigInteger num = (BigInteger)this.createSqlQuery(sql, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"), ti.getFromIp(), ti.getTicketTypeId(), bc.getGroupId()).uniqueResult();
 			if(num != null && num.intValue() > 0){
@@ -70,10 +70,10 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		Map<String, Object> param = this.initParams();
 		param.put("userName", ti.getUserName());
 		param.put("userTel", ti.getUserTel());
-		List<BizTicketPeople> btps = (List<BizTicketPeople>)this.findByProperties(BizTicketPeople.class, param);
-		BizTicketPeople btp = null;
+		List<BizTicketPeople2002> btps = (List<BizTicketPeople2002>)this.findByProperties(BizTicketPeople2002.class, param);
+		BizTicketPeople2002 btp = null;
 		if(btps == null || btps.size() < 1){
-			btp = new BizTicketPeople(IdUtil.getUUID(), ti.getUserName(), ti.getUserTel(), "0", ti.getUserEmail(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
+			btp = new BizTicketPeople2002(IdUtil.getUUID(), ti.getUserName(), ti.getUserTel(), "0", ti.getUserEmail(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
 			try{
 				this.save(btp);
 			}catch(Exception e){
@@ -83,7 +83,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		}else{
 			btp = btps.get(0);
 		}
-		BizTicket bt = new BizTicket(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
+		BizTicket2001 bt = new BizTicket2001(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
 		try{
 			this.save(bt);
 		}catch(Exception e){
@@ -106,7 +106,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 			param.put("cancleflag", "0");
 			param.put("clickCarId", ti.getCarId());
 			param.put("ticketTypeId", ti.getTicketTypeId());
-			BizTicket bt = (BizTicket)this.findByProperties(BizTicket.class, param).get(0);
+			BizTicket2001 bt = (BizTicket2001)this.findByProperties(BizTicket2001.class, param).get(0);
 			bt.setCancleflag("1");
 			bt.setUpdatetime(new Date());
 			bt.setOperatorId("0000");
