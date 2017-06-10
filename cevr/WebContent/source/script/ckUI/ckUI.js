@@ -179,7 +179,7 @@ $.fn.extend({
 			onSelect : function(obj) {
 				// do somthing
 			}
-		}
+		};
 		var ckOption = $.extend(true, {}, tempOption, option);
 		var root     = ckOption.formatter.root;
 		var ckId     = ckOption.formatter.id;
@@ -283,9 +283,9 @@ $.fn.extend({
 			$(this).val($(this).val().replace(/\D/g,''));
         });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
@@ -300,9 +300,9 @@ $.fn.extend({
 			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
         });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,''));
@@ -317,9 +317,9 @@ $.fn.extend({
 			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
         });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[^\w\.\/\-]/ig,''));
@@ -334,9 +334,9 @@ $.fn.extend({
 			$(this).val($(this).val().replace(/[\d]/g,''));
         });
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/[\d]/g,''));
@@ -363,9 +363,9 @@ $.fn.extend({
 			$(this).val(str.replace(/[^\-?\d.]/g,''));
 		});
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function(e) {
 			var str = $(this).val();
@@ -403,9 +403,9 @@ $.fn.extend({
 			}
 		});
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(/\D/g,''));
@@ -432,9 +432,9 @@ $.fn.extend({
 			}
 		});
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			if($(this).val().length > _length){
@@ -452,9 +452,9 @@ $.fn.extend({
 			$(this).val($(this).val().replace(expression,''));
 		});
 		if($.ckWhatFrameWork() == 0 || $.ckWhatFrameWork() == 2){
-			_press = "input"
+			_press = "input";
 		}else{
-			_press = "keyup"
+			_press = "keyup";
 		}
 		$(this).on(_press, function() {
 			$(this).val($(this).val().replace(expression,''));
@@ -475,7 +475,7 @@ $.extend({
 			onReady: function(){
 				//console.log("JS [" + option.url + "] LOAD OK");
 			}
-		}
+		};
 		var ckOption = $.extend(true, {}, tempOption, option);
 		var lastTime = $.ckGetCookie("timeout_ckLoadJS");
 		var date = new Date();
@@ -623,7 +623,7 @@ $.extend({
 	 * @param name cookieName
 	 * @returns 是电话号则返回true,否则为false
 	 */
-	ckIsMobile :　function(telObj, ifAlert){
+	ckIsMobile : function(telObj, ifAlert){
 		var jqObj  = $.ckGetSomeThing(telObj)[0];
 		var tel    = $.ckGetSomeThing(telObj)[1];
 		var ifCanFocus = $.ckGetSomeThing(telObj)[2];
@@ -689,7 +689,7 @@ $.extend({
 	 * @returns 转换失败返回null,否则返回json字符串
 	 */
 	ckObjToJsonStr : function(obj){
-		try{return JSON.stringify(obj);}catch(e){return ""}
+		try{return JSON.stringify(obj);}catch(e){return "";};
 	},
 	/**
 	 * 对象转Json对象
@@ -726,9 +726,9 @@ $.extend({
 	ckMul : function(arg1, arg2) 
 	{ 
 	    var m = 0,s1 = arg1.toString(),s2 = arg2.toString(); 
-	    try{m+=s1.split(".")[1].length}catch(e){} 
-	    try{m+=s2.split(".")[1].length}catch(e){} 
-	    return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
+	    try{m+=s1.split(".")[1].length;}catch(e){} 
+	    try{m+=s2.split(".")[1].length;}catch(e){} 
+	    return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m);
 	},
 	/**
 	 * 加法
@@ -739,9 +739,9 @@ $.extend({
 	 */
 	ckAdd : function(arg1, arg2){ 
 	    var r1,r2,m; 
-	    try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
-	    try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
-	    m=Math.pow(10,Math.max(r1,r2)) 
+	    try{r1=arg1.toString().split(".")[1].length;}catch(e){r1=0;} 
+	    try{r2=arg2.toString().split(".")[1].length;}catch(e){r2=0;} 
+	    m=Math.pow(10,Math.max(r1,r2));
 	    var result = (arg1 * m + arg2 * m) / m;
 	    return result;
 	},
@@ -769,11 +769,11 @@ $.extend({
 			return;
 		}
 	    var t1 = 0,t2 = 0,r1,r2; 
-	    try{t1=arg1.toString().split(".")[1].length}catch(e){} 
-	    try{t2=arg2.toString().split(".")[1].length}catch(e){} 
+	    try{t1=arg1.toString().split(".")[1].length;}catch(e){} 
+	    try{t2=arg2.toString().split(".")[1].length;}catch(e){} 
 	    with(Math){ 
-	        r1=Number(arg1.toString().replace(".","")) 
-	        r2=Number(arg2.toString().replace(".","")) 
+	        r1=Number(arg1.toString().replace(".","")); 
+	        r2=Number(arg2.toString().replace(".","")); 
 	        return (r1 / r2) * pow(10, t2 - t1); 
 	    } 
 	},
@@ -816,7 +816,7 @@ $.extend({
 		s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
 		var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
 		t = "";
-		var thisLength = l.length
+		var thisLength = l.length;
 		for (i = 0; i < thisLength; i++) {
 			t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
 		}
@@ -1147,7 +1147,7 @@ $.extend({
 			onFail : function(msg){//校验失败回调函数
 				layer.tips(msg, _this, {tips : 1});
 			}
-		}
+		};
 		var ckOption = $.extend(true, {}, tempOption, option);
 		if(ckOption.notBeNull.flag){
 			if(ckOption.notBeNull.checkEmpty() == false){
@@ -1157,7 +1157,7 @@ $.extend({
 		if(_this[ckOption.operatorFlag] == _this.value && ckOption.sameValidate == false){
 			return false;
 		}else{
-			_this[ckOption.operatorFlag] = _this.value
+			_this[ckOption.operatorFlag] = _this.value;
 		}
 		var validateResult = true;
 		$.ajax({

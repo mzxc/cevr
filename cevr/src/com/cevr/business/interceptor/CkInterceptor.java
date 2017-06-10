@@ -119,7 +119,7 @@ public class CkInterceptor implements HandlerInterceptor
             }
         }
         final Object obj = request.getSession().getAttribute(loginFlag);
-        if (obj != null)
+        if (obj != null && ifNeedLogin)
         {
             return true;
         }
