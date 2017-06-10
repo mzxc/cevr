@@ -1,5 +1,5 @@
 package com.cevr.business.model.entity;
-// Generated 2017-6-10 11:12:21 by Hibernate Tools 3.4.0.CR1
+// Generated 2017-6-10 13:36:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
