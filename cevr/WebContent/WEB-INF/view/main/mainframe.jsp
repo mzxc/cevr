@@ -164,8 +164,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</ul>
 	</div>
+	
+	<iframe id="hideCarMovie" height=498 width=510 style="display: none;" src='http://player.youku.com/embed/XMjc5NTA0NDkyNA==' frameborder=0 'allowfullscreen'></iframe>
+	
 </body>
 <script type="text/javascript">
+	function showMovie(){
+		layer.open({
+			type: 1,
+			closeBtn: false,
+			title: false,
+			shadeClose: true,
+			area: ['510px', '510px'], //宽高
+			content: $("#hideCarMovie")
+		});
+	}
+
 	function initCarInfo(){
 		$.ajax({
 			url: "asyn/index/getCarInfo",
@@ -186,14 +200,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var carLi = '<li class="col-xs-4">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
-						imgHtml = '<img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
+						imgHtml = '<img onclick="showMovie()" class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
 					}else{
 						var carImgs = carInfo[index].carImgs.split("|");
 						var swiperHtmlHead = '<div class="col-xs-12 swiper-container"><div class="swiper-wrapper col-xs-12">'
 						var swiperHtmlEnd = '</div></div>';
 						imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
-							var img = '<div class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div onclick="showMovie()" class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
 						}
 						imgHtml = imgHtml + swiperHtmlEnd;
