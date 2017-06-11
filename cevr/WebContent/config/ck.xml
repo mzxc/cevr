@@ -2,7 +2,7 @@
 <prop>
 	<sql id="serachAll_car">
 		SELECT
-			car.*, sum(bt.ticket_num) AS ticketNum
+			car.*, IFNULL(sum(bt.ticket_num), 0) AS ticketNum
 		FROM
 			(
 				SELECT
