@@ -6,6 +6,7 @@ import com.cevr.component.util.DateUtil;
 
 public class TicketInfo {
 	
+	private String tab;
 	private String userName;
 	private String userTel;
 	private String userEmail;
@@ -78,6 +79,13 @@ public class TicketInfo {
 	}
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+	
+	public String getTab() {
+		return tab;
+	}
+	public void setTab(String tab) {
+		this.tab = tab;
 	}
 	@Override
 	public String toString() {
