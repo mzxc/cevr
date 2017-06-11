@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cevr.business.controller.common.message.ResultMessage;
+import com.cevr.business.model.entity.BizCarVideo1004;
 import com.cevr.business.model.to.TicketInfo;
 
 /**
@@ -32,6 +33,8 @@ public interface IIndexService
 	 * @return
 	 */
 	List<Map<String, Object>> searchCarInfo(TicketInfo ti);
+	
+	BizCarVideo1004 findVideoByCarId(TicketInfo ti);
 	
 	/**
 	 * 新增投票

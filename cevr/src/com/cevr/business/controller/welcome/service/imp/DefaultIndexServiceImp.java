@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.cevr.business.controller.common.message.ResultMessage;
 import com.cevr.business.controller.welcome.service.IIndexService;
 import com.cevr.business.model.entity.BizCar1001;
+import com.cevr.business.model.entity.BizCarVideo1004;
 import com.cevr.business.model.entity.BizTicket2001;
 import com.cevr.business.model.entity.BizTicketPeople2002;
 import com.cevr.business.model.to.TicketInfo;
@@ -117,5 +118,15 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 		}catch(Exception e){
 			return ResultMessage.initMsg(false, "5000", "不可取消");
 		}
+	}
+
+	@Override
+	public BizCarVideo1004 findVideoByCarId(TicketInfo ti) {
+		// TODO 查询车辆信息
+		Map<String, Object> param = this.initParams();
+		param.put("carId", ti.getCarId());
+		BizCarVideo1004 bt = (BizCarVideo1004)this.findByProperties(BizCarVideo1004.class, param).get(0);
+
+		return bt;
 	}
 }

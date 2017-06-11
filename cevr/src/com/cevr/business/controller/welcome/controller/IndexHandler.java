@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cevr.business.controller.common.message.ResultMessage;
 import com.cevr.business.controller.welcome.service.IIndexService;
 import com.cevr.business.interceptor.LogInfo;
+import com.cevr.business.model.entity.BizCarVideo1004;
 import com.cevr.business.model.to.TicketInfo;
 import com.cevr.component.util.IpUtil;
 import com.cevr.component.util.ResultBuild;
@@ -86,7 +87,10 @@ public class IndexHandler {
     @RequestMapping(value = "player/{id}", method = RequestMethod.GET)
     public String gotoPlayer(HttpServletRequest request, HttpServletResponse response,@PathVariable final String id)
     {
-		request.setAttribute("src", "http://data.cnlive.com/export/CNLivePlayer.swf?hasBorder=false&amp;uuid=58b6bbf6ddd3426abbeb42c631ac43fe");
+    	TicketInfo ti = new TicketInfo();
+    	ti.setCarId(id);
+    	BizCarVideo1004 bcv = iis.findVideoByCarId(ti);
+		request.setAttribute("src", bcv.getSrc());
         return "main/playerJsp";
     }
     

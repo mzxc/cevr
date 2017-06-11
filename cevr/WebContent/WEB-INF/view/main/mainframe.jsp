@@ -81,6 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 <script type="text/javascript">
 	function showMovie(id){
+		$("#hideCarMovie").attr('src',"asyn/index/player/"+id); 
 		layer.open({
 			type: 1,
 			closeBtn: false,
