@@ -12,6 +12,7 @@
 					GROUP_CONCAT(
 						DISTINCT bci.img_uri SEPARATOR '|'
 					) AS carImgs,
+					bcv.src,
 					bcg.group_name AS carGroup,
 					bcg.id AS carGroupId
 				FROM
@@ -25,6 +26,10 @@
 				AND bci.deleteflag = 0
 				AND bci.cancleflag = 0
 				AND bci.holdflag = 0
+				LEFT JOIN biz_car_video_1004 bcv on bc.id = bcv.car_id
+				and bcv.deleteflag = 0
+				and bcv.cancleflag = 0
+				and bcv.holdflag = 0
 				WHERE
 					bc.deleteflag = 0
 				AND bc.cancleflag = 0
