@@ -10,15 +10,20 @@
  */
 package com.gomyck.business.controller.common.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.interceptor.LogInfo;
-import com.gomyck.component.core.xml.context.CkXmlGetter;
+import com.gomyck.business.model.to.TicketInfo;
 
 /**
  * 通用转发器
@@ -33,18 +38,11 @@ import com.gomyck.component.core.xml.context.CkXmlGetter;
 @RequestMapping(value = "common")
 public class CommonDispatcher
 {
-	
-    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "欢迎页通用跳转")
-    @RequestMapping(value = "forward/welcome/{page}", method = RequestMethod.GET)
-    public String gotoLogin(@PathVariable final String page)
+    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "页面通用跳转")
+    @RequestMapping(value = "forward/{view}/{page}", method = RequestMethod.GET)
+    public String gotoMain(@PathVariable final String view, @PathVariable final String page)
     {
-        return "welcome/" + page;
+        return view + "/" + page;
     }
-    
-    @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "主界面通用跳转")
-    @RequestMapping(value = "forward/main/{page}", method = RequestMethod.GET)
-    public String gotoMain(@PathVariable final String page)
-    {
-        return "main/" + page;
-    }
+
 }

@@ -28,8 +28,7 @@ import com.gomyck.component.util.StringUtil;
 /**
  * 默认xml加载器
  * 
- * XmlNodes cxn = (XmlNodes)CkXmlReader.getCurrentContext().getAttribute(CkXmlReader.XML_TAG);
- * System.out.println(cxn.getElementValue("sql", "serachAll"));
+ * CkXmlGetter.getXmlNodes("sql", "serachAll")
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]
@@ -46,7 +45,7 @@ public class CkDefaultXmlReader extends CkXmlReader
     
     public static final String DEFAULT_XML_PATH = "src/ck.xml";
     
-    public static final String DEFAULT_XML_ENTITY = "src/ck.xml";
+    public static final String DEFAULT_XML_ENTITY = "defaultCkXmlEntity";
     
     public static final String DEFAULT_XML_TAG = "defaultXmlTags";
     

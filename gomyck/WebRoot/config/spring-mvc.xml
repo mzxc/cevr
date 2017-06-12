@@ -48,7 +48,7 @@
 		配置/WEB-INF/views/目录里面的jsp文件不被DispatcherServlet处理,可以直接通过浏览器访问。
 		view-name  /WEB-INF/view/里面的jsp文件名(不许后缀即可) path 访问地址
 	-->
-	<mvc:view-controller path="/" view-name="${main.view}" />
+	<mvc:view-controller path="/" view-name="main/mainframe" />
 
 	<!--JSP页面解析器,当Controller返回XXX字符串时,先通过拦截器,然后该类就会在/WEB-INF/view/目录下,查找XXX.jsp文件-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -63,24 +63,15 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 	   		<bean class="com.gomyck.business.interceptor.CkInterceptor">
+	   			<property name="loginFlag">  
+		            <value>userInfo</value>
+	         	</property>
+	         	<property name="ifNeedLogin">  
+		            <value>false</value>
+	         	</property>
 	   			<property name="allowUrls">  
 		            <list>
-		            	<!-- 资源文件放行 -->
-		            	<value>/source/</value>
-		            	<!-- 登陆 -->
-		            	<value>/common/forward/welcome/login</value>
-		            	<!-- 注册 -->
-		            	<value>/common/forward/welcome/createuser</value>
-		            	<!-- 忘记密码 -->
-		            	<value>/common/forward/welcome/forgotpwd</value>
-		            	<!-- 反馈 -->
-		            	<value>/common/forward/welcome/sendfeedback</value>
-		            	<!-- 注册请求 -->
-		            	<value>/asyn/reg/createUser</value>
-		            	<!-- 重置密码请求 -->
-		            	<value>/asyn/pwd/getPwdByEmail</value>
-		            	<!-- 表单校验 -->
-		            	<value>/asyn/reg/validataParam</value>
+		            
 		            </list>
 	         	</property>
 	   		</bean>
