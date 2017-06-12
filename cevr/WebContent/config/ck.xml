@@ -42,9 +42,9 @@
 					bc.car_no
 			) car
 		LEFT JOIN biz_ticket_2001 bt ON car.carId = bt.click_car_id AND bt.ticket_type_id = #ticketTypeId# 
-		AND bt.deleteflag = 0
-		AND bt.cancleflag = 0
-		AND bt.holdflag = 0
+		and bt.deleteflag = 0
+		and bt.cancleflag = 0
+		and bt.holdflag = 0
 		GROUP BY
 			car.carId	
 	</sql>
