@@ -25,14 +25,14 @@ String tab = (String)request.getAttribute("tab");
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <style type="text/css">
 	html{text-align:center;}
-	body{width:70%;margin:0 auto;text-align:left;}
+	body{width:70%;margin:0 auto;text-align:center;}
 </style>
 <script>
 	$(function(){
 		initCarInfo();
-		if(${tab}=='1'){
+		if('${tab}'=='1'){
 			$("#tab_title").text("赛车车型外观设计投票");
-		}else if(${tab}=='2'){
+		}else if('${tab}'=='2'){
 			$("#tab_title").text("赛车车型空间设计投票");
 		}else{
 			$("#tab_title").text("赛车车型内饰设计投票");
@@ -85,6 +85,7 @@ String tab = (String)request.getAttribute("tab");
 	}
 	
 	function sureTicket(carId){
+		$.ckShade(true);
 		var userName = $("#userName").val();
 		var userTel = $("#userTel").val();
 		var userEmail = $("#userEmail").val();
@@ -95,6 +96,7 @@ String tab = (String)request.getAttribute("tab");
 			type: "post",
 			dataType: "json",
 			success: function(result){
+				$.ckShade(false);
 				if(result.result){
 					var _input = $("#clickInput_" + carId);
 					_input.val("取消投票");
@@ -110,12 +112,14 @@ String tab = (String)request.getAttribute("tab");
 				}
 			},
 			error: function(){
+				$.ckShade(false);
 				layer.msg("服务器开小差，请稍后再试!");
 			}
 		});
 	}
 	
 	function unSureTicket(carId){
+		$.ckShade(true);
 		var _input = $("#clickInput_" + carId);
 		var ticketType = $("#ticketType").val();
 		$.ajax({
@@ -124,6 +128,7 @@ String tab = (String)request.getAttribute("tab");
 			type: "post",
 			dataType: "json",
 			success: function(result){
+				$.ckShade(false);
 				if(result.result){
 					_input.val("投票");
 					_input.attr("mes", "0");
@@ -136,6 +141,7 @@ String tab = (String)request.getAttribute("tab");
 				}
 			},
 			error: function(){
+				$.ckShade(false);
 				layer.msg("服务器开小差，请稍后再试!");
 			}
 		});
