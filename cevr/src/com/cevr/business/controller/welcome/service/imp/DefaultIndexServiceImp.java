@@ -22,9 +22,11 @@ import org.springframework.stereotype.Service;
 import com.cevr.business.controller.common.message.ResultMessage;
 import com.cevr.business.controller.welcome.service.IIndexService;
 import com.cevr.business.model.entity.BizCar1001;
+import com.cevr.business.model.entity.BizCarGroup1002;
 import com.cevr.business.model.entity.BizCarVideo1004;
 import com.cevr.business.model.entity.BizTicket2001;
 import com.cevr.business.model.entity.BizTicketPeople2002;
+import com.cevr.business.model.entity.BizTicketType2003;
 import com.cevr.business.model.to.TicketInfo;
 import com.cevr.component.core.dao.BaseDao;
 import com.cevr.component.core.xml.context.CkXmlGetter;
@@ -68,7 +70,7 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 			}
 		}catch(Exception e){
 			NestLogger.showException(e);
-			return ResultMessage.initMsg(false, "3000", "您已经投过改组了，请明天再来吧");
+			return ResultMessage.initMsg(false, "3000", "您今日已为该组投票，请明天再来吧");
 		}
 		Map<String, Object> param = this.initParams();
 		param.put("userName", ti.getUserName());
@@ -85,6 +87,14 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 			}
 		}else{
 			btp = btps.get(0);
+		}
+		BizCar1001 bz = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
+		if(bz == null){
+			return ResultMessage.initMsg(false, "4001", "违法的车辆id");
+		}
+		BizTicketType2003 btt = (BizTicketType2003)this.findByPrimaryKey(BizTicketType2003.class, ti.getTicketTypeId());
+		if(btt == null){
+			return ResultMessage.initMsg(false, "4002", "违法的活动id");
 		}
 		BizTicket2001 bt = new BizTicket2001(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
 		try{

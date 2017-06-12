@@ -1,5 +1,5 @@
 package com.cevr.business.model.entity;
-// Generated 2017-6-10 13:36:42 by Hibernate Tools 3.4.0.CR1
+// Generated 2017-6-12 9:00:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,6 +19,7 @@ public class BizTicketType2003 implements java.io.Serializable {
 	private String id;
 	private String typeName;
 	private String typeInfo;
+	private String imgTypeId;
 	private String deleteflag;
 	private String cancleflag;
 	private String holdflag;
@@ -33,11 +34,12 @@ public class BizTicketType2003 implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public BizTicketType2003(String id, String typeName, String typeInfo, String deleteflag, String cancleflag,
-			String holdflag, Date createtime, Date updatetime, String operatorId) {
+	public BizTicketType2003(String id, String typeName, String typeInfo, String imgTypeId, String deleteflag,
+			String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
 		this.id = id;
 		this.typeName = typeName;
 		this.typeInfo = typeInfo;
+		this.imgTypeId = imgTypeId;
 		this.deleteflag = deleteflag;
 		this.cancleflag = cancleflag;
 		this.holdflag = holdflag;
@@ -73,6 +75,15 @@ public class BizTicketType2003 implements java.io.Serializable {
 
 	public void setTypeInfo(String typeInfo) {
 		this.typeInfo = typeInfo;
+	}
+
+	@Column(name = "img_type_id", length = 50)
+	public String getImgTypeId() {
+		return this.imgTypeId;
+	}
+
+	public void setImgTypeId(String imgTypeId) {
+		this.imgTypeId = imgTypeId;
 	}
 
 	@Column(name = "deleteflag", length = 2)
