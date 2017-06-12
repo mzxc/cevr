@@ -25,7 +25,7 @@ String tab = (String)request.getAttribute("tab");
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <style type="text/css">
 	html{text-align:center;}
-	body{width:70%;margin:0 auto;text-align:center;}
+	body{width:70%;margin:0 auto;text-align:left;}
 </style>
 <script>
 	$(function(){
