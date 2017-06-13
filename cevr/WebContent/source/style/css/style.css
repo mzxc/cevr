@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-size: 16px;
+    font-family: "microsoft yahei", "微软雅黑";
+    background: url("/cevr/source/images/bg.jpg") top center no-repeat #020b25;
+}
+@media (min-width: 1200px){
+    .container {
+        width: 970px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .fix{
+        display: none;
+    }
+}
+
+
+ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+img {
+    border: 0;
+    width: 100%;
+}
+.main-header .container{
+    /*
+    background: url("../images/head-bg.png") right no-repeat;
+    */
+    color: #FFFFFF;
+}
+.logo{
+    padding-top: 49px;
+    padding-left: 22px;
+    width: 400px;
+}
+.h-title{
+    margin-top: 47px;
+    font-size: 36px;
+    line-height: 1.6;
+}
+.h-title span{
+    font-size: 18px;
+}
+.h-info{
+    margin-top: 30px;
+    line-height: 2;
+}
+/*warp*/
+.content-warp{
+    margin-top: 59px;
+}
+.content-warp .container{
+    background: rgba(0,21,58,0.75);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+.content-warp .container{
+    padding-bottom: 55px;
+}
+.c-title{
+    font-size: 28px;
+    height: 80px;
+    line-height: 80px;
+    color: #fff;
+    text-align: center;
+}
+.c-layout{
+    color: #FFFFFF;
+}
+.c-layout img{
+    width: 100%;
+}
+.c-layout p{
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 2;
+    height: 32px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis
+}
+.toupiao .c-layout p{
+    margin-bottom: 15px;
+}
+.c-layout button{
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    color: #000001;
+    padding: 2px 25px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 30px;
+}
+.c-layout button.active{
+    background: #fdee03;
+    color: #000001;
+
+}
+.c-link{
+    margin-top: 25px;
+}
+.c-link .col-sm-4{
+    text-align: center;
+}
+.c-link .col-sm-4 .c-button{
+    text-align: center;
+    display: inline-block;
+    font-size: 24px;
+    color: #000001;
+    width: 185px;
+    height: 53px;
+    background: #fdee03;
+    line-height: 53px;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+.c-link .col-sm-12 .c-button{
+    text-align: center;
+    display: inline-block;
+    font-size: 24px;
+    color: #000001;
+    width: 185px;
+    height: 53px;
+    background: #fdee03;
+    line-height: 53px;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+footer{
+    color: #FFFFFF;
+    height: 450px;
+    background: url("/cevr/source/images/bottom.png") bottom center no-repeat;
+}
+footer p{
+    display: none;
+    font-size: 20px;
+    text-align: center;
+}
+footer p.f-title{
+    font-size: 32px;
+    margin-bottom: 116px;
+}
