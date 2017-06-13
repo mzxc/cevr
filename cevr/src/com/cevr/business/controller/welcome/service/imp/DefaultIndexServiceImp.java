@@ -66,14 +66,14 @@ public class DefaultIndexServiceImp extends BaseDao implements IIndexService
 			String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "findTicketInfo"), ti);
 			BigInteger num = (BigInteger)this.createSqlQuery(sql).uniqueResult();
 			if(num != null && num.intValue() > 0){
-				return ResultMessage.initMsg(false, "3000", "您今日已为该组投票，请明天再来吧");
+				return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
 			}
 		}catch(Exception e){
 			NestLogger.showException(e);
-			return ResultMessage.initMsg(false, "3000", "您今日已为该组投票，请明天再来吧");
+			return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
 		}
 		Map<String, Object> param = this.initParams();
-		param.put("userName", ti.getUserName());
+		//param.put("userName", ti.getUserName());//去掉用户名称
 		param.put("userTel", ti.getUserTel());
 		List<BizTicketPeople2002> btps = (List<BizTicketPeople2002>)this.findByProperties(BizTicketPeople2002.class, param);
 		BizTicketPeople2002 btp = null;
