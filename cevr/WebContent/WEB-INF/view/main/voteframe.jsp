@@ -3,7 +3,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String tab = (String)request.getAttribute("tab");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">  
@@ -15,14 +14,15 @@ String tab = (String)request.getAttribute("tab");
 <link rel="Bookmark" href="" />
 <title>环青海湖（国际）电动汽车挑战赛|QingHai Lake China</title> 
 <link href="source/style/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="source/style/css/style.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/swiper.min.css" rel="stylesheet" type="text/css">
-<link href="source/style/css/stylepublic.css" rel="stylesheet" type="text/css">
 <link href="source/plugins/layer/skin/layer.css" rel="stylesheet" type="text/css">
 <link href="source/style/css/styleall.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="source/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="source/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="source/plugins/swiper/swiper-3.3.1.min.js"></script>
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
+<script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 	html{text-align:center;}
 	body{width:70%;margin:0 auto;text-align:left;}
@@ -143,52 +143,83 @@ String tab = (String)request.getAttribute("tab");
 </script>
 </head>
 <body>
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+	                <img src="source/images/logo.png" alt=""/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 h-title">
+                2017环青海湖（国际）电动汽车挑战赛参赛车型主观评测项目网络投票活动 <span>投票时间：2017.6.16-20</span>
+            </div>
+            <div class="col-sm-12 h-info">
+               外观设计评价指标:针对车辆工艺、造型、外观部件等进行综合评价。
+                <p>1、工艺设计：发动机盖、后尾箱及车门贴合度、接缝大小、钣金工艺、焊点平整度</p>
+                <p>2、造型设计：车头、车位、车身整体造型、设计；</p>
+                <p>3、侧面设计：反光镜、车门设计、轮圈设计方面；</p>
+                <p>4、顶部设计：顶部做工设计、钣金材料；</p>
+                <p>5、灯具设计：前照灯、尾灯、刹车灯、转型等、LED日间行车灯、雾灯设计</p>
+
+            </div>
+        </div>
+    </div>
+</header>
+
 	<input id="ticketType" type="hidden" value="${tab}" />
 	<input id="imgType" type="hidden" value="${tab}" />
-	<div class="col-xs-12">
-		<div class="col-xs-12 text-center paddingTBLR15_3">
-			<span id="tab_title" style="font-size: 50px;">
-			
-			</span>
+<section class="content-warp">
+    <div class="container toupiao">
+        <div class="row">
+            <div class="c-title">参赛车型外观设计投票</div>
+
+        </div>
+		<div class="col-xs-12">
+			<div class="col-xs-12 text-center paddingTBLR15_3">
+				<span id="tab_title" style="font-size: 50px;">
+				
+				</span>
+			</div>
+			<ul id="carInfo" class="col-xs-12">
+				
+			</ul>
 		</div>
-		<ul id="carInfo" class="col-xs-12">
-			
-		</ul>
-	</div>
-	
-	<div id="ticketUserInfo" style="display: none;">
-		<input id="ifInputUserInfo" type="hidden" value="0"/>
-		<ul class="col-xs-12">
-			<div class="col-xs-12 paddingTBLR5_3 text-center"><span style="font-size: 16px;">填写真实号码,参与抽奖</span></div>
-			<div class="col-xs-12 paddingTBLR5_3"></div>
-			<div class="col-xs-12 text-center paddingTBLR5_3">
-				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			<div class="col-xs-12 paddingTBLR5_3"></div>
-			<div class="col-xs-12 text-center paddingTBLR5_3">
-				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			<div class="col-xs-12 paddingTBLR5_3"></div>
-			<!-- 
-			<div class="col-xs-12 text-center paddingTBLR5_3">
-				<li class="col-xs-3 text-right paddingTB5">邮&emsp;箱:&nbsp;</li>
-				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
-			</div>
-			 -->
-			<div class="col-xs-12 text-center paddingTBLR10_3">
-				<div class="col-xs-3"></div>
-				<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
-				<div class="col-xs-3"></div>
-			</div>
-		</ul>
-	</div>
+		
+		<div id="ticketUserInfo" style="display: none;">
+			<input id="ifInputUserInfo" type="hidden" value="0"/>
+			<ul class="col-xs-12">
+				<div class="col-xs-12 paddingTBLR5_3 text-center"><span style="font-size: 16px;">填写真实号码,参与抽奖</span></div>
+				<div class="col-xs-12 paddingTBLR5_3"></div>
+				<div class="col-xs-12 text-center paddingTBLR5_3">
+					<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;&nbsp;</li>
+					<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
+				</div>
+				<div class="col-xs-12 paddingTBLR5_3"></div>
+				<div class="col-xs-12 text-center paddingTBLR5_3">
+					<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;&nbsp;</li>
+					<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
+				</div>
+				<div class="col-xs-12 paddingTBLR5_3"></div>
+				<!-- 
+				<div class="col-xs-12 text-center paddingTBLR5_3">
+					<li class="col-xs-3 text-right paddingTB5">邮&emsp;箱:&nbsp;</li>
+					<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
+				</div>
+				 -->
+				<div class="col-xs-12 text-center paddingTBLR10_3">
+					<div class="col-xs-3"></div>
+					<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
+					<div class="col-xs-3"></div>
+				</div>
+			</ul>
+		</div>
 	
 	<!-- 
 	<iframe id="hideCarMovie" height=498 width=510 style="display: none;" src='http://player.youku.com/embed/XMjc5NTA0NDkyNA==' frameborder=0 'allowfullscreen'></iframe>
 	 -->
-	 
+	 </div>
+</section>
 </body>
 <script type="text/javascript">
 	function showMovie(){
