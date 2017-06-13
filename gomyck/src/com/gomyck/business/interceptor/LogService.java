@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.gomyck.component.logger.NestLogger;
 import com.gomyck.component.util.DateUtil;
+import com.gomyck.component.util.IpUtil;
 import com.gomyck.component.util.DateUtil.DUF;
 
 /**
@@ -103,7 +104,9 @@ public class LogService
                         sb.append(allValue[i].toString() + " ");
                     }
                 }
+                sb.append("  请求ip: " + IpUtil.getRemoteAddr(request));
             }
+            logger.info(sb.toString());
             NestLogger.locationLog(sb.toString());
         }
         catch (final Exception e)
@@ -111,23 +114,5 @@ public class LogService
             NestLogger.showException(e);
             logger.error(NestLogger.buildLog("日志记录异常", e, true));
         }
-    }
-    
-    public static String getIpAddr(final HttpServletRequest request)
-    {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
-        {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
-        {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
-        {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
     }
 }

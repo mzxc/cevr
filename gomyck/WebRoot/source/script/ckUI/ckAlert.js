@@ -24,7 +24,7 @@ $.extend({
 			},
 			speed  : 200,  //弹出速度
 			target : null  //指定元素ID或jquery对象
-		}
+		};
 		// 以下为层级坐标__不要动
 		var index = $.ckAlertIndex;
 		$.ckAlertIndex = Number($.ckAlertIndex) + 1;
@@ -101,5 +101,5 @@ $.extend({
 		$("div[mes='"+ index +"']").animate({top:"0"}, _thisOption.speed);
 	}
 });
-window._alert = window.alert // 临时保存一下；
+window._alert = window.alert; // 临时保存一下；
 window.alert = $.ckAlert;

@@ -1,0 +1,84 @@
+/*个人中心子页*/
+.my-centerall{display: flex;align-items: center;}
+
+.my-centerpicture div{border-radius: 50%;overflow: hidden;}
+/*登录密码*/
+.revisepassword{border-radius:8px;overflow: hidden;}
+/*修改成功*/
+.revisesuccess{margin-top:100px;}
+/*实名认证*/
+.certification h4{padding-bottom:10px;}
+/*我的豆币*/
+.thisheight{height:5px;}
+/*首页*/
+.indexteamline>div>div{height:6px;}
+.indexbannernum{position:absolute;}
+.touchindex3{padding:0 15%}
+.touchindex3>div>div{border:1px solid #dcdcdc;box-shadow: 0px 10px 30px #999;}
+
+.moren{padding:0 2px;border-radius: 3px;font-size:10px;color:#fff;background: #8ed7da;}
+.joyclick li{padding:8px 0;}
+.joyclick li a{color:#FFF;}
+.joyclick li a:link{color:#FFF;}
+.joyclick span{font-size:0.20rem;}
+.joyclickpage{position:absolute;top:15%;right:1%;z-index:500;display:none;}
+.fenxiangslide{background: rgba(0,0,0,0.85);color:#fff;border-radius: 5px;}
+/*商品详情*/
+.mall-detail img{width:100%;}
+.detailmust ul span{background:#ff6d60;color:#fff;padding:9px 5%; }
+.detailgoodimg img{height:70px;}
+.retopbtn{width:40px;height:40px;font-size:10px;color:#fff;position:fixed;right:3%;bottom:15%;background: rgba(255,110,97,0.7)}
+
+.wishwater input{background: none;width:100%;padding:10px 3%;}
+.wishwater ::-webkit-input-placeholder{color:#fff;}
+.wishwater :-moz-placeholder{color:#fff;}
+.wishwater ::-moz-placeholder {color:#fff;}
+.wishwater :-ms-input-placeholder{color:#fff;}
+
+.mywish li{border-bottom:1px solid #fff;padding:20px 0;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.wishsuccess{position:absolute;bottom:0;right:5%;}
+
+.indexshop_click li{text-align: center}
+.indexshop_click img{width:80%}
+.vaulebody,.beanmail{display: none;}
+/*店铺首页*/
+.shopname{color:#fff;padding:0 5%;margin-top:20px;font-size: 18px;}
+/*登录*/
+.logininput li{padding:5px 10%;}
+.logininput li div{justify-content: center;border-bottom:1px solid #fff;}
+.logininput li div input{background: none;padding:10px 2%;}
+.logininput input:focus{outline: none;}
+.loginall{position: absolute;height:100%;}
+.logintop{margin-top:30px;}
+.loginbtn{margin-top:20px;}
+.loginbg{position: fixed;z-index:-1;}
+.logininput ::-webkit-input-placeholder{color:#fff;}
+.logininput :-moz-placeholder{color:#fff;}
+.logininput ::-moz-placeholder {color:#fff;}
+.logininput :-ms-input-placeholder{color:#fff;}
+/*申请退款*/
+.refundtop1,.refundtop2,.refundtop3{position: fixed;height:150%;background: #fff;z-index: 998;right:0;display: none;top:0;}
+/*帮助*/
+.helptop,.helpbottom{background: #f9f9f9;padding:10px 5%;color:#999;}
+.helpmiddle{background: #fff;padding:15px 5%;display: flex;align-items: center;}
+/*幸运团购*/
+.teamnav li.col-xs-1{width:20%;font-size:0.2rem;margin-top:0.05rem;padding:0 1%;}
+.teamnav li.col-xs-1 button{border:1px solid #dedede;}
+.teamcls{font-size: 0.2rem;}
+.teamcls div{padding:0.2rem 0;}
+.luckright{display: block;background: none;top:66px;position:fixed;height:90.5%;border:1px solid #fff;background: #fff;overflow-y: auto;}
+.luckright ul>li{padding:20px 0;}
+.luckleftlist{display:none;}
+.luckleftlist div{padding:15px 5%;}
+.luckteamnum input[type=button]{padding:10px 5%;border:1px solid #ff6d60;text-align: center;background:#ff6d60;color:#fff;}
+.luckteamnum input[type=number]{padding:10px 5%;text-align: center;border:1px solid #ff6d60;color:#ff6d60}
+.luckteambtn button:focus{background: #ff6d60;color:#fff;}
+.mylucknum li{color:#ff6d60;padding:10px 0;}
+.number-flow2{width:100%;justify-content: center;}
+.number-flow2 .number-flowB{border:1px solid #dedede;padding:2px 1%;}
+.number-flowB span{color:#ff6d60;}
+.number-flowA{width:3%;}
+
+
+
+

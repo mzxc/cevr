@@ -30,18 +30,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 	$(function(){
 		initCarInfo();
-		if(${tab}=='1'){
+		if('${tab}'=='1'){
 			$("#tab_title").text("赛车车型外观设计投票");
-		}else if(${tab}=='2'){
+		}else if('${tab}'=='2'){
 			$("#tab_title").text("赛车车型空间设计投票");
 		}else{
 			$("#tab_title").text("赛车车型内饰设计投票");
 		}
-		$("#userName").ckMustEnAndCN();
-		$("#userName").ckMaxLength(10);
+		//$("#userName").ckMustEnAndCN();
+		//$("#userName").ckMaxLength(10);
 		$("#userTel").ckMustNumber();
 		$("#userTel").ckMaxLength(11);
-		$("#userEmail").ckMaxLength(50);
+		//$("#userEmail").ckMaxLength(50);
 		$("#ifInputUserInfo").val("0");
 	});
 	
@@ -54,7 +54,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				type: 1,
 				title: "投票人信息",
 				area: ['320px', '250px'], //宽高
-				content: $("#ticketUserInfo")
+				content: $("#ticketUserInfo"),
+				success: function(){
+					$("#userTel").focus();
+				}
 			});
 		}else{
 			changeButton(carId);
@@ -71,20 +74,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function sureUserInfo(){
-		if(!$.ckIsMobile("userTel")){
+		if(!$.ckIsMobile("userTel") && !$.ckIsEmpty($("#userTel").val())){
 			layer.msg("请输入正确的手机号");
 			return;
 		}
-		if(!$.ckIsEmail("userEmail") && !$.ckIsEmpty($("#userEmail").val())){
-			layer.msg("请输入正确的邮箱");
-			return;
-		}
+		//if(!$.ckIsEmail("userEmail") && !$.ckIsEmpty($("#userEmail").val())){
+		//	layer.msg("请输入正确的邮箱");
+		//	return;
+		//}
 		$("#ifInputUserInfo").val("1");
 		changeButton(showDivCarId);
 		layer.close(userInfoDiv);
 	}
 	
 	function sureTicket(carId){
+		$.ckShade(true);
 		var userName = $("#userName").val();
 		var userTel = $("#userTel").val();
 		var userEmail = $("#userEmail").val();
@@ -95,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type: "post",
 			dataType: "json",
 			success: function(result){
+				$.ckShade(false);
 				if(result.result){
 					var _input = $("#clickInput_" + carId);
 					_input.val("取消投票");
@@ -110,12 +115,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			},
 			error: function(){
+				$.ckShade(false);
 				layer.msg("服务器开小差，请稍后再试!");
 			}
 		});
 	}
 	
 	function unSureTicket(carId){
+		$.ckShade(true);
 		var _input = $("#clickInput_" + carId);
 		var ticketType = $("#ticketType").val();
 		$.ajax({
@@ -124,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type: "post",
 			dataType: "json",
 			success: function(result){
+				$.ckShade(false);
 				if(result.result){
 					_input.val("投票");
 					_input.attr("mes", "0");
@@ -136,6 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			},
 			error: function(){
+				$.ckShade(false);
 				layer.msg("服务器开小差，请稍后再试!");
 			}
 		});
@@ -180,6 +189,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span id="tab_title" style="font-size: 50px;">
 				
 				</span>
+		</div>
+		<ul id="carInfo" class="col-xs-12">
+			
+		</ul>
+	</div>
+	
+	<div id="ticketUserInfo" style="display: none;">
+		<input id="ifInputUserInfo" type="hidden" value="0"/>
+		<ul class="col-xs-12">
+			<div class="col-xs-12 paddingTBLR5_3 text-center"><span style="font-size: 16px;">填写真实号码,参与抽奖</span></div>
+			<div class="col-xs-12 paddingTBLR5_3"></div>
+			<!-- 
+			<div class="col-xs-12 text-center paddingTBLR5_3">
+				<li class="col-xs-3 text-right paddingTB5 ">姓&emsp;名:&nbsp;&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userName" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			 -->
+			<div class="col-xs-12 paddingTBLR5_3"></div>
+			<div class="col-xs-12 text-center paddingTBLR5_3">
+				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			<div class="col-xs-12 paddingTBLR5_3"></div>
+			<!-- 
+			<div class="col-xs-12 text-center paddingTBLR5_3">
+				<li class="col-xs-3 text-right paddingTB5">邮&emsp;箱:&nbsp;</li>
+				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
+			</div>
+			 -->
+			<div class="col-xs-12 text-center paddingTBLR10_3">
+				<div class="col-xs-3"></div>
+				<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
+				<div class="col-xs-3"></div>
 			</div>
 			<ul id="carInfo" class="col-xs-12">
 				
@@ -251,7 +293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						groupId = carInfo[index].carGroupId;
 					}
 					
-					var carLi = '<li class="col-xs-4">';
+					var carLi = '<li class="col-xs-3">';
 					var imgHtml = "";
 					/* if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
