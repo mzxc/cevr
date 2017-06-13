@@ -103,11 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$(function(){
 		initCarInfo();
 		if('${tab}'=='1'){
-			$("#showTitle").text("赛车车型外观设计投票");
+			$("#showTitle").text("参赛车型外观设计投票");
 		}else if('${tab}'=='2'){
-			$("#showTitle").text("赛车车型空间设计投票");
+			$("#showTitle").text("参赛车型空间设计投票");
 		}else{
-			$("#showTitle").text("赛车车型内饰设计投票");
+			$("#showTitle").text("参赛车型内饰设计投票");
 		}
 		$("#userTel").ckMustNumber();
 		$("#userTel").ckMaxLength(11);
