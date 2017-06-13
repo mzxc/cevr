@@ -24,7 +24,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="source/plugins/swiper/swiper-3.3.1.min.js"></script>
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script>
+</head>
+<body>
+<input id="ticketType" type="hidden" value="${tab}" />
+<input id="imgType" type="hidden" value="${tab}" />
+<input id="ifInputUserInfo" type="hidden" value="0" />
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+	                <img src="source/images/logo.png" alt=""/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 h-title">
+                2017环青海湖（国际）电动汽车挑战赛参赛车型主观评测项目网络投票活动 <span>投票时间：2017.6.16-20</span>
+            </div>
+            <div class="col-sm-12 h-info">
+             	 外观设计评价指标:针对车辆工艺、造型、外观部件等进行综合评价。
+                <p>1、工艺设计：发动机盖、后尾箱及车门贴合度、接缝大小、钣金工艺、焊点平整度</p>
+                <p>2、造型设计：车头、车位、车身整体造型、设计；</p>
+                <p>3、侧面设计：反光镜、车门设计、轮圈设计方面；</p>
+                <p>4、顶部设计：顶部做工设计、钣金材料；</p>
+                <p>5、灯具设计：前照灯、尾灯、刹车灯、转型等、LED日间行车灯、雾灯设计</p>
+
+            </div>
+        </div>
+    </div>
+</header>
+<section class="content-warp">
+    <div id="carInfo" class="container toupiao">
+        <div class="row">
+            <div id="showTitle" class="c-title">参赛车型外观设计投票</div>
+        </div>
+	</div>
+</section>
+<footer>
+    <div class="container">
+        <p class="f-title">
+                        科技让生活更美好！
+        </p>
+        <p>感谢您的参与</p>
+        <p>诚邀您关注第四届环青海湖(国际)电动汽车挑战赛！</p>
+    </div>
+</footer>
+<div class="fix" style="width: 135px;position: fixed;top: 30%;right: 10px;">
+    <img src="source/images/er.jpg" alt="" style="width: 135px;height: 135px"/>
+    <p class="text-center" style="color: #FFFFFF">关&nbsp;注&nbsp;我&nbsp;们&nbsp;了&nbsp;解</br>更&nbsp;多&nbsp;赛&nbsp;事&nbsp;详&nbsp;情</p>
+</div>
+<div class="modal fade" id="ticketUserInfo" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4></h4>
+            </div>
+            <div class="modal-body" style="padding: 0 100px;">
+                <div class="row">
+                    <p style="text-align: center;color: #0f0856;margin-bottom: 20px;font-size: 20px">填写真实电话参与抽奖</p>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="userTel" class="col-sm-4 control-label text-right" style="height: 34px;line-height: 34px;">手机号：</label>
+                        <div class="col-sm-8">
+                            <input type="mobile" class="form-control" id="userTel" placeholder="手机号">
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center" style="margin: 20px 0">
+                    <a onclick="sureUserInfo()" class="c-button" style="display:inline-block;color: #000001;padding:6px 42px;;background: #fdee03;border-radius: 5px;">确&nbsp;&nbsp;认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
 	$(function(){
 		initCarInfo();
 		if('${tab}'=='1'){
@@ -137,85 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
-</script>
-</head>
-<body>
-<input id="ticketType" type="hidden" value="${tab}" />
-<input id="imgType" type="hidden" value="${tab}" />
-<input id="ifInputUserInfo" type="hidden" value="0" />
-<header class="main-header">
-    <div class="container">
-        <div class="row">
-            <div class="logo">
-	                <img src="source/images/logo.png" alt=""/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-10 h-title">
-                2017环青海湖（国际）电动汽车挑战赛参赛车型主观评测项目网络投票活动 <span>投票时间：2017.6.16-20</span>
-            </div>
-            <div class="col-sm-12 h-info">
-             	 外观设计评价指标:针对车辆工艺、造型、外观部件等进行综合评价。
-                <p>1、工艺设计：发动机盖、后尾箱及车门贴合度、接缝大小、钣金工艺、焊点平整度</p>
-                <p>2、造型设计：车头、车位、车身整体造型、设计；</p>
-                <p>3、侧面设计：反光镜、车门设计、轮圈设计方面；</p>
-                <p>4、顶部设计：顶部做工设计、钣金材料；</p>
-                <p>5、灯具设计：前照灯、尾灯、刹车灯、转型等、LED日间行车灯、雾灯设计</p>
-
-            </div>
-        </div>
-    </div>
-</header>
-
-<section class="content-warp">
-    <div id="carInfo" class="container toupiao">
-        <div class="row">
-            <div id="showTitle" class="c-title">参赛车型外观设计投票</div>
-        </div>
-	</div>
-</section>
-<footer>
-    <div class="container">
-        <p class="f-title">
-            科技让生活更美好！
-        </p>
-        <p>感谢您的参与</p>
-        <p>诚邀您关注第四届环青海湖(国际)电动汽车挑战赛！</p>
-    </div>
-
-</footer>
-<div class="fix" style="width: 135px;position: fixed;top: 30%;right: 10px;">
-    <img src="source/images/er.jpg" alt="" style="width: 135px;height: 135px"/>
-    <p class="text-center" style="color: #FFFFFF">关&nbsp;注&nbsp;我&nbsp;们&nbsp;了&nbsp;解</br>更&nbsp;多&nbsp;赛&nbsp;事&nbsp;详&nbsp;情</p>
-</div>
-<div class="modal fade" id="ticketUserInfo" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border: none">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4></h4>
-            </div>
-            <div class="modal-body" style="padding: 0 100px;">
-                <div class="row">
-                    <p style="text-align: center;color: #0f0856;margin-bottom: 20px;font-size: 20px">填写真实电话参与抽奖</p>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userTel" class="col-sm-4 control-label text-right" style="height: 34px;line-height: 34px;">手机号：</label>
-                        <div class="col-sm-8">
-                            <input type="mobile" class="form-control" id="userTel" placeholder="手机号">
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center" style="margin: 20px 0">
-                    <a onclick="sureUserInfo()" class="c-button" style="display:inline-block;color: #000001;padding:6px 42px;;background: #fdee03;border-radius: 5px;">确&nbsp;&nbsp;认</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-<script type="text/javascript">
+	
 	function initCarInfo(){
 		$.ajax({
 			url: "asyn/index/getCarInfo",
@@ -237,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                + '<p>' +carInfo[index].carGroup + '  ' + carInfo[index].carNo + '  ' + carInfo[index].carName + '</p>'
 					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span>票</p>'
 					                + '<button id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')">投票</button>'
-		            		   + '</div>';
+		            		     + '</div>';
 		            if(index < carInfo.length - 1 &&  groupId != carInfo[(index + 1)].carGroupId){
 		            	carInfoDiv = carInfoDiv + '</div>';
 		            	$("#carInfo").append(carInfoDiv);
@@ -245,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            }else if(index == carInfo.length - 1){
 		            	carInfoDiv = carInfoDiv + '</div>';
 		            	$("#carInfo").append(carInfoDiv);
-		            	carInfo = '';
+		            	carInfoDiv = '';
 		            }
 				}
 			}
