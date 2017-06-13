@@ -69,14 +69,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<input id="ticketType" type="hidden" value="1" />
 	<input id="imgType" type="hidden" value="1" />
-		<ul id="carInfo" class="col-xs-12">
+	<ul id="carInfo" class="col-xs-12">
 
-		</ul>
-		<div class="col-xs-12 text-center paddingTBLR5_2 ">
-				<input type="button" onclick="tabClick(1)" value="外观设计投票" class="col-xs-1 mybtn btn-pink" />
-				<input type="button" onclick="tabClick(2)" value="空间设计投票" class="col-xs-1 mybtn btn-pink" />
-				<input type="button" onclick="tabClick(3)" value="内饰设计投票" class="col-xs-1 mybtn btn-pink" />
-		</div>
+	</ul>
+	<div class="col-xs-12">
+		<input type="button" onclick="tabClick(1)" value="外观设计投票" class="col-xs-4 mybtn3 btn-pink" />
+		<input type="button" onclick="tabClick(2)" value="空间设计投票" class="col-xs-4 mybtn3 btn-pink" />
+		<input type="button" onclick="tabClick(3)" value="内饰设计投票" class="col-xs-4 mybtn3 btn-pink" />
+	</div>
 	<Iframe id="hideCarMovie" width=655 height=377  style="display: none;" src="asyn/index/player/1" ></iframe>
 </body>
 <script type="text/javascript">
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					carLi = carLi + imgHtml;
 					carLi = carLi + '<div class="col-xs-12 text-center paddingTBLR15_3">'
-									 +     '<span class="col-xs-5 text-right paddingTBLR5_3 textover" style="font-size: 15px;">'  +carInfo[index].carGroup + carInfo[index].carName + '</span>'
+									 +     '<span class="col-xs-12 text-center paddingTBLR5_3 textover" style="font-size: 15px;">'  +carInfo[index].carGroup + "  " + carInfo[index].carName + '</span>'
 									 //+ 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: <span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span> 票</div>'
 									 //+ 	   '<div class="col-xs-2 text-left">'
 									 //+         '<input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/>'
