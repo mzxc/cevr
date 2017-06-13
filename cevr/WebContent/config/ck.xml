@@ -14,7 +14,8 @@
 					) AS carImgs,
 					bcv.src,
 					bcg.group_name AS carGroup,
-					bcg.id AS carGroupId
+					bcg.id AS carGroupId,
+					bcg.order_num as orderNum
 				FROM
 					biz_car_1001 bc
 				INNER JOIN biz_car_group_1002 bcg ON bc.group_id = bcg.id
@@ -37,9 +38,6 @@
 				GROUP BY
 					bc.id,
 					bcg.id
-				ORDER BY
-					bcg.order_num,
-					bc.car_no
 			) car
 		LEFT JOIN biz_ticket_2001 bt ON car.carId = bt.click_car_id AND bt.ticket_type_id = #ticketTypeId# 
 		AND bt.deleteflag = 0
@@ -47,6 +45,9 @@
 		AND bt.holdflag = 0
 		GROUP BY
 			car.carId	
+		ORDER BY
+			car.orderNum,
+			car.carNo
 	</sql>
 	<sql id="findTicketInfo">
 		SELECT
