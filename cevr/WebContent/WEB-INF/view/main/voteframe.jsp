@@ -29,10 +29,8 @@ String tab = (String)request.getAttribute("tab");
 </style>
 <script>
 	$(function(){
-		
 		initCarInfo();
-		if(${tab}=='1')
-		{
+		if(${tab}=='1'){
 			$("#tab_title").text("赛车车型外观设计投票");
 		}else if(${tab}=='2'){
 			$("#tab_title").text("赛车车型空间设计投票");
@@ -144,8 +142,8 @@ String tab = (String)request.getAttribute("tab");
 </script>
 </head>
 <body>
-	<input id="ticketType" type="hidden" value="1" />
-	<input id="imgType" type="hidden" value="1" />
+	<input id="ticketType" type="hidden" value="${tab}" />
+	<input id="imgType" type="hidden" value="${tab}" />
 	<div class="col-xs-12">
 		<div class="col-xs-12 text-center paddingTBLR15_3">
 			<span id="tab_title" style="font-size: 50px;">
@@ -168,10 +166,12 @@ String tab = (String)request.getAttribute("tab");
 				<li class="col-xs-3 text-right paddingTB5 ">手机号:&nbsp;</li>
 				<li class="col-xs-9 text-left"><input id="userTel" class="paddingTB5 bggray2" type="text" /></li>
 			</div>
+			<!-- 
 			<div class="col-xs-12 text-center paddingTBLR5_3">
 				<li class="col-xs-3 text-right paddingTB5">邮&emsp;箱:&nbsp;</li>
 				<li class="col-xs-9 text-left"><input id="userEmail" class="paddingTB5 bggray2" type="text" /></li>
 			</div>
+			 -->
 			<div class="col-xs-12 text-center paddingTBLR10_3">
 				<div class="col-xs-3"></div>
 				<input type="button" onclick="sureUserInfo()" value="确定" class="col-xs-6 mybtn btn-pink" />
@@ -180,11 +180,14 @@ String tab = (String)request.getAttribute("tab");
 		</ul>
 	</div>
 	
+	<!-- 
 	<iframe id="hideCarMovie" height=498 width=510 style="display: none;" src='http://player.youku.com/embed/XMjc5NTA0NDkyNA==' frameborder=0 'allowfullscreen'></iframe>
-	
+	 -->
+	 
 </body>
 <script type="text/javascript">
 	function showMovie(){
+		return;
 		layer.open({
 			type: 1,
 			closeBtn: false,
@@ -214,7 +217,7 @@ String tab = (String)request.getAttribute("tab");
 					
 					var carLi = '<li class="col-xs-4">';
 					var imgHtml = "";
-					if($.ckIsEmpty(carInfo[index].carImgs)){
+					/* if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
 					}else{
 						var carImgs = carInfo[index].carImgs.split("|");
@@ -222,16 +225,16 @@ String tab = (String)request.getAttribute("tab");
 						var swiperHtmlEnd = '</div></div>';
 						imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
-							var img = '<div onclick="showMovie()" class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
 						}
 						imgHtml = imgHtml + swiperHtmlEnd;
-					}
+					} */
 					carLi = carLi + imgHtml;
 					carLi = carLi + '<div class="col-xs-12 text-center paddingTBLR15_3">'
-									 +     '<span class="col-xs-5 text-right paddingTBLR5_3 textover" style="font-size: 15px;">' + carInfo[index].carName + '</span>'
-									 + 	   '<div class="col-xs-5 text-left paddingTBLR5_3 textover">当前票数: <span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span> 票</div>'
-									 + 	   '<div class="col-xs-2 text-left">'
+									 +     '<span class="col-xs-12 text-center paddingTBLR5_3 textover" style="font-size: 18px;">' + carInfo[index].carName + '</span>'
+									 + 	   '<div class="col-xs-7 text-right paddingTBLR5_3 textover">当前票数: <span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span> 票</div>'
+									 + 	   '<div class="col-xs-5 text-left">'
 									 +         '<input id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')" class="btn-green mybtn paddingTBLR5_3" type="button" value="投票"/>'
 									 +     '</div>'
 									 + '</div>'
