@@ -109,20 +109,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//	groupId = carInfo[index].carGroupId;
 					//}
 					
-					var carLi = '<li class="col-xs-4">';
+					var carLi = '<li class="col-xs-3">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
 					}else{
 						var carImgs = carInfo[index].carImgs.split("|");
-						var swiperHtmlHead = '<div class="col-xs-12 swiper-container"><div class="swiper-wrapper col-xs-12">'
+						var swiperHtmlHead = '<div class="col-xs-12 swiper-container text-center"><div class="swiper-wrapper col-xs-12">'
 						var swiperHtmlEnd = '</div></div>';
 						imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
 							//var img = '<div onclick="showMovie()" class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
-							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img class="col-xs-12 paddingTBLR5_3" style="height:180px;" alt="" src="' + carImgs[i] + '"></div>';
 							//var embed = '<embed src='http://player.youku.com/player.php/sid/XMjYxMTMxMTUzMg==/v.swf' allowFullScreen='true' quality='high' width='480' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed>'
-
 							imgHtml = imgHtml + img;
 						}
 						imgHtml = imgHtml + swiperHtmlEnd;

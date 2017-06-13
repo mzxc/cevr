@@ -231,7 +231,7 @@ String tab = (String)request.getAttribute("tab");
 						groupId = carInfo[index].carGroupId;
 					}
 					
-					var carLi = '<li class="col-xs-4">';
+					var carLi = '<li class="col-xs-3">';
 					var imgHtml = "";
 					/* if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" class="col-xs-12 paddingTBLR5_3" alt="" src="' + carInfo[index].carImgs + '">';
