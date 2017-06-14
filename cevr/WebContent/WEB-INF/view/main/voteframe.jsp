@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					carInfoDiv = carInfoDiv +  '<div class="col-sm-3 text-center" >'
 					                + '<p>' +carInfo[index].carGroup + '  ' + carInfo[index].carNo + '  ' + carInfo[index].carName + '</p>'
-					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum + '</span>票</p>'
+					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum*10 + '</span>票</p>'
 					                + '<button id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')">投票</button>'
 		            		     + '</div>';
 		            if(index < carInfo.length - 1 &&  groupId != carInfo[(index + 1)].carGroupId){
