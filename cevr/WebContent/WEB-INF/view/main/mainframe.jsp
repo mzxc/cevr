@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						var swiperHtmlEnd = '</div></div>';
 						imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
-							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img style="height: 160px" alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img style="height: 140px" alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
 							break;
 						}
