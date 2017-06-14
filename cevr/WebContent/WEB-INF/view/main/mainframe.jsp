@@ -25,19 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="source/script/ckUI/ckUI.js"></script>
 <script type="text/javascript" src="source/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script>
-	$(function(){
-		initCarInfo();
-		$("#userName").ckMustEnAndCN();
-		$("#userName").ckMaxLength(10);
-		$("#userTel").ckMustNumber();
-		$("#userTel").ckMaxLength(11);
-		$("#userEmail").ckMaxLength(50);
-		$("#ifInputUserInfo").val("0");
-	});
 	
-	function tabClick(v){
-		window.location.href='asyn/index/voteframe/'+v;
-	}
 </script>
 </head>
 <body>
@@ -66,14 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="c-title">参赛车型360全景视频展示</div>
         </div>
         
-        
-        
         <div id="car_show" class="row c-layout">
         </div>
-        
-        
-        
-        
         
         <div class="row c-link">
             <div class="col-sm-4">
@@ -105,6 +87,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </body>
 <script type="text/javascript">
+	$(function(){
+		initCarInfo();
+	});
+	
+	function tabClick(v){
+		window.location.href='asyn/index/voteframe/'+v;
+	}
+
 	function showMovie(id){
 		$("#hideCarMovie").attr('src',"asyn/index/player/"+id); 
 		layer.open({
@@ -125,13 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			dataType: "json",
 			success: function(reuslt){
 				var carInfo = reuslt.data;
-				var carHtmlHead = '<div class="row c-layout">';
-				var carHtmlEnd = '</div">';
 				var carInfos = "";
 				for(var index = 0; index < carInfo.length; index = index + 1){
-					if(index == 0){
-						carInfos = carInfos + carHtmlHead;
-					}
 					var carInfos = carInfos + '<div class="col-sm-3" videoid="XMjc3OTM0MDc2MA">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
@@ -150,7 +135,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					carInfos = carInfos + imgHtml;
 					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
 				}
-				carInfos = carInfos + carHtmlEnd;
 				$("#car_show").append(carInfos); 
 				var mySwiper = new Swiper('.swiper-container', {
 					centeredSlides: true,
