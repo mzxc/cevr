@@ -118,8 +118,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function clickTicket(carId){
 		showDivCarId = carId;
 		if($("#ifInputUserInfo").val() == "0"){
-			$("#ticketUserInfo").modal('show');
-			$("#userTel").focus();
+			var ifShowTips = '${ifShowTips}';
+			if(!$.ckIsEmpty(ifShowTips) && ifShowTips == "false"){
+				var tel = '${tel}';
+				$("#userTel").val(tel);
+				$("#ifInputUserInfo").val("1");
+				changeButton(showDivCarId);
+			}else{
+				$("#ticketUserInfo").modal('show');
+				$("#userTel").focus();
+			}
 		}else{
 			changeButton(carId);
 		}
@@ -165,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					_input.attr("mes", "1");
 					_input.addClass("active");
 					var _span = $("#clickSpan_" + carId);
-					_span.text($.ckAdd(_span.text(), 1));
+					_span.text($.ckAdd(_span.text(), 10));
 					var group = _input.attr("group");
 					$("button[group='" + group + "']").not(_input).attr("disabled", "disabled");
 					$("button[group='" + group + "']").not(_input).attr("value", "投票");
@@ -199,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					_input.attr("mes", "0");
 					_input.removeClass("active");
 					var _span = $("#clickSpan_" + carId);
-					_span.text($.ckSub(_span.text(), 1));
+					_span.text($.ckSub(_span.text(), 10));
 					var group = _input.attr("group");
 					$("button[group='" + group + "']").removeAttr("disabled");
 				}else{

@@ -15,12 +15,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,29 +56,30 @@ public class IndexHandler {
 		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
 		return ResultBuild.init(true, "查询成功", searchCarInfo);
 	}
-//	@LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
-//	@RequestMapping(value="tab/{tab}", method=RequestMethod.GET)
-//	public String tab(@PathVariable String tab){
-//		System.out.println(tab);
-//		//List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
-//    	
-//		//response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
-//		return "main/exteriorDesign";
-//	}
+
 	@LogInfo(operateModelNm="投票首页", operateFuncNm="新增投票")
 	@RequestMapping(value="ticketCar", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> ticketCar(TicketInfo ti, HttpServletRequest request){
+	public Map<String, Object> ticketCar(TicketInfo ti, HttpServletRequest request, HttpSession session){
 		ti.setFromIp(IpUtil.getRemoteAddr(request));
 		ti.setTicketNum(1);
+		session.setAttribute("tel", ti.getUserTel());
+		session.setAttribute("ifTicket", "true");
 		ResultMessage rm = iis.addTicketInfo(ti);
 		return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
 	}
     
     @LogInfo(operateModelNm = "投票首页", operateFuncNm = "带参数页面通用跳转")
     @RequestMapping(value = "voteframe/{tab}", method = RequestMethod.GET)
-    public String gotoVoteframe(HttpServletRequest request, HttpServletResponse response,@PathVariable final String tab)
+    public String gotoVoteframe(HttpServletRequest request, HttpServletResponse response,@PathVariable final String tab, HttpSession session)
     {
+    	if("true".equals((session.getAttribute("ifTicket") + ""))){
+    		String tel = session.getAttribute("tel") + "";
+    		request.setAttribute("tel", tel);
+    		request.setAttribute("ifShowTips", false);
+    	}else{
+    		request.setAttribute("ifShowTips", true);
+    	}
 		request.setAttribute("tab", tab);
         return "main/voteframe";
     }

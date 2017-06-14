@@ -129,6 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						for(var i = 0; i < carImgs.length;i = i + 1){
 							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img style="height: 160px" alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
+							break;
 						}
 						imgHtml = imgHtml + swiperHtmlEnd;
 					}
@@ -136,12 +137,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
 				}
 				$("#car_show").append(carInfos); 
-				var mySwiper = new Swiper('.swiper-container', {
+				/* var mySwiper = new Swiper('.swiper-container', {
 					centeredSlides: true,
 			        autoplay: 4500,
 			        loop:true,
 			        autoplayDisableOnInteraction: false
-				});
+				}); */
 			}
 		});
 	}
