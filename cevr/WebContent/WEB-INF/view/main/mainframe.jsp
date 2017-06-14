@@ -103,7 +103,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			title: false,
 			shadeClose: true,
 			area: ['660px', '390px'], 
-			content: $('#hideCarMovie')
+			content: $('#hideCarMovie'),
+			end: function(){
+				$("#hideCarMovie").attr('src',""); 
+			}
 		});
 	}
 
