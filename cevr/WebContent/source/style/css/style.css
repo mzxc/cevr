@@ -8,7 +8,7 @@
 body{
     font-size: 16px;
     font-family: "microsoft yahei", "微软雅黑";
-    background: url("/cevr/source/images/bg.jpg") top center no-repeat #020b25;
+    background: url("../../../source/images/bg.jpg") top center no-repeat #020b25;
 }
 @media (min-width: 1200px){
     .container {
@@ -147,7 +147,7 @@ img {
 footer{
     color: #FFFFFF;
     height: 450px;
-    background: url("/cevr/source/images/bottom.png") bottom center no-repeat;
+    background: url("../../../source/images/bottom.png") bottom center no-repeat;
 }
 footer p{
     display: none;
