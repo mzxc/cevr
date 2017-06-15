@@ -59,7 +59,8 @@ img {
 }
 .h-info{
     margin-top: 30px;
-    line-height: 2;
+    line-height: 1.6;
+    text-align: justify;
 }
 /*warp*/
 .content-warp{
@@ -74,8 +75,7 @@ img {
     padding-bottom: 55px;
 }
 .c-title{
-    font-size: 28px;
-    height: 80px;
+    font-size: 26px;
     line-height: 80px;
     color: #fff;
     text-align: center;
@@ -157,4 +157,13 @@ footer p{
 footer p.f-title{
     font-size: 32px;
     margin-bottom: 116px;
+}
+.v-layout{
+    width: 50%;
+    float: left;
+    padding-left: 15px;
+}
+.v-layout:first-child{
+    padding-right: 15px;
+    padding-left: 0;
 }
