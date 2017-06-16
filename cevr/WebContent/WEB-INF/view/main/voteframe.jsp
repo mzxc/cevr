@@ -254,15 +254,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var carInfoDiv = "";
 				var divPrefix = '<div class="col-sm-6 clearfix">';
 				var divSuffix = '</div>';
+				var addIndex = 0;
 				for(var index = 0; index < carInfo.length; index = index + 1){
-					
 					if(groupId != carInfo[index].carGroupId){
 						var groupDiv = '<div class="row"><div class="c-title">' + carInfo[index].carGroup + '</div></div>';
 						$("#carInfo").append(groupDiv);
 						carInfoDiv = carInfoDiv + '<div class="row c-layout">';
 						groupId = carInfo[index].carGroupId;
+						addIndex = 0;
 					}
-					if(index ==0 || (index)%2==0){
+					if(addIndex % 2==0){
 						carInfoDiv = carInfoDiv + divPrefix;
 					}
 					carInfoDiv = carInfoDiv +  '<div class="v-layout text-center" >'
@@ -270,7 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum*10 + '</span>票</p>'
 					                + '<button id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')">投票</button>'
 		            		     + '</div>';
-					if(index !=0 && (index)%2==1){
+					if(addIndex % 2==1){
 						carInfoDiv = carInfoDiv + divSuffix;
 					}		     
 		            if(index < carInfo.length - 1 &&  groupId != carInfo[(index + 1)].carGroupId){
@@ -282,6 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            	$("#carInfo").append(carInfoDiv);
 		            	carInfoDiv = '';
 		            }
+		            addIndex = addIndex + 1;
 				}
 			}
 		});
