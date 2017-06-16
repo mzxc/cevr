@@ -252,18 +252,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var carInfo = reuslt.data;
 				var groupId = "";
 				var carInfoDiv = "";
+				var divPrefix = '<div class="col-sm-6 clearfix">';
+				var divSuffix = '</div>';
 				for(var index = 0; index < carInfo.length; index = index + 1){
+					
 					if(groupId != carInfo[index].carGroupId){
 						var groupDiv = '<div class="row"><div class="c-title">' + carInfo[index].carGroup + '</div></div>';
 						$("#carInfo").append(groupDiv);
 						carInfoDiv = carInfoDiv + '<div class="row c-layout">';
 						groupId = carInfo[index].carGroupId;
 					}
-					carInfoDiv = carInfoDiv +  '<div class="col-sm-3 text-center" >'
+					if(index ==0 || (index)%2==0){
+						carInfoDiv = carInfoDiv + divPrefix;
+					}
+					carInfoDiv = carInfoDiv +  '<div class="v-layout text-center" >'
 					                + '<p>' +carInfo[index].carGroup + '  ' + carInfo[index].carNo + '  ' + carInfo[index].carName + '</p>'
 					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum*10 + '</span>票</p>'
 					                + '<button id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')">投票</button>'
 		            		     + '</div>';
+					if(index !=0 && (index)%2==1){
+						carInfoDiv = carInfoDiv + divSuffix;
+					}		     
 		            if(index < carInfo.length - 1 &&  groupId != carInfo[(index + 1)].carGroupId){
 		            	carInfoDiv = carInfoDiv + '</div>';
 		            	$("#carInfo").append(carInfoDiv);

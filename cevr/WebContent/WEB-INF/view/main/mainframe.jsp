@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	
 	function tabClick(v){
-		window.location.href='asyn/index/voteframe/'+v;
+		window.location.href='${basePath}asyn/index/voteframe/'+v;
 	}
 
 	function showMovie(id){
@@ -120,8 +120,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			success: function(reuslt){
 				var carInfo = reuslt.data;
 				var carInfos = "";
+				var divPrefix = '<div class="col-sm-6 clearfix">';
+				var divSuffix = '</div>';
 				for(var index = 0; index < carInfo.length; index = index + 1){
-					var carInfos = carInfos + '<div class="col-sm-3" videoid="XMjc3OTM0MDc2MA">';
+					if(index ==0 || (index)%2==0){
+						carInfos = carInfos + divPrefix;
+					}
+					carInfos = carInfos + '<div class="v-layout" videoid="XMjc3OTM0MDc2MA">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" src="' + carInfo[index].carImgs + '">';
@@ -139,6 +144,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					carInfos = carInfos + imgHtml;
 					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
+					if(index !=0 && (index)%2==1){
+						carInfos = carInfos + divSuffix;
+					}
 				}
 				$("#car_show").append(carInfos); 
 				/* var mySwiper = new Swiper('.swiper-container', {
