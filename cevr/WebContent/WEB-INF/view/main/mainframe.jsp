@@ -133,15 +133,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						imgHtml = '<img onclick="showMovie()" src="' + carInfo[index].carImgs + '">';
 					}else{
 						var carImgs = carInfo[index].carImgs.split("|");
-						var swiperHtmlHead = '<div class="swiper-container"><div class="swiper-wrapper">'
-						var swiperHtmlEnd = '</div></div>';
-						imgHtml = imgHtml + swiperHtmlHead;
+						//var swiperHtmlHead = '<div class="swiper-container"><div class="swiper-wrapper">'
+						//var swiperHtmlEnd = '</div></div>';
+						//imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
-							var img = '<div onclick="showMovie('+carInfo[index].carId+')" class="swiper-slide"><img style="height: 140px" alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div onclick="showMovie('+carInfo[index].carId+')" ><img  alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
 							break;
 						}
-						imgHtml = imgHtml + swiperHtmlEnd;
+						//imgHtml = imgHtml + swiperHtmlEnd;
 					}
 					carInfos = carInfos + imgHtml;
 					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
