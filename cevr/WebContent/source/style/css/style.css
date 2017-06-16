@@ -3,12 +3,12 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-
 body{
     font-size: 16px;
     font-family: "microsoft yahei", "微软雅黑";
-    background: url("../../../source/images/bg.jpg") top center no-repeat #020b25;
+    background: url("../../../source/images/bg.jpg") top center no-repeat #040c21;
 }
 @media (min-width: 1200px){
     .container {
@@ -59,12 +59,12 @@ img {
 }
 .h-info{
     margin-top: 30px;
-    line-height: 1.6;
+    line-height: 1.8;
     text-align: justify;
 }
 /*warp*/
 .content-warp{
-    margin-top: 59px;
+    margin-top: 30px;
 }
 .content-warp .container{
     background: rgba(0,21,58,0.75);
