@@ -93,7 +93,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	
 	function tabClick(v){
-		window.location.href='${basePath}asyn/index/voteframe/'+v;
+		//window.location.href='${basePath}asyn/index/voteframe/'+v;
+		top.window.location ='${basePath}asyn/index/voteframe/'+v;
 	}
 
 	function showMovie(id){
