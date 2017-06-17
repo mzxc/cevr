@@ -25,8 +25,7 @@ import java.util.Map;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
-public class SqlBuildUtil
-{
+public class SqlBuildUtil {
     /**
      * 
      * 根据传入的实体,拼接where条件
@@ -37,41 +36,33 @@ public class SqlBuildUtil
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static String addWhere(Object obj, boolean ifHasWhere)
-    {
+    public static String addWhere(Object obj, boolean ifHasWhere) {
         StringBuffer sql = new StringBuffer(ifHasWhere ? " WHERE " : " AND ");
         Class clazz = obj.getClass();
         Field[] filds = clazz.getDeclaredFields();
         boolean ifFirst = true;
-        for (Field fild : filds)
-        {
+        for (Field fild : filds) {
             String fieldName = fild.getName();
             fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-            try
-            {
+            try {
                 Method method = clazz.getMethod("get" + fieldName);
                 Object value = method.invoke(obj);
-                if (value != null)
-                {
-                    if (ifFirst)
-                    {
+                if (value != null) {
+                    if (ifFirst) {
                         sql.append(fieldName.toUpperCase() + " = ? ");
                         ifFirst = false;
                     }
-                    else
-                    {
+                    else {
                         sql.append(" AND " + fieldName.toUpperCase() + " = ? ");
                     }
                     
                 }
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (ifFirst == true)
-        {
+        if (ifFirst == true) {
             return "";
         }
         return sql.toString();
@@ -86,14 +77,11 @@ public class SqlBuildUtil
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("rawtypes")
-    public static String mapToWhere(Map map)
-    {
+    public static String mapToWhere(Map map) {
         String str = "";
-        if (map != null)
-        {
+        if (map != null) {
             Iterator it = map.entrySet().iterator();
-            while (it != null && it.hasNext())
-            {
+            while (it != null && it.hasNext()) {
                 Map.Entry entry = (Map.Entry)it.next();
                 String key = (String)entry.getKey();
                 String value = (String)entry.getValue();
@@ -113,14 +101,11 @@ public class SqlBuildUtil
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("rawtypes")
-    public static String mapToWhereWithTableAlais(Map map, String table)
-    {
+    public static String mapToWhereWithTableAlais(Map map, String table) {
         String str = "";
-        if (map != null)
-        {
+        if (map != null) {
             Iterator it = map.entrySet().iterator();
-            while (it != null && it.hasNext())
-            {
+            while (it != null && it.hasNext()) {
                 Map.Entry entry = (Map.Entry)it.next();
                 String key = (String)entry.getKey();
                 String value = (String)entry.getValue();
@@ -139,32 +124,26 @@ public class SqlBuildUtil
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static Object[] buildCondition(Object obj)
-    {
+    public static Object[] buildCondition(Object obj) {
         Class clazz = obj.getClass();
         Field[] filds = clazz.getDeclaredFields();
         List<Object> list = new ArrayList<Object>();
-        for (Field fild : filds)
-        {
+        for (Field fild : filds) {
             String fieldName = fild.getName();
             fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-            try
-            {
+            try {
                 Method method = clazz.getMethod("get" + fieldName);
                 Object value = method.invoke(obj);
-                if (value != null)
-                {
+                if (value != null) {
                     list.add(value);
                 }
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
         Object[] objs = new Object[list.size()];
-        for (int i = 0; i < list.size(); i = i + 1)
-        {
+        for (int i = 0; i < list.size(); i = i + 1) {
             objs[i] = list.get(i);
         }
         return objs;

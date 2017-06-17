@@ -19,38 +19,33 @@ package com.cevr.component.core;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class NodesShapeException extends RuntimeException
-{
+public class NodesShapeException extends RuntimeException {
     
     /**
      * <默认构造函数>
      */
-    public NodesShapeException()
-    {
+    public NodesShapeException() {
         super();
     }
     
     /**
      * <默认构造函数>
      */
-    public NodesShapeException(final String message, final Throwable cause)
-    {
+    public NodesShapeException(final String message, final Throwable cause) {
         super(message, cause);
     }
     
     /**
      * <默认构造函数>
      */
-    public NodesShapeException(final String message)
-    {
+    public NodesShapeException(final String message) {
         super(message);
     }
     
     /**
      * <默认构造函数>
      */
-    public NodesShapeException(final Throwable cause)
-    {
+    public NodesShapeException(final Throwable cause) {
         super(cause);
     }
     

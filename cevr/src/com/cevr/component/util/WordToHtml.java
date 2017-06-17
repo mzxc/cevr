@@ -23,19 +23,15 @@ import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.hwpf.usermodel.PictureType;
 import org.w3c.dom.Document;
 
-public class WordToHtml
-{
+public class WordToHtml {
     
-    public static void main(String argv[])
-    {
-        try
-        {
+    public static void main(String argv[]) {
+        try {
             FileInputStream f = new FileInputStream(new File("c://bb.doc"));
             ByteArrayOutputStream out = new ByteArrayOutputStream(100);
             byte[] b = new byte[1000];
             int n;
-            while ((n = f.read(b)) != -1)
-            {
+            while ((n = f.read(b)) != -1) {
                 out.write(b, 0, n);
             }
             String data = Hex.encodeHexString(out.toByteArray());
@@ -43,8 +39,7 @@ public class WordToHtml
             f.close();
             out.close();
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -58,30 +53,23 @@ public class WordToHtml
      */
     
     public static String getWordAndStyle(InputStream in)
-        throws Exception
-    {
+        throws Exception {
         HWPFDocument wordDocument = new HWPFDocument(in);
         WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
-        wordToHtmlConverter.setPicturesManager(new PicturesManager()
-        {
-            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches)
-            {
+        wordToHtmlConverter.setPicturesManager(new PicturesManager() {
+            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
                 return "test/" + suggestedName;
             }
         });
         wordToHtmlConverter.processDocument(wordDocument);
         List<Picture> pics = wordDocument.getPicturesTable().getAllPictures();
-        if (pics != null)
-        {
-            for (int i = 0; i < pics.size(); i++)
-            {
+        if (pics != null) {
+            for (int i = 0; i < pics.size(); i++) {
                 Picture pic = pics.get(i);
-                try
-                {
+                try {
                     pic.writeImageContent(new FileOutputStream("D:/test/" + pic.suggestFullFileName()));
                 }
-                catch (FileNotFoundException e)
-                {
+                catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }

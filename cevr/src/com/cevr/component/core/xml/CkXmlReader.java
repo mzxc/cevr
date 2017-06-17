@@ -33,16 +33,14 @@ import com.cevr.component.core.XmlNotFoundException;
  * 
  * @author 郝洋
  * @version [版本号, 2016-8-16]
- * @see #CkXmlReader
- * 本类为xml加载器核心类。负责加载xml实体，具体如何去操作xml，则调用refresh();
+ * @see #CkXmlReader 本类为xml加载器核心类。负责加载xml实体，具体如何去操作xml，则调用refresh();
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public abstract class CkXmlReader extends HttpServlet implements XmlReader
-{
-	private static ServletContext currentServletContext;
-	
-	protected Document currentDocument;
+public abstract class CkXmlReader extends HttpServlet implements XmlReader {
+    private static ServletContext currentServletContext;
+    
+    protected Document currentDocument;
     
     protected static String XML_PATH = "ck.xml";
     
@@ -69,34 +67,29 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
      * 
      */
     @Override
-    public Document loadXml()
-    {
+    public Document loadXml() {
         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        try
-        {
-        	final DocumentBuilder db = dbf.newDocumentBuilder();
-        	if(!CK_INIT){
-        		XML_PATH = System.getProperty("gomyck.root") + XML_PATH;
-        	}
+        try {
+            final DocumentBuilder db = dbf.newDocumentBuilder();
+            if (!CK_INIT) {
+                XML_PATH = System.getProperty("gomyck.root") + XML_PATH;
+            }
             final InputSource is = new InputSource(new FileInputStream(XML_PATH));
             this.currentDocument = this.currentDocument != null && !CK_INIT ? this.currentDocument : db.parse(is);
             refresh();
             final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-            if (ccl == CkXmlReader.class.getClassLoader() && !CK_INIT)
-            {
+            if (ccl == CkXmlReader.class.getClassLoader() && !CK_INIT) {
                 currentContextPerThread.put(ccl, currentServletContext);
             }
             CK_INIT = true;
             return this.currentDocument;
         }
-        catch (final IOException e)
-        {
-        	CK_INIT = false;
+        catch (final IOException e) {
+            CK_INIT = false;
             throw new XmlNotFoundException("xml file is not found in : " + XML_PATH, e);
         }
-        catch (final Exception e)
-        {
-        	CK_INIT = false;
+        catch (final Exception e) {
+            CK_INIT = false;
             throw new RuntimeException(e);
         }
     }
@@ -108,7 +101,8 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
      * @throws Exception
      * @see [类、类#方法、类#成员]
      */
-    protected abstract void refresh() throws Exception;
+    protected abstract void refresh()
+        throws Exception;
     
     /**
      * 重载方法
@@ -116,39 +110,33 @@ public abstract class CkXmlReader extends HttpServlet implements XmlReader
      * @throws ServletException
      */
     @Override
-    public void init() throws ServletException
-    {
+    public void init()
+        throws ServletException {
         super.init();
         currentServletContext = getServletContext();
         
     }
-
-	protected void putIntoXmlTags(final String tagName, final Map<String, String> nodeMap)
-    {
+    
+    protected void putIntoXmlTags(final String tagName, final Map<String, String> nodeMap) {
         XML_TAG_ENTITY.put(tagName, nodeMap);
     }
     
-    protected Map<String, Map<String, String>> getXmlTags()
-    {
+    protected Map<String, Map<String, String>> getXmlTags() {
         return XML_TAG_ENTITY;
     }
     
-    protected static ServletContext getCurrentContext()
-    {
+    protected static ServletContext getCurrentContext() {
         final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-        if (ccl != null)
-        {
+        if (ccl != null) {
             final ServletContext ccpt = currentContextPerThread.get(ccl);
-            if (ccpt != null)
-            {
+            if (ccpt != null) {
                 return ccpt;
             }
         }
         return currentServletContext;
     }
     
-    protected ServletContext getCurrentContextByPro()
-    {
+    protected ServletContext getCurrentContextByPro() {
         return currentServletContext;
     }
 }

@@ -43,8 +43,7 @@ import org.apache.http.util.EntityUtils;
  * @version [版本号, 2015-3-4]
  */
 @SuppressWarnings("deprecation")
-public class NetworkUntil
-{
+public class NetworkUntil {
     
     public RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(100000).setConnectTimeout(100000).setConnectionRequestTimeout(100000).setStaleConnectionCheckEnabled(true).build();
     
@@ -62,48 +61,39 @@ public class NetworkUntil
     
     public CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
     
-    public String getEnCode()
-    {
+    public String getEnCode() {
         return enCode;
     }
     
-    public void setEnCode(String enCode)
-    {
+    public void setEnCode(String enCode) {
         this.enCode = enCode;
     }
     
-    public CloseableHttpClient getHttpclient()
-    {
+    public CloseableHttpClient getHttpclient() {
         return httpclient;
     }
     
-    public DefaultHttpClient getDhttpclient()
-    {
+    public DefaultHttpClient getDhttpclient() {
         return dhttpclient;
     }
     
-    public HttpPost getPost()
-    {
+    public HttpPost getPost() {
         return post;
     }
     
-    public HttpGet getGet()
-    {
+    public HttpGet getGet() {
         return get;
     }
     
-    public CookieStore getCookieStore()
-    {
+    public CookieStore getCookieStore() {
         return cookieStore;
     }
     
-    public HttpClientContext getLocalContext()
-    {
+    public HttpClientContext getLocalContext() {
         return localContext;
     }
     
-    public NetworkUntil()
-    {
+    public NetworkUntil() {
         dhttpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 15000);
         dhttpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 15000);
         // 创建Cookie存储本地实例
@@ -126,28 +116,23 @@ public class NetworkUntil
      * @see [类、类#方法、类#成员]
      */
     public String doPostGZIP(URI url, Map<String, String> params)
-        throws ClientProtocolException, IOException
-    {
+        throws ClientProtocolException, IOException {
         post.setURI(url);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         Set<String> keySet = params.keySet();
-        for (String key : keySet)
-        {
+        for (String key : keySet) {
             nvps.add(new BasicNameValuePair(key, params.get(key)));
         }
-        try
-        {
+        try {
             post.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
         }
-        catch (UnsupportedEncodingException e)
-        {
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         HttpResponse response = dhttpclient.execute(post, localContext);
         String encodeConten = "";
         HttpEntity entity = response.getEntity();
-        if (entity != null)
-        {
+        if (entity != null) {
             encodeConten = EntityUtils.toString(entity);
         }
         return encodeConten;
@@ -164,14 +149,12 @@ public class NetworkUntil
      * @see [类、类#方法、类#成员]
      */
     public String doGetGZIP(URI uri)
-        throws ClientProtocolException, IOException
-    {
+        throws ClientProtocolException, IOException {
         get.setURI(uri);
         HttpResponse response = dhttpclient.execute(get, localContext);
         String encodeConten = "";
         HttpEntity entity = response.getEntity();
-        if (entity != null)
-        {
+        if (entity != null) {
             encodeConten = EntityUtils.toString(entity);
         }
         return encodeConten;
@@ -187,21 +170,17 @@ public class NetworkUntil
      * @throws IOException
      */
     public String doPost(URI url, Map<String, String> params)
-        throws ClientProtocolException, IOException
-    {
+        throws ClientProtocolException, IOException {
         post.setURI(url);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         Set<String> keySet = params.keySet();
-        for (String key : keySet)
-        {
+        for (String key : keySet) {
             nvps.add(new BasicNameValuePair(key, params.get(key)));
         }
-        try
-        {
+        try {
             post.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
         }
-        catch (UnsupportedEncodingException e)
-        {
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         CloseableHttpResponse response = httpclient.execute(post, localContext);
@@ -220,8 +199,7 @@ public class NetworkUntil
      * @see [类、类#方法、类#成员]
      */
     public String doPost(URI url)
-        throws ClientProtocolException, IOException
-    {
+        throws ClientProtocolException, IOException {
         post.setURI(url);
         CloseableHttpResponse response = httpclient.execute(post, localContext);
         String encodeConten = encodeResponse(response);
@@ -239,8 +217,7 @@ public class NetworkUntil
      * @see [类、类#方法、类#成员]
      */
     public String doGet(URI uri)
-        throws ClientProtocolException, IOException
-    {
+        throws ClientProtocolException, IOException {
         get.setURI(uri);
         CloseableHttpResponse response = httpclient.execute(get, localContext);
         String encodeConten = encodeResponse(response);
@@ -258,20 +235,16 @@ public class NetworkUntil
      */
     @SuppressWarnings("unused")
     public String encodeResponse(CloseableHttpResponse responseBody)
-        throws IOException
-    {
+        throws IOException {
         String content = "";
         InputStream in = responseBody.getEntity().getContent();
         byte[] b = new byte[1024];
         int i = b.length;
-        while ((i = in.read(b, 0, 1024)) != -1)
-        {
-            if (getEnCode().equals(""))
-            {
+        while ((i = in.read(b, 0, 1024)) != -1) {
+            if (getEnCode().equals("")) {
                 content += new String(b);
             }
-            else
-            {
+            else {
                 content += new String(b, getEnCode());
             }
         }
@@ -279,8 +252,7 @@ public class NetworkUntil
         return content;
     }
     
-    public static String[] returnAnalytical(String returnContent)
-    {
+    public static String[] returnAnalytical(String returnContent) {
         String regEx = "[//[//]<>/a-zA-Z\":_]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(returnContent);
@@ -296,13 +268,11 @@ public class NetworkUntil
      * @param str
      * @return 是否
      */
-    public static boolean isChineseChar(String str)
-    {
+    public static boolean isChineseChar(String str) {
         boolean temp = false;
         Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
         Matcher m = p.matcher(str);
-        if (m.find())
-        {
+        if (m.find()) {
             temp = true;
         }
         return temp;
@@ -321,15 +291,13 @@ public class NetworkUntil
      * @throws Exception
      */
     public byte[] getIMG(String url)
-        throws URISyntaxException, IllegalStateException, ClientProtocolException, IOException
-    {
+        throws URISyntaxException, IllegalStateException, ClientProtocolException, IOException {
         HttpGet httpGet = new HttpGet(new URI(url));
         InputStream in = dhttpclient.execute(httpGet, localContext).getEntity().getContent();
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = 0;
-        while ((len = in.read(buffer)) != -1)
-        {
+        while ((len = in.read(buffer)) != -1) {
             outStream.write(buffer, 0, len);
         }
         in.close();
@@ -342,8 +310,7 @@ public class NetworkUntil
      * 
      * @return 代理配置
      */
-    public RequestConfig getHostConfig()
-    {
+    public RequestConfig getHostConfig() {
         RequestConfig config;
         HttpHost proxy = new HttpHost("127.0.0.1", 8888);
         config = RequestConfig.custom().setProxy(proxy).setCookieSpec(CookieSpecs.BEST_MATCH).build();

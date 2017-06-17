@@ -23,8 +23,7 @@ import com.cevr.component.util.StringUtil;
  * @see #CkDefaultXmlNodes
  * @since 1.0
  */
-public class CkDefaultXmlNodes extends CkXmlNodes
-{
+public class CkDefaultXmlNodes extends CkXmlNodes {
     private volatile Map<String, Map<String, String>> xml_tags;
     
     /**
@@ -34,14 +33,11 @@ public class CkDefaultXmlNodes extends CkXmlNodes
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void setXML_TAGS(final Object xml_tags)
-    {
-        try
-        {
+    public void setXML_TAGS(final Object xml_tags) {
+        try {
             this.xml_tags = (Map<String, Map<String, String>>)xml_tags;
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e) {
             throw new NodesShapeException(" xmlNodeList shape error!please check xmlReaderAdapter type! ", e);
         }
     }
@@ -54,8 +50,7 @@ public class CkDefaultXmlNodes extends CkXmlNodes
      * @return
      */
     @Override
-    public String getElementValue(final String propName, final String elId)
-    {
+    public String getElementValue(final String propName, final String elId) {
         return " " + StringUtil.strTrim(this.xml_tags.get(propName).get(elId)) + " ";
     }
     

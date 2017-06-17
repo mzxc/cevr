@@ -22,8 +22,7 @@ import org.springframework.util.StringUtils;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
-public class MailUtil
-{
+public class MailUtil {
     private static Log mLogger = LogFactory.getFactory().getInstance(MailUtil.class);
     
     /**
@@ -40,25 +39,22 @@ public class MailUtil
      * @param mimeType
      * @throws MessagingException
      */
-    public static void sendMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content, final String mimeType) throws MessagingException
-    {
+    public static void sendMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content, final String mimeType)
+        throws MessagingException {
         final Message message = new MimeMessage(session);
         
         // n.b. any default from address is expected to be determined by caller.
-        if (!StringUtils.isEmpty(from))
-        {
+        if (!StringUtils.isEmpty(from)) {
             final InternetAddress sentFrom = new InternetAddress(from);
             message.setFrom(sentFrom);
             if (mLogger.isDebugEnabled())
                 mLogger.debug("e-mail from: " + sentFrom);
         }
         
-        if (to != null)
-        {
+        if (to != null) {
             final InternetAddress[] sendTo = new InternetAddress[to.length];
             
-            for (int i = 0; i < to.length; i++)
-            {
+            for (int i = 0; i < to.length; i++) {
                 sendTo[i] = new InternetAddress(to[i]);
                 if (mLogger.isDebugEnabled())
                     mLogger.debug("sending e-mail to: " + to[i]);
@@ -66,12 +62,10 @@ public class MailUtil
             message.setRecipients(Message.RecipientType.TO, sendTo);
         }
         
-        if (cc != null)
-        {
+        if (cc != null) {
             final InternetAddress[] copyTo = new InternetAddress[cc.length];
             
-            for (int i = 0; i < cc.length; i++)
-            {
+            for (int i = 0; i < cc.length; i++) {
                 copyTo[i] = new InternetAddress(cc[i]);
                 if (mLogger.isDebugEnabled())
                     mLogger.debug("copying e-mail to: " + cc[i]);
@@ -79,12 +73,10 @@ public class MailUtil
             message.setRecipients(Message.RecipientType.CC, copyTo);
         }
         
-        if (bcc != null)
-        {
+        if (bcc != null) {
             final InternetAddress[] copyTo = new InternetAddress[bcc.length];
             
-            for (int i = 0; i < bcc.length; i++)
-            {
+            for (int i = 0; i < bcc.length; i++) {
                 copyTo[i] = new InternetAddress(bcc[i]);
                 if (mLogger.isDebugEnabled())
                     mLogger.debug("blind copying e-mail to: " + bcc[i]);
@@ -103,18 +95,15 @@ public class MailUtil
         final SendFailedException sendex = new SendFailedException("Unable to send message to some recipients");
         
         // Try to send while there remain some potentially good addresses
-        do
-        {
+        do {
             // Avoid a loop if we are stuck
             nAddresses = remainingAddresses.length;
-            try
-            {
+            try {
                 // Send to the list of remaining addresses, ignoring the
                 // addresses attached to the message
                 Transport.send(message, remainingAddresses);
             }
-            catch (final SendFailedException ex)
-            {
+            catch (final SendFailedException ex) {
                 bFailedToSome = true;
                 sendex.setNextException(ex);
                 // Extract the remaining potentially good addresses
@@ -138,8 +127,8 @@ public class MailUtil
      * @param content
      * @throws MessagingException
      */
-    public static void sendTextMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendTextMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content)
+        throws MessagingException {
         sendMessage(session, from, to, cc, bcc, subject, content, "text/plain; charset=utf-8");
     }
     
@@ -155,8 +144,8 @@ public class MailUtil
      * @param content
      * @throws MessagingException
      */
-    public static void sendTextMessage(final Session session, final String from, final String to, final String[] cc, final String[] bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendTextMessage(final Session session, final String from, final String to, final String[] cc, final String[] bcc, final String subject, final String content)
+        throws MessagingException {
         String[] recipient = null;
         if (to != null)
             recipient = new String[] {to};
@@ -175,8 +164,8 @@ public class MailUtil
      * @param content the body of the e-mail
      * @throws MessagingException the exception to indicate failure
      */
-    public static void sendTextMessage(final Session session, final String from, final String to, final String cc, final String bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendTextMessage(final Session session, final String from, final String to, final String cc, final String bcc, final String subject, final String content)
+        throws MessagingException {
         String[] recipient = null;
         String[] copy = null;
         String[] bcopy = null;
@@ -200,8 +189,8 @@ public class MailUtil
      * @param content the body of the e-mail
      * @throws MessagingException the exception to indicate failure
      */
-    public static void sendHTMLMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendHTMLMessage(final Session session, final String from, final String[] to, final String[] cc, final String[] bcc, final String subject, final String content)
+        throws MessagingException {
         sendMessage(session, from, to, cc, bcc, subject, content, "text/html; charset=utf-8");
     }
     
@@ -214,8 +203,8 @@ public class MailUtil
      * @param content the body of the e-mail
      * @throws MessagingException the exception to indicate failure
      */
-    public static void sendHTMLMessage(final Session session, final String from, final String to, final String cc, final String bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendHTMLMessage(final Session session, final String from, final String to, final String cc, final String bcc, final String subject, final String content)
+        throws MessagingException {
         String[] recipient = null;
         String[] copy = null;
         String[] bcopy = null;
@@ -240,8 +229,8 @@ public class MailUtil
      * @param content the body of the e-mail
      * @throws MessagingException the exception to indicate failure
      */
-    public static void sendHTMLMessage(final Session session, final String from, final String to, final String[] cc, final String[] bcc, final String subject, final String content) throws MessagingException
-    {
+    public static void sendHTMLMessage(final Session session, final String from, final String to, final String[] cc, final String[] bcc, final String subject, final String content)
+        throws MessagingException {
         String[] recipient = null;
         if (to != null)
             recipient = new String[] {to};
@@ -259,8 +248,8 @@ public class MailUtil
      * @param content the body of the e-mail
      * @throws MessagingException the exception to indicate failure
      */
-    public static void sendHTMLMessage(final Session session, final String from, final String to, final String subject, final String content) throws MessagingException
-    {
+    public static void sendHTMLMessage(final Session session, final String from, final String to, final String subject, final String content)
+        throws MessagingException {
         String[] recipient = null;
         if (to != null)
             recipient = new String[] {to};

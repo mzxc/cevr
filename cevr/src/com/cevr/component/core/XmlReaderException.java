@@ -19,38 +19,33 @@ package com.cevr.component.core;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class XmlReaderException extends RuntimeException
-{
+public class XmlReaderException extends RuntimeException {
     
     /**
      * <默认构造函数>
      */
-    public XmlReaderException()
-    {
+    public XmlReaderException() {
         super();
     }
     
     /**
      * <默认构造函数>
      */
-    public XmlReaderException(final String message, final Throwable cause)
-    {
+    public XmlReaderException(final String message, final Throwable cause) {
         super(message, cause);
     }
     
     /**
      * <默认构造函数>
      */
-    public XmlReaderException(final String message)
-    {
+    public XmlReaderException(final String message) {
         super(message);
     }
     
     /**
      * <默认构造函数>
      */
-    public XmlReaderException(final Throwable cause)
-    {
+    public XmlReaderException(final Throwable cause) {
         super(cause);
     }
     

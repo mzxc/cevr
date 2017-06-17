@@ -15,132 +15,140 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "biz_car_imgs_1003", catalog = "cevr")
 public class BizCarImgs1003 implements java.io.Serializable {
-
-	private String id;
-	private String carId;
-	private String imgUri;
-	private String imgTypeId;
-	private String deleteflag;
-	private String cancleflag;
-	private String holdflag;
-	private Date createtime;
-	private Date updatetime;
-	private String operatorId;
-
-	public BizCarImgs1003() {
-	}
-
-	public BizCarImgs1003(String id, String carId) {
-		this.id = id;
-		this.carId = carId;
-	}
-
-	public BizCarImgs1003(String id, String carId, String imgUri, String imgTypeId, String deleteflag,
-			String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
-		this.id = id;
-		this.carId = carId;
-		this.imgUri = imgUri;
-		this.imgTypeId = imgTypeId;
-		this.deleteflag = deleteflag;
-		this.cancleflag = cancleflag;
-		this.holdflag = holdflag;
-		this.createtime = createtime;
-		this.updatetime = updatetime;
-		this.operatorId = operatorId;
-	}
-
-	@Id
-
-	@Column(name = "id", unique = true, nullable = false, length = 50)
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Column(name = "car_id", nullable = false, length = 50)
-	public String getCarId() {
-		return this.carId;
-	}
-
-	public void setCarId(String carId) {
-		this.carId = carId;
-	}
-
-	@Column(name = "img_uri", length = 200)
-	public String getImgUri() {
-		return this.imgUri;
-	}
-
-	public void setImgUri(String imgUri) {
-		this.imgUri = imgUri;
-	}
-
-	@Column(name = "img_type_id", length = 50)
-	public String getImgTypeId() {
-		return this.imgTypeId;
-	}
-
-	public void setImgTypeId(String imgTypeId) {
-		this.imgTypeId = imgTypeId;
-	}
-
-	@Column(name = "deleteflag", length = 2)
-	public String getDeleteflag() {
-		return this.deleteflag;
-	}
-
-	public void setDeleteflag(String deleteflag) {
-		this.deleteflag = deleteflag;
-	}
-
-	@Column(name = "cancleflag", length = 2)
-	public String getCancleflag() {
-		return this.cancleflag;
-	}
-
-	public void setCancleflag(String cancleflag) {
-		this.cancleflag = cancleflag;
-	}
-
-	@Column(name = "holdflag", length = 11)
-	public String getHoldflag() {
-		return this.holdflag;
-	}
-
-	public void setHoldflag(String holdflag) {
-		this.holdflag = holdflag;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createtime", length = 19)
-	public Date getCreatetime() {
-		return this.createtime;
-	}
-
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updatetime", length = 19)
-	public Date getUpdatetime() {
-		return this.updatetime;
-	}
-
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
-	}
-
-	@Column(name = "operator_id", length = 50)
-	public String getOperatorId() {
-		return this.operatorId;
-	}
-
-	public void setOperatorId(String operatorId) {
-		this.operatorId = operatorId;
-	}
-
+    
+    private String id;
+    
+    private String carId;
+    
+    private String imgUri;
+    
+    private String imgTypeId;
+    
+    private String deleteflag;
+    
+    private String cancleflag;
+    
+    private String holdflag;
+    
+    private Date createtime;
+    
+    private Date updatetime;
+    
+    private String operatorId;
+    
+    public BizCarImgs1003() {
+    }
+    
+    public BizCarImgs1003(String id, String carId) {
+        this.id = id;
+        this.carId = carId;
+    }
+    
+    public BizCarImgs1003(String id, String carId, String imgUri, String imgTypeId, String deleteflag, String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
+        this.id = id;
+        this.carId = carId;
+        this.imgUri = imgUri;
+        this.imgTypeId = imgTypeId;
+        this.deleteflag = deleteflag;
+        this.cancleflag = cancleflag;
+        this.holdflag = holdflag;
+        this.createtime = createtime;
+        this.updatetime = updatetime;
+        this.operatorId = operatorId;
+    }
+    
+    @Id
+    
+    @Column(name = "id", unique = true, nullable = false, length = 50)
+    public String getId() {
+        return this.id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    @Column(name = "car_id", nullable = false, length = 50)
+    public String getCarId() {
+        return this.carId;
+    }
+    
+    public void setCarId(String carId) {
+        this.carId = carId;
+    }
+    
+    @Column(name = "img_uri", length = 200)
+    public String getImgUri() {
+        return this.imgUri;
+    }
+    
+    public void setImgUri(String imgUri) {
+        this.imgUri = imgUri;
+    }
+    
+    @Column(name = "img_type_id", length = 50)
+    public String getImgTypeId() {
+        return this.imgTypeId;
+    }
+    
+    public void setImgTypeId(String imgTypeId) {
+        this.imgTypeId = imgTypeId;
+    }
+    
+    @Column(name = "deleteflag", length = 2)
+    public String getDeleteflag() {
+        return this.deleteflag;
+    }
+    
+    public void setDeleteflag(String deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+    
+    @Column(name = "cancleflag", length = 2)
+    public String getCancleflag() {
+        return this.cancleflag;
+    }
+    
+    public void setCancleflag(String cancleflag) {
+        this.cancleflag = cancleflag;
+    }
+    
+    @Column(name = "holdflag", length = 11)
+    public String getHoldflag() {
+        return this.holdflag;
+    }
+    
+    public void setHoldflag(String holdflag) {
+        this.holdflag = holdflag;
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "createtime", length = 19)
+    public Date getCreatetime() {
+        return this.createtime;
+    }
+    
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updatetime", length = 19)
+    public Date getUpdatetime() {
+        return this.updatetime;
+    }
+    
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+    
+    @Column(name = "operator_id", length = 50)
+    public String getOperatorId() {
+        return this.operatorId;
+    }
+    
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+    }
+    
 }

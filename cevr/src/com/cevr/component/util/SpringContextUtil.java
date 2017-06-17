@@ -20,14 +20,12 @@ import org.springframework.web.context.WebApplicationContext;
  * @since [产品/模块版本]
  */
 @Component
-public class SpringContextUtil implements ApplicationContextAware
-{
+public class SpringContextUtil implements ApplicationContextAware {
     private static ApplicationContext applicationContext = null;
     
     @SuppressWarnings("static-access")
-	public void setApplicationContext(ApplicationContext applicationContext)
-        throws BeansException
-    {
+    public void setApplicationContext(ApplicationContext applicationContext)
+        throws BeansException {
         this.applicationContext = applicationContext;
     }
     
@@ -38,11 +36,10 @@ public class SpringContextUtil implements ApplicationContextAware
      * @return ApplicationContext
      * @see [类、类#方法、类#成员]
      */
-    public static ApplicationContext getApplicationContext()
-    {
+    public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
-
+    
     /**
      * 
      * 根据一个bean的id获取配置文件中相应的bean
@@ -53,11 +50,10 @@ public class SpringContextUtil implements ApplicationContextAware
      * @see [类、类#方法、类#成员]
      */
     public static Object getBean(String name)
-        throws BeansException
-    {
+        throws BeansException {
         return applicationContext.getBean(name);
     }
-
+    
     /**
      * 
      * 类似于getBean(String name)只是在参数中提供了需要返回到的类型。
@@ -70,8 +66,7 @@ public class SpringContextUtil implements ApplicationContextAware
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static Object getBean(String name, Class requiredType)
-        throws BeansException
-    {
+        throws BeansException {
         return applicationContext.getBean(name, requiredType);
     }
     
@@ -81,8 +76,7 @@ public class SpringContextUtil implements ApplicationContextAware
      * @param name beanName
      * @return boolean 是否存在
      */
-    public static boolean containsBean(String name)
-    {
+    public static boolean containsBean(String name) {
         return applicationContext.containsBean(name);
     }
     
@@ -96,8 +90,7 @@ public class SpringContextUtil implements ApplicationContextAware
      * @see [类、类#方法、类#成员]
      */
     public static boolean isSingleton(String name)
-        throws NoSuchBeanDefinitionException
-    {
+        throws NoSuchBeanDefinitionException {
         return applicationContext.isSingleton(name);
     }
     
@@ -112,8 +105,7 @@ public class SpringContextUtil implements ApplicationContextAware
      */
     @SuppressWarnings("rawtypes")
     public static Class getType(String name)
-        throws NoSuchBeanDefinitionException
-    {
+        throws NoSuchBeanDefinitionException {
         return applicationContext.getType(name);
     }
     
@@ -127,13 +119,11 @@ public class SpringContextUtil implements ApplicationContextAware
      * @see [类、类#方法、类#成员]
      */
     public static String[] getAliases(String name)
-        throws NoSuchBeanDefinitionException
-    {
+        throws NoSuchBeanDefinitionException {
         return applicationContext.getAliases(name);
     }
     
-    public static ServletContext getServletContext()
-    {
+    public static ServletContext getServletContext() {
         WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
         return currentWebApplicationContext.getServletContext();
     }

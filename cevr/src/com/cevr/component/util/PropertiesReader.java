@@ -24,24 +24,21 @@ import java.util.ResourceBundle;
  * @Todo:
  * 
  */
-public class PropertiesReader
-{
+public class PropertiesReader {
     private static final PropertiesReader instance = new PropertiesReader();
     
     final Properties prop = new Properties();
     
-    private PropertiesReader()
-    {
+    private PropertiesReader() {
         
     }
     
-    public static PropertiesReader getInstanceByResource()
-    {
+    public static PropertiesReader getInstanceByResource() {
         return instance;
     }
     
-    public PropertiesReader(final String filPath) throws IOException
-    {
+    public PropertiesReader(final String filPath)
+        throws IOException {
         final FileReader fr = new FileReader(new File(filPath));
         this.prop.load(fr);
     }
@@ -55,23 +52,20 @@ public class PropertiesReader
      * @throws MissingResourceException
      * 
      */
-    public String getValue(final String file_name, final String key) throws MissingResourceException
-    {
+    public String getValue(final String file_name, final String key)
+        throws MissingResourceException {
         final ResourceBundle res = ResourceBundle.getBundle(file_name);
         String value = "";
-        try
-        {
+        try {
             value = res.getString(key);
         }
-        catch (final MissingResourceException e)
-        {
+        catch (final MissingResourceException e) {
             throw e;
         }
         return value;
     }
     
-    public String getValueByKey(final String key)
-    {
+    public String getValueByKey(final String key) {
         return this.prop.get(key) + "";
     }
 }
