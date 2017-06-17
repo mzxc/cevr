@@ -113,6 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 
 	function showMovie(_this){
+		$('.modal-body').empty();
 		$('#myModal').modal('show');
 		var videoid = $(_this).attr('videoid');
 		var videoinfo = $(_this).find('p').text();
