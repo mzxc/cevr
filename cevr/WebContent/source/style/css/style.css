@@ -167,3 +167,6 @@ footer p.f-title{
     padding-right: 15px;
     padding-left: 0;
 }
+.h-info p{
+    margin: 0;
+}
