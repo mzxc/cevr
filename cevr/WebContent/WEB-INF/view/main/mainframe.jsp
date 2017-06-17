@@ -40,10 +40,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	        <div class="row">
 	        <div class="col-sm-10 h-title">
-                2017环青海湖（国际）电动汽车挑战赛参赛车型主观评测项目网络投票活动 <span>投票时间：2017.6.16-20</span>
+                2017环青海湖（国际）电动汽车挑战赛参赛车型主观评测项目网络投票活动 <span>投票时间：2017.6.17-20</span>
             </div>
             <div class="col-sm-12 h-info">
-                <span style="font-weight: 600">活动说明：</span> 2017CEVR电动汽车挑战赛有人气更接地气！赛事14项专业评测项目中外观设计，空间设计、内饰设计3个评测项目，将进行VR视频网络互动投票。          360°全景视频体验，让您全面了解参赛车型的各个细节，您的投票分数将加权计入最终评分，谁能拿到大奖，也有您的功劳哦~把握您的网络评委权利，动动手指，选出你心目中的各项最佳车型吧~              成为网络评委，还有福利哦~将抽取30名随机赠送参赛电动汽车模型及精美周边纪念品（温馨提示：请您填写真实手机号，以便获奖后客服与您及时联系，获奖名单将在6月23号后，于环青海湖国际电动汽车挑战赛的官方微信公众号公布）。
+                <span style="font-weight: 600">活动说明：</span> 2017CEVR电动汽车挑战赛有人气更接地气！赛事14项专业评测项目中的外观设计、空间设计、内饰设计3个评测项目将进行VR视频网络互动投票。360°全景视频体验，让您全面了解参赛车型各个细节，您的投票分数将加权计入最终评分，谁能拿到大奖，也有您的功劳哦~把握您的网络评委权利，动动手指选出心目中的各项最佳车型吧~参与投票，还有福利哦~我们将抽取30名幸运网络评委随机赠送参赛电动汽车模型及精美周边纪念品。（温馨提示：请您填写真实手机号，以便获奖后客服与您及时联系，获奖名单将在6月23号后于环青海湖国际电动汽车挑战赛的官方微信公众号公布。）
 
             </div>
 	        </div>
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <section class="content-warp">
     <div class="container">
     	<div class="row">
-            <div class="c-title">参赛车型360全景视频展示</div>
+            <div class="c-title">参赛车型360°全景视频展示</div>
         </div>
         
         <div id="car_show" class="row c-layout">
@@ -71,7 +71,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 	</div>
 </section>
-<Iframe id="hideCarMovie" width=660 height=390  style="display: none;" src="asyn/index/player/1" ></iframe>
 <footer>
     <div class="container">
         <p class="f-title">
@@ -86,12 +85,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <img src="source/images/er.jpg" alt="" style="width: 135px;height: 135px;z-index: 999"/>
     <p class="text-center" style="color: #FFFFFF">关&nbsp;注&nbsp;我&nbsp;们&nbsp;了&nbsp;解</br>更&nbsp;多&nbsp;赛&nbsp;事&nbsp;详&nbsp;情</p>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4></h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 </body>
 <script type="text/javascript">
 	$(function(){
 		initCarInfo();
+		$('#myModal').modal('hide');
+		$('#myModal').on('hide.bs.modal', function () {
+		      $("#ExternalInterfaceExample").remove();
+		});
+		$('body').on('click','.v-layout',function(){
+			$('#myModal').modal('show');
+			var objectHtml = '<object id="ExternalInterfaceExample" style="width:100%" height="400" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-aE6D-11cf-96B8-444553540000">'
+			+'<param value="http://data.cnlive.com/export/CNLivePlayer.swf?hasBorder=false&amp;uuid=58b6bbf6ddd3426abbeb42c631ac43fe" name="movie">'
+			+'<param value="high" name="quality">'
+			+'<param value="always" name="allowScriptAccess">'
+			+'<param value="true" name="allowFullScreen">'
+			+'<embed id="embed" style="width:100%;" height="400" allowfullscreen="true" name="ExternalInterfaceExample" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" allowscriptaccess="always" quality="high" wmode="transparent">'
+			+'</object>';
+			$('.modal-body').append(objectHtml);
+			 var videoid = $(this).attr('videoid');
+		     var videoinfo = $(this).find('p').text();
+		     $('.modal-header h4').text(videoinfo);
+		     $('#embed').attr("src",videoid);
+		});
 	});
-	
 	function tabClick(v){
 		//window.location.href='${basePath}asyn/index/voteframe/'+v;
 		top.window.location ='${basePath}asyn/index/voteframe/'+v;
@@ -127,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(index ==0 || (index)%2==0){
 						carInfos = carInfos + divPrefix;
 					}
-					carInfos = carInfos + '<div class="v-layout" videoid="XMjc3OTM0MDc2MA">';
+					carInfos = carInfos + '<div class="v-layout" videoid="'+carInfo[index].src+'">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
 						imgHtml = '<img onclick="showMovie()" src="' + carInfo[index].carImgs + '">';
@@ -137,14 +167,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						//var swiperHtmlEnd = '</div></div>';
 						//imgHtml = imgHtml + swiperHtmlHead;
 						for(var i = 0; i < carImgs.length;i = i + 1){
-							var img = '<div onclick="showMovie('+carInfo[index].carId+')" ><img  alt="" src="' + carImgs[i] + '"></div>';
+							var img = '<div><img  alt="" src="' + carImgs[i] + '"></div>';
 							imgHtml = imgHtml + img;
 							break;
 						}
 						//imgHtml = imgHtml + swiperHtmlEnd;
 					}
 					carInfos = carInfos + imgHtml;
-					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
+					//carInfos = carInfos + '<p>'  + carInfo[index].carGroup + "  " + carInfo[index].carNo + "  " + carInfo[index].carName + '</p></div>';
+					carInfos = carInfos + '<p>'  + carInfo[index].carGroup + " " + carInfo[index].carName + '</p></div>';
+
 					if(index !=0 && (index)%2==1){
 						carInfos = carInfos + divSuffix;
 					}
