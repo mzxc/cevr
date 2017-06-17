@@ -102,10 +102,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	$(function(){
 		initCarInfo();
-		$('#myModal').modal('hide');
-		$('#myModal').on('hide.bs.modal', function () {
-		      $("#ExternalInterfaceExample").remove();
-		});
 	});
 	function tabClick(v){
 		//window.location.href='${basePath}asyn/index/voteframe/'+v;
