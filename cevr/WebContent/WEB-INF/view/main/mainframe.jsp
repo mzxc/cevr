@@ -104,22 +104,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		initCarInfo();
 		$('#myModal').modal('hide');
 		$('#myModal').on('hide.bs.modal', function () {
-		      $("#ExternalInterfaceExample").remove();
+		      $("#mainframe").remove();
 		});
 		$('body').on('click','.v-layout',function(){
-			$('#myModal').modal('show');
-			var objectHtml = '<object id="ExternalInterfaceExample" style="width:100%" height="400" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-aE6D-11cf-96B8-444553540000">'
-			+'<param value="http://data.cnlive.com/export/CNLivePlayer.swf?hasBorder=false&amp;uuid=58b6bbf6ddd3426abbeb42c631ac43fe" name="movie">'
-			+'<param value="high" name="quality">'
-			+'<param value="always" name="allowScriptAccess">'
-			+'<param value="true" name="allowFullScreen">'
-			+'<embed id="embed" style="width:100%;" height="400" allowfullscreen="true" name="ExternalInterfaceExample" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" allowscriptaccess="always" quality="high" wmode="transparent">'
-			+'</object>';
+			
+			var objectHtml = 
+				//'<object id="ExternalInterfaceExample" style="width:100%" height="400" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-aE6D-11cf-96B8-444553540000">'
+			//+'<param value="http://data.cnlive.com/export/CNLivePlayer.swf?hasBorder=false&amp;uuid=58b6bbf6ddd3426abbeb42c631ac43fe" name="movie">'
+			//+'<param value="high" name="quality">'
+			//+'<param value="always" name="allowScriptAccess">'
+			//+'<param value="true" name="allowFullScreen">'
+'<iframe id="mainframe" height=400 style="width:100%;" src="" frameborder=0 allowfullscreen></ifram>';	
+//'<embed id="embed" style="width:100%;" height="400" allowfullscreen="true" isAutoPlay="true" name="ExternalInterfaceExample" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" allowscriptaccess="always" quality="high" wmode="transparent">';
+			//+'</object>';
 			$('.modal-body').append(objectHtml);
 			 var videoid = $(this).attr('videoid');
 		     var videoinfo = $(this).find('p').text();
 		     $('.modal-header h4').text(videoinfo);
-		     $('#embed').attr("src",videoid);
+		     $("#mainframe",parent.document.body).attr("src",videoid);
+		     $('#myModal').modal('show');
 		});
 	});
 	function tabClick(v){
