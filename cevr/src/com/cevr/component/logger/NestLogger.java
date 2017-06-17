@@ -17,8 +17,7 @@ import org.apache.log4j.Logger;
  * @see #NestLogger
  * @since 1.2
  */
-public class NestLogger
-{
+public class NestLogger {
     /**
      * 开发者模式
      */
@@ -32,30 +31,23 @@ public class NestLogger
     
     private static String FILEPATH = "../sysLog/ckLog.log";
     
-    static
-    {
+    static {
         file = new File(FILEPATH);
-        if (!file.exists())
-        {
-            try
-            {
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
             }
-            catch (final IOException e)
-            {
+            catch (final IOException e) {
                 logger.error("初始化本地日志文件错误...." + e);
             }
         }
-        else if (file.length() > 536870912L)
-        {
+        else if (file.length() > 536870912L) {
             file.renameTo(new File(FILEPATH + ".bak"));
         }
-        try
-        {
+        try {
             fw = new FileWriter(file, true);
         }
-        catch (final IOException e)
-        {
+        catch (final IOException e) {
             logger.error("初始化本地日志文件错误...." + e);
         }
     }
@@ -67,11 +59,9 @@ public class NestLogger
      * @param e
      * @see [类、类#方法、类#成员]
      */
-    public static void showException(final Exception e)
-    {
-    	logger.error(getTrace(e));
-        if (DEVELOP_MODEL)
-        {
+    public static void showException(final Exception e) {
+        logger.error(getTrace(e));
+        if (DEVELOP_MODEL) {
             e.printStackTrace();
         }
     }
@@ -84,8 +74,7 @@ public class NestLogger
      * @param ifGetTraceInfo 是否打印详细信息
      * @return 日志信息
      */
-    public static String buildLog(final String whatWork, final Exception e, final boolean ifGetTraceInfo)
-    {
+    public static String buildLog(final String whatWork, final Exception e, final boolean ifGetTraceInfo) {
         return "Logger Info : 日志详情: " + whatWork + (e == null ? "" : " , 当前异常信息为: " + (ifGetTraceInfo ? getTrace(e) : e.toString()));
     }
     
@@ -95,8 +84,7 @@ public class NestLogger
      * @param t 异常
      * @return string信息
      */
-    private static String getTrace(final Throwable t)
-    {
+    private static String getTrace(final Throwable t) {
         final StringWriter stringWriter = new StringWriter();
         final PrintWriter writer = new PrintWriter(stringWriter);
         t.printStackTrace(writer);
@@ -104,26 +92,21 @@ public class NestLogger
         return buffer.toString();
     }
     
-    public static void locationLog(final String logInfo)
-    {
-        try
-        {
+    public static void locationLog(final String logInfo) {
+        try {
             fw.append(logInfo + "\n");
             fw.flush();
         }
-        catch (final IOException e)
-        {
+        catch (final IOException e) {
             new GotoLog(logInfo).start();
             e.printStackTrace();
         }
     }
     
-    static class GotoLog extends Thread
-    {
+    static class GotoLog extends Thread {
         private final String logStr;
         
-        public GotoLog(final String logStr)
-        {
+        public GotoLog(final String logStr) {
             this.logStr = logStr;
         }
         
@@ -131,15 +114,12 @@ public class NestLogger
          * 重载方法
          */
         @Override
-        public void run()
-        {
+        public void run() {
             super.run();
-            try
-            {
+            try {
                 sleep(5000);
             }
-            catch (final InterruptedException e)
-            {
+            catch (final InterruptedException e) {
                 e.printStackTrace();
             }
             locationLog(this.logStr);

@@ -11,14 +11,12 @@ import java.util.Locale;
 /**
  * 返回星期、工作日、非工作日
  */
-public class WorkDateUtil
-{
+public class WorkDateUtil {
     /**
      * @param date输入的日期
      * @return返回星期
      */
-    public static String getDay(String date)
-    {
+    public static String getDay(String date) {
         SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd");
         final String pattern = "星期";
         // 返回结果
@@ -29,19 +27,16 @@ public class WorkDateUtil
         String zhou = null;
         // 日历类
         Calendar cal = Calendar.getInstance();
-        try
-        {
+        try {
             cal.setTime(sformat.parse(date));
         }
-        catch (ParseException e)
-        {
+        catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         day = cal.get(Calendar.DAY_OF_WEEK);
         // 判断为周几
-        switch (day)
-        {
+        switch (day) {
             case 1:
                 zhou = "日";
                 break;
@@ -71,26 +66,22 @@ public class WorkDateUtil
     }
     
     @SuppressWarnings("unchecked")
-    public static List getYmd(String date1, String date2)
-    {
+    public static List getYmd(String date1, String date2) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List list = new ArrayList();
-        try
-        {
+        try {
             Date d1 = sdf.parse(date1);
             Date d2 = sdf.parse(date2);
             Calendar c = Calendar.getInstance();
             c.setTime(d1);
             list.add(sdf.format(c.getTime()));// 打出第一天的
             
-            while (!c.getTime().equals(d2))
-            {
+            while (!c.getTime().equals(d2)) {
                 c.add(Calendar.DATE, 1);// 日期加1
                 list.add(sdf.format(c.getTime()));
-            }// 直到和第二个日期相等,跳出循环
+            } // 直到和第二个日期相等,跳出循环
         }
-        catch (ParseException e)
-        {
+        catch (ParseException e) {
             e.printStackTrace();
         }
         return list;
@@ -102,22 +93,18 @@ public class WorkDateUtil
      * @param year 年份
      * @return
      */
-    public static List<String> getWeekends(int year)
-    {
+    public static List<String> getWeekends(int year) {
         List<String> list = new ArrayList<String>();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance(Locale.CHINA);
         cal.set(year, 0, 1);
-        for (int day = 1; day <= cal.getActualMaximum(Calendar.DAY_OF_YEAR); day++)
-        {
+        for (int day = 1; day <= cal.getActualMaximum(Calendar.DAY_OF_YEAR); day++) {
             cal.set(Calendar.DAY_OF_YEAR, day);
             int weekDay = cal.get(Calendar.DAY_OF_WEEK);
-            if (weekDay == Calendar.SATURDAY || weekDay == Calendar.SUNDAY)
-            {
+            if (weekDay == Calendar.SATURDAY || weekDay == Calendar.SUNDAY) {
                 list.add(sdf.format(cal.getTime()) + " " + WorkDateUtil.getDay(sdf.format(cal.getTime())));
             }
-            else
-            {
+            else {
                 list.add(sdf.format(cal.getTime()) + " " + WorkDateUtil.getDay(sdf.format(cal.getTime())));
             }
         }

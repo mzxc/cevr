@@ -19,8 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @see #CkInterceptor
  * @since 2.1
  */
-public class CkInterceptor implements HandlerInterceptor
-{
+public class CkInterceptor implements HandlerInterceptor {
     /**
      * 日志服务
      */
@@ -33,15 +32,14 @@ public class CkInterceptor implements HandlerInterceptor
     public boolean ifNeedLogin;
     
     public void setIfNeedLogin(boolean ifNeedLogin) {
-		this.ifNeedLogin = ifNeedLogin;
-	}
-
-	public void setLoginFlag(String loginFlag) {
-		this.loginFlag = loginFlag;
-	}
-
-	public void setAllowUrls(final String[] allowUrls)
-    {
+        this.ifNeedLogin = ifNeedLogin;
+    }
+    
+    public void setLoginFlag(String loginFlag) {
+        this.loginFlag = loginFlag;
+    }
+    
+    public void setAllowUrls(final String[] allowUrls) {
         this.allowUrls = allowUrls;
     }
     
@@ -55,10 +53,9 @@ public class CkInterceptor implements HandlerInterceptor
      * @throws Exception
      */
     @Override
-    public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response, final Object obj, final Exception ex) throws Exception
-    {
-        if (ex != null)
-        {
+    public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response, final Object obj, final Exception ex)
+        throws Exception {
+        if (ex != null) {
             logger.error("错误请求：" + request.getRequestURI() + ",异常信息：" + ex.toString());
         }
     }
@@ -73,8 +70,8 @@ public class CkInterceptor implements HandlerInterceptor
      * @throws Exception
      */
     @Override
-    public void postHandle(final HttpServletRequest arg0, final HttpServletResponse arg1, final Object arg2, final ModelAndView arg3) throws Exception
-    {
+    public void postHandle(final HttpServletRequest arg0, final HttpServletResponse arg1, final Object arg2, final ModelAndView arg3)
+        throws Exception {
         
     }
     
@@ -89,29 +86,23 @@ public class CkInterceptor implements HandlerInterceptor
      * @throws Exception
      */
     @Override
-    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception
-    {
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler)
+        throws Exception {
         final Map<String, String[]> parameterMap = request.getParameterMap();
         final Iterator<String> key = parameterMap.keySet().iterator();
-        while (key.hasNext())
-        {
+        while (key.hasNext()) {
             final String[] strs = parameterMap.get(key.next());
-            for (final String str : strs)
-            {
+            for (final String str : strs) {
                 final String dict = "like |drop table |and |or |exec |insert |select |delete |xp_cmdshell |update |count |chr |mid |netlocalgroup administrators |master |truncate |char |declare |script|alert|jquery|${";
                 final String[] checkStr = dict.split("\\|");
-                for (int i = 0; i < checkStr.length; i++)
-                {
-                    try
-                    {
-                        if (str.toLowerCase().indexOf(checkStr[i]) != -1)
-                        {
+                for (int i = 0; i < checkStr.length; i++) {
+                    try {
+                        if (str.toLowerCase().indexOf(checkStr[i]) != -1) {
                             request.getSession().invalidate();
                             return false;
                         }
                     }
-                    catch (final Exception e)
-                    {
+                    catch (final Exception e) {
                         request.getSession().invalidate();
                         return false;
                     }
@@ -119,22 +110,18 @@ public class CkInterceptor implements HandlerInterceptor
             }
         }
         final Object obj = request.getSession().getAttribute(loginFlag);
-        if (obj != null)
-        {
+        if (obj != null) {
             return true;
         }
-        if(!ifNeedLogin){
-        	request.getSession().setAttribute(loginFlag, "login");
-        	response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
-        	return false;
+        if (!ifNeedLogin) {
+            request.getSession().setAttribute(loginFlag, "login");
+            response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
+            return false;
         }
         final String requestUrl = request.getRequestURI().replace(request.getContextPath(), "");
-        if (null != this.allowUrls && this.allowUrls.length >= 1)
-        {
-            for (final String url : this.allowUrls)
-            {
-                if (requestUrl.contains(url))
-                {
+        if (null != this.allowUrls && this.allowUrls.length >= 1) {
+            for (final String url : this.allowUrls) {
+                if (requestUrl.contains(url)) {
                     return true;
                 }
             }

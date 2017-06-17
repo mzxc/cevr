@@ -31,8 +31,7 @@ import com.cevr.component.logger.NestLogger;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
-public class FileUtil
-{
+public class FileUtil {
     /**
      * 日志服务
      */
@@ -47,27 +46,22 @@ public class FileUtil
      * @param fileName
      * @see [类、类#方法、类#成员]
      */
-    public static boolean fileIO(final String dirPath, final MultipartFile saveObject, final String fileName)
-    {
+    public static boolean fileIO(final String dirPath, final MultipartFile saveObject, final String fileName) {
         boolean ifCreate = false;
         File file = new File(dirPath);
-        if (!file.exists())
-        {
+        if (!file.exists()) {
             file.mkdirs();
         }
         file = new File(dirPath, fileName);
-        if (!file.exists())
-        {
-            try
-            {
+        if (!file.exists()) {
+            try {
                 ifCreate = file.createNewFile();
                 final FileOutputStream outStr = new FileOutputStream(file);
                 outStr.write(saveObject.getBytes());
                 outStr.flush();
                 outStr.close();
             }
-            catch (final Exception e)
-            {
+            catch (final Exception e) {
                 NestLogger.showException(e);
                 log.error(NestLogger.buildLog("保存文件出错: ", e, true));
             }
@@ -83,19 +77,15 @@ public class FileUtil
      * @return boolean boolean
      * @see [类、类#方法、类#成员]
      */
-    public static boolean ifImage(final InputStream in)
-    {
+    public static boolean ifImage(final InputStream in) {
         Image image;
-        try
-        {
+        try {
             image = ImageIO.read(in);
-            if (image == null)
-            {
+            if (image == null) {
                 return false;
             }
         }
-        catch (final IOException e)
-        {
+        catch (final IOException e) {
             return false;
         }
         return true;
@@ -109,12 +99,10 @@ public class FileUtil
      * @param fileName dirPath
      * @see [类、类#方法、类#成员]
      */
-    public static boolean deleteFile(final String dirPath, final String fileName)
-    {
+    public static boolean deleteFile(final String dirPath, final String fileName) {
         boolean ifDel = false;
         final File file = new File(dirPath + "/" + fileName);
-        if (file.exists())
-        {
+        if (file.exists()) {
             ifDel = file.delete();
         }
         return ifDel;

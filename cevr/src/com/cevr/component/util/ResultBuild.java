@@ -21,10 +21,8 @@ import java.util.Map;
  * @see #ResultBuild
  * @since 1.0
  */
-public abstract class ResultBuild
-{
-    public static Map<String, Object> init(final boolean ifSuccess, final String msg, final Object data)
-    {
+public abstract class ResultBuild {
+    public static Map<String, Object> init(final boolean ifSuccess, final String msg, final Object data) {
         final Map<String, Object> result = new HashMap<String, Object>();
         result.put("result", ifSuccess);
         result.put("msg", msg);

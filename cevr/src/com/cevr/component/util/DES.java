@@ -10,99 +10,79 @@ import java.util.List;
  * @see #strEnc(String, String, String, String)
  * @see #strDec(String, String, String, String)
  */
-public class DES
-{
+public class DES {
     private final String key1 = "GOMYCKGOGOGO";
     
     private final String key2 = "GOMYCK010203";
     
     private final String key3 = "DES";
     
-    public String encode(final String str)
-    {
+    public String encode(final String str) {
         return strEnc(str, this.key1, this.key2, this.key3);
     }
     
-    public String decode(final String str)
-    {
+    public String decode(final String str) {
         return strDec(str, this.key1, this.key2, this.key3);
     }
     
     @SuppressWarnings("rawtypes")
-    public String strEnc(final String data, final String firstKey, final String secondKey, final String thirdKey)
-    {
+    public String strEnc(final String data, final String firstKey, final String secondKey, final String thirdKey) {
         
         final int leng = data.length();
         String encData = "";
         List firstKeyBt = null, secondKeyBt = null, thirdKeyBt = null;
         int firstLength = 0, secondLength = 0, thirdLength = 0;
-        if (firstKey != null && firstKey != "")
-        {
+        if (firstKey != null && firstKey != "") {
             firstKeyBt = getKeyBytes(firstKey);
             firstLength = firstKeyBt.size();
         }
-        if (secondKey != null && secondKey != "")
-        {
+        if (secondKey != null && secondKey != "") {
             secondKeyBt = getKeyBytes(secondKey);
             secondLength = secondKeyBt.size();
         }
-        if (thirdKey != null && thirdKey != "")
-        {
+        if (thirdKey != null && thirdKey != "") {
             thirdKeyBt = getKeyBytes(thirdKey);
             thirdLength = thirdKeyBt.size();
         }
         
-        if (leng > 0)
-        {
-            if (leng < 4)
-            {
+        if (leng > 0) {
+            if (leng < 4) {
                 final int[] bt = strToBt(data);
                 int[] encByte = null;
-                if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "")
-                {
+                if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
                     int[] tempBt;
                     int x, y, z;
                     tempBt = bt;
-                    for (x = 0; x < firstLength; x++)
-                    {
+                    for (x = 0; x < firstLength; x++) {
                         tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                     }
-                    for (y = 0; y < secondLength; y++)
-                    {
+                    for (y = 0; y < secondLength; y++) {
                         tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                     }
-                    for (z = 0; z < thirdLength; z++)
-                    {
+                    for (z = 0; z < thirdLength; z++) {
                         tempBt = enc(tempBt, (int[])thirdKeyBt.get(z));
                     }
                     encByte = tempBt;
                 }
-                else
-                {
-                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "")
-                    {
+                else {
+                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
                         int[] tempBt;
                         int x, y;
                         tempBt = bt;
-                        for (x = 0; x < firstLength; x++)
-                        {
+                        for (x = 0; x < firstLength; x++) {
                             tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                         }
-                        for (y = 0; y < secondLength; y++)
-                        {
+                        for (y = 0; y < secondLength; y++) {
                             tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                         }
                         encByte = tempBt;
                     }
-                    else
-                    {
-                        if (firstKey != null && firstKey != "")
-                        {
+                    else {
+                        if (firstKey != null && firstKey != "") {
                             int[] tempBt;
                             int x = 0;
                             tempBt = bt;
-                            for (x = 0; x < firstLength; x++)
-                            {
+                            for (x = 0; x < firstLength; x++) {
                                 tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                             }
                             encByte = tempBt;
@@ -111,61 +91,48 @@ public class DES
                 }
                 encData = bt64ToHex(encByte);
             }
-            else
-            {
+            else {
                 final int iterator = (leng / 4);
                 final int remainder = leng % 4;
                 int i = 0;
-                for (i = 0; i < iterator; i++)
-                {
+                for (i = 0; i < iterator; i++) {
                     final String tempData = data.substring(i * 4 + 0, i * 4 + 4);
                     final int[] tempByte = strToBt(tempData);
                     int[] encByte = null;
-                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "")
-                    {
+                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
                         int[] tempBt;
                         int x, y, z;
                         tempBt = tempByte;
-                        for (x = 0; x < firstLength; x++)
-                        {
+                        for (x = 0; x < firstLength; x++) {
                             tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                         }
-                        for (y = 0; y < secondLength; y++)
-                        {
+                        for (y = 0; y < secondLength; y++) {
                             tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                         }
-                        for (z = 0; z < thirdLength; z++)
-                        {
+                        for (z = 0; z < thirdLength; z++) {
                             tempBt = enc(tempBt, (int[])thirdKeyBt.get(z));
                         }
                         encByte = tempBt;
                     }
-                    else
-                    {
-                        if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "")
-                        {
+                    else {
+                        if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
                             int[] tempBt;
                             int x, y;
                             tempBt = tempByte;
-                            for (x = 0; x < firstLength; x++)
-                            {
+                            for (x = 0; x < firstLength; x++) {
                                 tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                             }
-                            for (y = 0; y < secondLength; y++)
-                            {
+                            for (y = 0; y < secondLength; y++) {
                                 tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                             }
                             encByte = tempBt;
                         }
-                        else
-                        {
-                            if (firstKey != null && firstKey != "")
-                            {
+                        else {
+                            if (firstKey != null && firstKey != "") {
                                 int[] tempBt;
                                 int x;
                                 tempBt = tempByte;
-                                for (x = 0; x < firstLength; x++)
-                                {
+                                for (x = 0; x < firstLength; x++) {
                                     tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                                 }
                                 encByte = tempBt;
@@ -174,56 +141,44 @@ public class DES
                     }
                     encData += bt64ToHex(encByte);
                 }
-                if (remainder > 0)
-                {
+                if (remainder > 0) {
                     final String remainderData = data.substring(iterator * 4 + 0, leng);
                     final int[] tempByte = strToBt(remainderData);
                     int[] encByte = null;
-                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "")
-                    {
+                    if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
                         int[] tempBt;
                         int x, y, z;
                         tempBt = tempByte;
-                        for (x = 0; x < firstLength; x++)
-                        {
+                        for (x = 0; x < firstLength; x++) {
                             tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                         }
-                        for (y = 0; y < secondLength; y++)
-                        {
+                        for (y = 0; y < secondLength; y++) {
                             tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                         }
-                        for (z = 0; z < thirdLength; z++)
-                        {
+                        for (z = 0; z < thirdLength; z++) {
                             tempBt = enc(tempBt, (int[])thirdKeyBt.get(z));
                         }
                         encByte = tempBt;
                     }
-                    else
-                    {
-                        if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "")
-                        {
+                    else {
+                        if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
                             int[] tempBt;
                             int x, y;
                             tempBt = tempByte;
-                            for (x = 0; x < firstLength; x++)
-                            {
+                            for (x = 0; x < firstLength; x++) {
                                 tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                             }
-                            for (y = 0; y < secondLength; y++)
-                            {
+                            for (y = 0; y < secondLength; y++) {
                                 tempBt = enc(tempBt, (int[])secondKeyBt.get(y));
                             }
                             encByte = tempBt;
                         }
-                        else
-                        {
-                            if (firstKey != null && firstKey != "")
-                            {
+                        else {
+                            if (firstKey != null && firstKey != "") {
                                 int[] tempBt;
                                 int x;
                                 tempBt = tempByte;
-                                for (x = 0; x < firstLength; x++)
-                                {
+                                for (x = 0; x < firstLength; x++) {
                                     tempBt = enc(tempBt, (int[])firstKeyBt.get(x));
                                 }
                                 encByte = tempBt;
@@ -238,88 +193,71 @@ public class DES
     }
     
     @SuppressWarnings({"rawtypes", "unused"})
-    public String strDec(final String data, final String firstKey, final String secondKey, final String thirdKey)
-    {
+    public String strDec(final String data, final String firstKey, final String secondKey, final String thirdKey) {
         final int leng = data.length();
         String decStr = "";
         List firstKeyBt = null, secondKeyBt = null, thirdKeyBt = null;
         int firstLength = 0, secondLength = 0, thirdLength = 0;
-        if (firstKey != null && firstKey != "")
-        {
+        if (firstKey != null && firstKey != "") {
             firstKeyBt = getKeyBytes(firstKey);
             firstLength = firstKeyBt.size();
         }
-        if (secondKey != null && secondKey != "")
-        {
+        if (secondKey != null && secondKey != "") {
             secondKeyBt = getKeyBytes(secondKey);
             secondLength = secondKeyBt.size();
         }
-        if (thirdKey != null && thirdKey != "")
-        {
+        if (thirdKey != null && thirdKey != "") {
             thirdKeyBt = getKeyBytes(thirdKey);
             thirdLength = thirdKeyBt.size();
         }
         
         final int iterator = leng / 16;
         int i = 0;
-        for (i = 0; i < iterator; i++)
-        {
+        for (i = 0; i < iterator; i++) {
             final String tempData = data.substring(i * 16 + 0, i * 16 + 16);
             final String strByte = hexToBt64(tempData);
             final int[] intByte = new int[64];
             int j = 0;
-            for (j = 0; j < 64; j++)
-            {
+            for (j = 0; j < 64; j++) {
                 intByte[j] = Integer.parseInt(strByte.substring(j, j + 1));
             }
             int[] decByte = null;
-            if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "")
-            {
+            if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "" && thirdKey != null && thirdKey != "") {
                 int[] tempBt;
                 int x, y, z;
                 tempBt = intByte;
-                for (x = thirdLength - 1; x >= 0; x--)
-                {
+                for (x = thirdLength - 1; x >= 0; x--) {
                     tempBt = dec(tempBt, (int[])thirdKeyBt.get(x));
                 }
-                for (y = secondLength - 1; y >= 0; y--)
-                {
+                for (y = secondLength - 1; y >= 0; y--) {
                     tempBt = dec(tempBt, (int[])secondKeyBt.get(y));
                 }
-                for (z = firstLength - 1; z >= 0; z--)
-                {
+                for (z = firstLength - 1; z >= 0; z--) {
                     tempBt = dec(tempBt, (int[])firstKeyBt.get(z));
                 }
                 decByte = tempBt;
             }
-            else
-            {
-                if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "")
-                {
+            else {
+                if (firstKey != null && firstKey != "" && secondKey != null && secondKey != "") {
                     int[] tempBt;
                     int x, y;
                     final int z;
                     tempBt = intByte;
-                    for (x = secondLength - 1; x >= 0; x--)
-                    {
+                    for (x = secondLength - 1; x >= 0; x--) {
                         tempBt = dec(tempBt, (int[])secondKeyBt.get(x));
                     }
-                    for (y = firstLength - 1; y >= 0; y--)
-                    {
+                    for (y = firstLength - 1; y >= 0; y--) {
                         tempBt = dec(tempBt, (int[])firstKeyBt.get(y));
                     }
                     decByte = tempBt;
                 }
-                else
-                {
-                    if (firstKey != null && firstKey != "")
-                    {
+                else {
+                    if (firstKey != null && firstKey != "") {
                         int[] tempBt;
                         int x;
                         final int y, z;
                         tempBt = intByte;
-                        for (x = firstLength - 1; x >= 0; x--)
-                        {
+                        for (x = firstLength - 1; x >= 0; x--) {
                             tempBt = dec(tempBt, (int[])firstKeyBt.get(x));
                         }
                         decByte = tempBt;
@@ -332,69 +270,54 @@ public class DES
     }
     
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public List getKeyBytes(final String key)
-    {
+    public List getKeyBytes(final String key) {
         final List keyBytes = new ArrayList();
         final int leng = key.length();
         final int iterator = (leng / 4);
         final int remainder = leng % 4;
         int i = 0;
-        for (i = 0; i < iterator; i++)
-        {
+        for (i = 0; i < iterator; i++) {
             keyBytes.add(i, strToBt(key.substring(i * 4 + 0, i * 4 + 4)));
         }
-        if (remainder > 0)
-        {
+        if (remainder > 0) {
             keyBytes.add(i, strToBt(key.substring(i * 4 + 0, leng)));
         }
         return keyBytes;
     }
     
-    public int[] strToBt(final String str)
-    {
+    public int[] strToBt(final String str) {
         final int leng = str.length();
         final int[] bt = new int[64];
-        if (leng < 4)
-        {
+        if (leng < 4) {
             int i = 0, j = 0, p = 0, q = 0;
-            for (i = 0; i < leng; i++)
-            {
+            for (i = 0; i < leng; i++) {
                 final int k = str.charAt(i);
-                for (j = 0; j < 16; j++)
-                {
+                for (j = 0; j < 16; j++) {
                     int pow = 1, m = 0;
-                    for (m = 15; m > j; m--)
-                    {
+                    for (m = 15; m > j; m--) {
                         pow *= 2;
                     }
                     // bt.set(16*i+j,""+(k/pow)%2));
                     bt[16 * i + j] = (k / pow) % 2;
                 }
             }
-            for (p = leng; p < 4; p++)
-            {
+            for (p = leng; p < 4; p++) {
                 final int k = 0;
-                for (q = 0; q < 16; q++)
-                {
+                for (q = 0; q < 16; q++) {
                     int pow = 1, m = 0;
-                    for (m = 15; m > q; m--)
-                    {
+                    for (m = 15; m > q; m--) {
                         pow *= 2;
                     }
                     bt[16 * p + q] = (k / pow) % 2;
                 }
             }
         }
-        else
-        {
-            for (int i = 0; i < 4; i++)
-            {
+        else {
+            for (int i = 0; i < 4; i++) {
                 final int k = str.charAt(i);
-                for (int j = 0; j < 16; j++)
-                {
+                for (int j = 0; j < 16; j++) {
                     int pow = 1;
-                    for (int m = 15; m > j; m--)
-                    {
+                    for (int m = 15; m > j; m--) {
                         pow *= 2;
                     }
                     // bt[16*i+j]=parseInt(k/pow)%2;
@@ -411,71 +334,54 @@ public class DES
      * 
      * return hex
      */
-    public String bt4ToHex(final String binary)
-    {
+    public String bt4ToHex(final String binary) {
         String hex = "";
-        if (binary.equalsIgnoreCase("0000"))
-        {
+        if (binary.equalsIgnoreCase("0000")) {
             hex = "0";
         }
-        else if (binary.equalsIgnoreCase("0001"))
-        {
+        else if (binary.equalsIgnoreCase("0001")) {
             hex = "1";
         }
-        else if (binary.equalsIgnoreCase("0010"))
-        {
+        else if (binary.equalsIgnoreCase("0010")) {
             hex = "2";
         }
-        else if (binary.equalsIgnoreCase("0011"))
-        {
+        else if (binary.equalsIgnoreCase("0011")) {
             hex = "3";
         }
-        else if (binary.equalsIgnoreCase("0100"))
-        {
+        else if (binary.equalsIgnoreCase("0100")) {
             hex = "4";
         }
-        else if (binary.equalsIgnoreCase("0101"))
-        {
+        else if (binary.equalsIgnoreCase("0101")) {
             hex = "5";
         }
-        else if (binary.equalsIgnoreCase("0110"))
-        {
+        else if (binary.equalsIgnoreCase("0110")) {
             hex = "6";
         }
-        else if (binary.equalsIgnoreCase("0111"))
-        {
+        else if (binary.equalsIgnoreCase("0111")) {
             hex = "7";
         }
-        else if (binary.equalsIgnoreCase("1000"))
-        {
+        else if (binary.equalsIgnoreCase("1000")) {
             hex = "8";
         }
-        else if (binary.equalsIgnoreCase("1001"))
-        {
+        else if (binary.equalsIgnoreCase("1001")) {
             hex = "9";
         }
-        else if (binary.equalsIgnoreCase("1010"))
-        {
+        else if (binary.equalsIgnoreCase("1010")) {
             hex = "A";
         }
-        else if (binary.equalsIgnoreCase("1011"))
-        {
+        else if (binary.equalsIgnoreCase("1011")) {
             hex = "B";
         }
-        else if (binary.equalsIgnoreCase("1100"))
-        {
+        else if (binary.equalsIgnoreCase("1100")) {
             hex = "C";
         }
-        else if (binary.equalsIgnoreCase("1101"))
-        {
+        else if (binary.equalsIgnoreCase("1101")) {
             hex = "D";
         }
-        else if (binary.equalsIgnoreCase("1110"))
-        {
+        else if (binary.equalsIgnoreCase("1110")) {
             hex = "E";
         }
-        else if (binary.equalsIgnoreCase("1111"))
-        {
+        else if (binary.equalsIgnoreCase("1111")) {
             hex = "F";
         }
         
@@ -487,71 +393,54 @@ public class DES
      * 
      * return the bit(it's length = 4)
      */
-    public String hexToBt4(final String hex)
-    {
+    public String hexToBt4(final String hex) {
         String binary = "";
-        if (hex.equalsIgnoreCase("0"))
-        {
+        if (hex.equalsIgnoreCase("0")) {
             binary = "0000";
         }
-        else if (hex.equalsIgnoreCase("1"))
-        {
+        else if (hex.equalsIgnoreCase("1")) {
             binary = "0001";
         }
-        if (hex.equalsIgnoreCase("2"))
-        {
+        if (hex.equalsIgnoreCase("2")) {
             binary = "0010";
         }
-        if (hex.equalsIgnoreCase("3"))
-        {
+        if (hex.equalsIgnoreCase("3")) {
             binary = "0011";
         }
-        if (hex.equalsIgnoreCase("4"))
-        {
+        if (hex.equalsIgnoreCase("4")) {
             binary = "0100";
         }
-        if (hex.equalsIgnoreCase("5"))
-        {
+        if (hex.equalsIgnoreCase("5")) {
             binary = "0101";
         }
-        if (hex.equalsIgnoreCase("6"))
-        {
+        if (hex.equalsIgnoreCase("6")) {
             binary = "0110";
         }
-        if (hex.equalsIgnoreCase("7"))
-        {
+        if (hex.equalsIgnoreCase("7")) {
             binary = "0111";
         }
-        if (hex.equalsIgnoreCase("8"))
-        {
+        if (hex.equalsIgnoreCase("8")) {
             binary = "1000";
         }
-        if (hex.equalsIgnoreCase("9"))
-        {
+        if (hex.equalsIgnoreCase("9")) {
             binary = "1001";
         }
-        if (hex.equalsIgnoreCase("A"))
-        {
+        if (hex.equalsIgnoreCase("A")) {
             binary = "1010";
         }
-        if (hex.equalsIgnoreCase("B"))
-        {
+        if (hex.equalsIgnoreCase("B")) {
             binary = "1011";
         }
-        if (hex.equalsIgnoreCase("C"))
-        {
+        if (hex.equalsIgnoreCase("C")) {
             binary = "1100";
         }
-        if (hex.equalsIgnoreCase("D"))
-        {
+        if (hex.equalsIgnoreCase("D")) {
             binary = "1101";
         }
-        if (hex.equalsIgnoreCase("E"))
-        {
+        if (hex.equalsIgnoreCase("E")) {
             binary = "1110";
         }
-        if (hex.equalsIgnoreCase("F"))
-        {
+        if (hex.equalsIgnoreCase("F")) {
             binary = "1111";
         }
         return binary;
@@ -562,37 +451,29 @@ public class DES
      * 
      * return string
      */
-    public String byteToString(final int[] byteData)
-    {
+    public String byteToString(final int[] byteData) {
         String str = "";
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             int count = 0;
-            for (int j = 0; j < 16; j++)
-            {
+            for (int j = 0; j < 16; j++) {
                 int pow = 1;
-                for (int m = 15; m > j; m--)
-                {
+                for (int m = 15; m > j; m--) {
                     pow *= 2;
                 }
                 count += byteData[16 * i + j] * pow;
             }
-            if (count != 0)
-            {
+            if (count != 0) {
                 str += "" + (char)(count);
             }
         }
         return str;
     }
     
-    public String bt64ToHex(final int[] byteData)
-    {
+    public String bt64ToHex(final int[] byteData) {
         String hex = "";
-        for (int i = 0; i < 16; i++)
-        {
+        for (int i = 0; i < 16; i++) {
             String bt = "";
-            for (int j = 0; j < 4; j++)
-            {
+            for (int j = 0; j < 4; j++) {
                 bt += byteData[i * 4 + j];
             }
             hex += bt4ToHex(bt);
@@ -600,11 +481,9 @@ public class DES
         return hex;
     }
     
-    public String hexToBt64(final String hex)
-    {
+    public String hexToBt64(final String hex) {
         String binary = "";
-        for (int i = 0; i < 16; i++)
-        {
+        for (int i = 0; i < 16; i++) {
             binary += hexToBt4(hex.substring(i, i + 1));
         }
         return binary;
@@ -614,98 +493,81 @@ public class DES
      * the 64 bit des core arithmetic
      */
     
-    public int[] enc(final int[] dataByte, final int[] keyByte)
-    {
+    public int[] enc(final int[] dataByte, final int[] keyByte) {
         final int[][] keys = generateKeys(keyByte);
         final int[] ipByte = initPermute(dataByte);
         final int[] ipLeft = new int[32];
         final int[] ipRight = new int[32];
         final int[] tempLeft = new int[32];
         int i = 0, j = 0, k = 0, m = 0, n = 0;
-        for (k = 0; k < 32; k++)
-        {
+        for (k = 0; k < 32; k++) {
             ipLeft[k] = ipByte[k];
             ipRight[k] = ipByte[32 + k];
         }
-        for (i = 0; i < 16; i++)
-        {
-            for (j = 0; j < 32; j++)
-            {
+        for (i = 0; i < 16; i++) {
+            for (j = 0; j < 32; j++) {
                 tempLeft[j] = ipLeft[j];
                 ipLeft[j] = ipRight[j];
             }
             final int[] key = new int[48];
-            for (m = 0; m < 48; m++)
-            {
+            for (m = 0; m < 48; m++) {
                 key[m] = keys[i][m];
             }
             final int[] tempRight = xor(pPermute(sBoxPermute(xor(expandPermute(ipRight), key))), tempLeft);
-            for (n = 0; n < 32; n++)
-            {
+            for (n = 0; n < 32; n++) {
                 ipRight[n] = tempRight[n];
             }
             
         }
         
         final int[] finalData = new int[64];
-        for (i = 0; i < 32; i++)
-        {
+        for (i = 0; i < 32; i++) {
             finalData[i] = ipRight[i];
             finalData[32 + i] = ipLeft[i];
         }
         return finallyPermute(finalData);
     }
     
-    public int[] dec(final int[] dataByte, final int[] keyByte)
-    {
+    public int[] dec(final int[] dataByte, final int[] keyByte) {
         final int[][] keys = generateKeys(keyByte);
         final int[] ipByte = initPermute(dataByte);
         final int[] ipLeft = new int[32];
         final int[] ipRight = new int[32];
         final int[] tempLeft = new int[32];
         int i = 0, j = 0, k = 0, m = 0, n = 0;
-        for (k = 0; k < 32; k++)
-        {
+        for (k = 0; k < 32; k++) {
             ipLeft[k] = ipByte[k];
             ipRight[k] = ipByte[32 + k];
         }
-        for (i = 15; i >= 0; i--)
-        {
-            for (j = 0; j < 32; j++)
-            {
+        for (i = 15; i >= 0; i--) {
+            for (j = 0; j < 32; j++) {
                 tempLeft[j] = ipLeft[j];
                 ipLeft[j] = ipRight[j];
             }
             final int[] key = new int[48];
-            for (m = 0; m < 48; m++)
-            {
+            for (m = 0; m < 48; m++) {
                 key[m] = keys[i][m];
             }
             
             final int[] tempRight = xor(pPermute(sBoxPermute(xor(expandPermute(ipRight), key))), tempLeft);
-            for (n = 0; n < 32; n++)
-            {
+            for (n = 0; n < 32; n++) {
                 ipRight[n] = tempRight[n];
             }
         }
         
         final int[] finalData = new int[64];
-        for (i = 0; i < 32; i++)
-        {
+        for (i = 0; i < 32; i++) {
             finalData[i] = ipRight[i];
             finalData[32 + i] = ipLeft[i];
         }
         return finallyPermute(finalData);
     }
     
-    public int[] initPermute(final int[] originalData)
-    {
+    public int[] initPermute(final int[] originalData) {
         final int[] ipByte = new int[64];
         int i = 0, m = 1, n = 0, j, k;
-        for (i = 0, m = 1, n = 0; i < 4; i++, m += 2, n += 2)
-        {
-            for (j = 7, k = 0; j >= 0; j--, k++)
-            {
+        for (i = 0, m = 1, n = 0; i < 4; i++, m += 2, n += 2) {
+            for (j = 7, k = 0; j >= 0; j--, k++) {
                 ipByte[i * 8 + k] = originalData[j * 8 + m];
                 ipByte[i * 8 + k + 32] = originalData[j * 8 + n];
             }
@@ -714,87 +576,76 @@ public class DES
     }
     
     @SuppressWarnings("unused")
-    public int[] expandPermute(final int[] rightData)
-    {
+    public int[] expandPermute(final int[] rightData) {
         final int[] epByte = new int[48];
         int i;
         final int j;
-        for (i = 0; i < 8; i++)
-        {
-            if (i == 0)
-            {
+        for (i = 0; i < 8; i++) {
+            if (i == 0) {
                 epByte[i * 6 + 0] = rightData[31];
             }
-            else
-            {
+            else {
                 epByte[i * 6 + 0] = rightData[i * 4 - 1];
             }
             epByte[i * 6 + 1] = rightData[i * 4 + 0];
             epByte[i * 6 + 2] = rightData[i * 4 + 1];
             epByte[i * 6 + 3] = rightData[i * 4 + 2];
             epByte[i * 6 + 4] = rightData[i * 4 + 3];
-            if (i == 7)
-            {
+            if (i == 7) {
                 epByte[i * 6 + 5] = rightData[0];
             }
-            else
-            {
+            else {
                 epByte[i * 6 + 5] = rightData[i * 4 + 4];
             }
         }
         return epByte;
     }
     
-    public int[] xor(final int[] byteOne, final int[] byteTwo)
-    {
+    public int[] xor(final int[] byteOne, final int[] byteTwo) {
         // var xorByte = new Array(byteOne.length);
         // for(int i = 0;i < byteOne.length; i ++){
         // xorByte[i] = byteOne[i] ^ byteTwo[i];
         // }
         // return xorByte;
         final int[] xorByte = new int[byteOne.length];
-        for (int i = 0; i < byteOne.length; i++)
-        {
+        for (int i = 0; i < byteOne.length; i++) {
             xorByte[i] = byteOne[i] ^ byteTwo[i];
         }
         return xorByte;
     }
     
-    public int[] sBoxPermute(final int[] expandByte)
-    {
+    public int[] sBoxPermute(final int[] expandByte) {
         
         // var sBoxByte = new Array(32);
         final int[] sBoxByte = new int[32];
         String binary = "";
-        final int[][] s1 = { {14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7}, {0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8}, {4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0}, {15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13}};
+        final int[][] s1 = {{14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7}, {0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8}, {4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0}, {15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13}};
         
         /* Table - s2 */
-        final int[][] s2 = { {15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10}, {3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5}, {0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15}, {13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9}};
+        final int[][] s2 = {{15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10}, {3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5}, {0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15}, {13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9}};
         
         /* Table - s3 */
-        final int[][] s3 = { {10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8}, {13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1}, {13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7}, {1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12}};
+        final int[][] s3 = {{10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8}, {13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1}, {13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7}, {1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12}};
         /* Table - s4 */
-        final int[][] s4 = { {7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15}, {13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9}, {10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4}, {3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14}};
+        final int[][] s4 = {{7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15}, {13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9}, {10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4}, {3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14}};
         
         /* Table - s5 */
-        final int[][] s5 = { {2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9}, {14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6}, {4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14}, {11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3}};
+        final int[][] s5 = {{2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9}, {14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6}, {4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14}, {11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3}};
         
         /* Table - s6 */
-        final int[][] s6 = { {12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11}, {10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8}, {9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6}, {4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13}};
+        final int[][] s6 = {{12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11}, {10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8}, {9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6}, {4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13}};
         
         /* Table - s7 */
-        final int[][] s7 = { {4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1}, {13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6}, {1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2}, {6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12}};
+        final int[][] s7 = {{4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1}, {13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6}, {1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2}, {6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12}};
         
         /* Table - s8 */
-        final int[][] s8 = { {13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7}, {1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2}, {7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8}, {2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11}};
+        final int[][] s8 = {{13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7}, {1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2}, {7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8}, {2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11}};
         
-        for (int m = 0; m < 8; m++)
-        {
+        for (int m = 0; m < 8; m++) {
             int i = 0, j = 0;
             i = expandByte[m * 6 + 0] * 2 + expandByte[m * 6 + 5];
             j = expandByte[m * 6 + 1] * 2 * 2 * 2 + expandByte[m * 6 + 2] * 2 * 2 + expandByte[m * 6 + 3] * 2 + expandByte[m * 6 + 4];
-            switch (m)
-            {
+            switch (m) {
                 case 0:
                     binary = getBoxBinary(s1[i][j]);
                     break;
@@ -828,8 +679,7 @@ public class DES
         return sBoxByte;
     }
     
-    public int[] pPermute(final int[] sBoxByte)
-    {
+    public int[] pPermute(final int[] sBoxByte) {
         final int[] pBoxPermute = new int[32];
         pBoxPermute[0] = sBoxByte[15];
         pBoxPermute[1] = sBoxByte[6];
@@ -866,8 +716,7 @@ public class DES
         return pBoxPermute;
     }
     
-    public int[] finallyPermute(final int[] endByte)
-    {
+    public int[] finallyPermute(final int[] endByte) {
         final int[] fpByte = new int[64];
         fpByte[0] = endByte[39];
         fpByte[1] = endByte[7];
@@ -936,11 +785,9 @@ public class DES
         return fpByte;
     }
     
-    public String getBoxBinary(final int i)
-    {
+    public String getBoxBinary(final int i) {
         String binary = "";
-        switch (i)
-        {
+        switch (i) {
             case 0:
                 binary = "0000";
                 break;
@@ -996,8 +843,7 @@ public class DES
     /*
      * generate 16 keys for xor
      */
-    public int[][] generateKeys(final int[] keyByte)
-    {
+    public int[][] generateKeys(final int[] keyByte) {
         final int[] key = new int[56];
         final int[][] keys = new int[16][48];
         
@@ -1019,25 +865,20 @@ public class DES
         // keys[15] = new Array();
         final int[] loop = new int[] {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
         
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0, k = 7; j < 8; j++, k--)
-            {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0, k = 7; j < 8; j++, k--) {
                 key[i * 8 + j] = keyByte[8 * k + i];
             }
         }
         
         int i = 0;
-        for (i = 0; i < 16; i++)
-        {
+        for (i = 0; i < 16; i++) {
             int tempLeft = 0;
             int tempRight = 0;
-            for (int j = 0; j < loop[i]; j++)
-            {
+            for (int j = 0; j < loop[i]; j++) {
                 tempLeft = key[0];
                 tempRight = key[28];
-                for (int k = 0; k < 27; k++)
-                {
+                for (int k = 0; k < 27; k++) {
                     key[k] = key[k + 1];
                     key[28 + k] = key[29 + k];
                 }
@@ -1095,101 +936,84 @@ public class DES
             tempKey[46] = key[28];
             tempKey[47] = key[31];
             int m;
-            switch (i)
-            {
+            switch (i) {
                 case 0:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[0][m] = tempKey[m];
                     }
                     break;
                 case 1:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[1][m] = tempKey[m];
                     }
                     break;
                 case 2:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[2][m] = tempKey[m];
                     }
                     break;
                 case 3:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[3][m] = tempKey[m];
                     }
                     break;
                 case 4:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[4][m] = tempKey[m];
                     }
                     break;
                 case 5:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[5][m] = tempKey[m];
                     }
                     break;
                 case 6:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[6][m] = tempKey[m];
                     }
                     break;
                 case 7:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[7][m] = tempKey[m];
                     }
                     break;
                 case 8:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[8][m] = tempKey[m];
                     }
                     break;
                 case 9:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[9][m] = tempKey[m];
                     }
                     break;
                 case 10:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[10][m] = tempKey[m];
                     }
                     break;
                 case 11:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[11][m] = tempKey[m];
                     }
                     break;
                 case 12:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[12][m] = tempKey[m];
                     }
                     break;
                 case 13:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[13][m] = tempKey[m];
                     }
                     break;
                 case 14:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[14][m] = tempKey[m];
                     }
                     break;
                 case 15:
-                    for (m = 0; m < 48; m++)
-                    {
+                    for (m = 0; m < 48; m++) {
                         keys[15][m] = tempKey[m];
                     }
                     break;

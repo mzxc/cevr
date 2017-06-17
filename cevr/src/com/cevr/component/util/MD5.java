@@ -1,7 +1,6 @@
 package com.cevr.component.util;
 
-public class MD5
-{
+public class MD5 {
     static final int S11 = 7;
     
     static final int S12 = 12;
@@ -34,8 +33,7 @@ public class MD5
     
     static final int S44 = 21;
     
-    static final byte[] PADDING = {-128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    static final byte[] PADDING = {-128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     
     private final long[] state = new long[4]; // state (ABCD)
     
@@ -47,29 +45,25 @@ public class MD5
     
     private final byte[] digest = new byte[16];
     
-    public String getMD5ofStr(String inbuf)
-    {
+    public String getMD5ofStr(String inbuf) {
         md5Init();
         md5Update(inbuf.getBytes(), inbuf.length());
         md5Final();
         digestHexStr = "";
-        for (int i = 0; i < 16; i++)
-        {
+        for (int i = 0; i < 16; i++) {
             digestHexStr += byteHEX(digest[i]);
         }
         return digestHexStr;
         
     }
     
-    public MD5()
-    {
+    public MD5() {
         md5Init();
         
         return;
     }
     
-    private void md5Init()
-    {
+    private void md5Init() {
         count[0] = 0L;
         count[1] = 0L;
         
@@ -81,81 +75,69 @@ public class MD5
         return;
     }
     
-    private long F(long x, long y, long z)
-    {
+    private long F(long x, long y, long z) {
         return (x & y) | ((~x) & z);
         
     }
     
-    private long G(long x, long y, long z)
-    {
+    private long G(long x, long y, long z) {
         return (x & z) | (y & (~z));
         
     }
     
-    private long H(long x, long y, long z)
-    {
+    private long H(long x, long y, long z) {
         return x ^ y ^ z;
     }
     
-    private long I(long x, long y, long z)
-    {
+    private long I(long x, long y, long z) {
         return y ^ (x | (~z));
     }
     
-    private long FF(long a, long b, long c, long d, long x, long s, long ac)
-    {
+    private long FF(long a, long b, long c, long d, long x, long s, long ac) {
         a += F(b, c, d) + x + ac;
         a = ((int)a << s) | ((int)a >>> (32 - s));
         a += b;
         return a;
     }
     
-    private long GG(long a, long b, long c, long d, long x, long s, long ac)
-    {
+    private long GG(long a, long b, long c, long d, long x, long s, long ac) {
         a += G(b, c, d) + x + ac;
         a = ((int)a << s) | ((int)a >>> (32 - s));
         a += b;
         return a;
     }
     
-    private long HH(long a, long b, long c, long d, long x, long s, long ac)
-    {
+    private long HH(long a, long b, long c, long d, long x, long s, long ac) {
         a += H(b, c, d) + x + ac;
         a = ((int)a << s) | ((int)a >>> (32 - s));
         a += b;
         return a;
     }
     
-    private long II(long a, long b, long c, long d, long x, long s, long ac)
-    {
+    private long II(long a, long b, long c, long d, long x, long s, long ac) {
         a += I(b, c, d) + x + ac;
         a = ((int)a << s) | ((int)a >>> (32 - s));
         a += b;
         return a;
     }
     
-    private void md5Update(byte[] inbuf, int inputLen)
-    {
+    private void md5Update(byte[] inbuf, int inputLen) {
         
         int i, index, partLen;
         byte[] block = new byte[64];
         index = (int)(count[0] >>> 3) & 0x3F;
-        if ((count[0] += (inputLen << 3)) < (inputLen << 3))
-        {
+        if ((count[0] += (inputLen << 3)) < (inputLen << 3)) {
             count[1]++;
         }
         count[1] += (inputLen >>> 29);
         
         partLen = 64 - index;
         
-        if (inputLen >= partLen)
-        {
+        if (inputLen >= partLen) {
             md5Memcpy(buffer, inbuf, index, 0, partLen);
             md5Transform(buffer);
             
-            for (i = partLen; i + 63 < inputLen; i += 64)
-            {
+            for (i = partLen; i + 63 < inputLen; i += 64) {
                 
                 md5Memcpy(block, inbuf, 0, i, 64);
                 md5Transform(block);
@@ -163,8 +145,7 @@ public class MD5
             index = 0;
             
         }
-        else
-        {
+        else {
             
             i = 0;
         }
@@ -173,8 +154,7 @@ public class MD5
         
     }
     
-    private void md5Final()
-    {
+    private void md5Final() {
         byte[] bits = new byte[8];
         int index, padLen;
         
@@ -190,18 +170,15 @@ public class MD5
         
     }
     
-    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len)
-    {
+    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len) {
         int i;
         
-        for (i = 0; i < len; i++)
-        {
+        for (i = 0; i < len; i++) {
             output[outpos + i] = input[inpos + i];
         }
     }
     
-    private void md5Transform(byte block[])
-    {
+    private void md5Transform(byte block[]) {
         long a = state[0], b = state[1], c = state[2], d = state[3];
         long[] x = new long[16];
         
@@ -282,12 +259,10 @@ public class MD5
         
     }
     
-    private void Encode(byte[] output, long[] input, int len)
-    {
+    private void Encode(byte[] output, long[] input, int len) {
         int i, j;
         
-        for (i = 0, j = 0; j < len; i++, j += 4)
-        {
+        for (i = 0, j = 0; j < len; i++, j += 4) {
             output[j] = (byte)(input[i] & 0xffL);
             output[j + 1] = (byte)((input[i] >>> 8) & 0xffL);
             output[j + 2] = (byte)((input[i] >>> 16) & 0xffL);
@@ -295,26 +270,21 @@ public class MD5
         }
     }
     
-    private void Decode(long[] output, byte[] input, int len)
-    {
+    private void Decode(long[] output, byte[] input, int len) {
         int i, j;
         
-        for (i = 0, j = 0; j < len; i++, j += 4)
-        {
-            output[i] =
-                b2iu(input[j]) | (b2iu(input[j + 1]) << 8) | (b2iu(input[j + 2]) << 16) | (b2iu(input[j + 3]) << 24);
+        for (i = 0, j = 0; j < len; i++, j += 4) {
+            output[i] = b2iu(input[j]) | (b2iu(input[j + 1]) << 8) | (b2iu(input[j + 2]) << 16) | (b2iu(input[j + 3]) << 24);
         }
         
         return;
     }
     
-    public static long b2iu(byte b)
-    {
+    public static long b2iu(byte b) {
         return b < 0 ? b & 0x7F + 128 : b;
     }
     
-    public static String byteHEX(byte ib)
-    {
+    public static String byteHEX(byte ib) {
         char[] Digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         char[] ob = new char[2];
         ob[0] = Digit[(ib >>> 4) & 0X0F];
@@ -323,8 +293,7 @@ public class MD5
         return s;
     }
     
-    public static String md5(String inbuf)
-    {
+    public static String md5(String inbuf) {
         MD5 m = new MD5();
         return m.getMD5ofStr(inbuf).toLowerCase();
     }

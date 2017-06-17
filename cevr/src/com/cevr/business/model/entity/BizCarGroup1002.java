@@ -15,131 +15,139 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "biz_car_group_1002", catalog = "cevr")
 public class BizCarGroup1002 implements java.io.Serializable {
-
-	private String id;
-	private String groupName;
-	private String groupInfo;
-	private String orderNum;
-	private String deleteflag;
-	private String cancleflag;
-	private String holdflag;
-	private Date createtime;
-	private Date updatetime;
-	private String operatorId;
-
-	public BizCarGroup1002() {
-	}
-
-	public BizCarGroup1002(String id) {
-		this.id = id;
-	}
-
-	public BizCarGroup1002(String id, String groupName, String groupInfo, String orderNum, String deleteflag,
-			String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
-		this.id = id;
-		this.groupName = groupName;
-		this.groupInfo = groupInfo;
-		this.orderNum = orderNum;
-		this.deleteflag = deleteflag;
-		this.cancleflag = cancleflag;
-		this.holdflag = holdflag;
-		this.createtime = createtime;
-		this.updatetime = updatetime;
-		this.operatorId = operatorId;
-	}
-
-	@Id
-
-	@Column(name = "id", unique = true, nullable = false, length = 50)
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Column(name = "group_name", length = 50)
-	public String getGroupName() {
-		return this.groupName;
-	}
-
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-
-	@Column(name = "group_info")
-	public String getGroupInfo() {
-		return this.groupInfo;
-	}
-
-	public void setGroupInfo(String groupInfo) {
-		this.groupInfo = groupInfo;
-	}
-
-	@Column(name = "order_num", length = 50)
-	public String getOrderNum() {
-		return this.orderNum;
-	}
-
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
-	}
-
-	@Column(name = "deleteflag", length = 2)
-	public String getDeleteflag() {
-		return this.deleteflag;
-	}
-
-	public void setDeleteflag(String deleteflag) {
-		this.deleteflag = deleteflag;
-	}
-
-	@Column(name = "cancleflag", length = 2)
-	public String getCancleflag() {
-		return this.cancleflag;
-	}
-
-	public void setCancleflag(String cancleflag) {
-		this.cancleflag = cancleflag;
-	}
-
-	@Column(name = "holdflag", length = 2)
-	public String getHoldflag() {
-		return this.holdflag;
-	}
-
-	public void setHoldflag(String holdflag) {
-		this.holdflag = holdflag;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createtime", length = 19)
-	public Date getCreatetime() {
-		return this.createtime;
-	}
-
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updatetime", length = 19)
-	public Date getUpdatetime() {
-		return this.updatetime;
-	}
-
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
-	}
-
-	@Column(name = "operator_id", length = 50)
-	public String getOperatorId() {
-		return this.operatorId;
-	}
-
-	public void setOperatorId(String operatorId) {
-		this.operatorId = operatorId;
-	}
-
+    
+    private String id;
+    
+    private String groupName;
+    
+    private String groupInfo;
+    
+    private String orderNum;
+    
+    private String deleteflag;
+    
+    private String cancleflag;
+    
+    private String holdflag;
+    
+    private Date createtime;
+    
+    private Date updatetime;
+    
+    private String operatorId;
+    
+    public BizCarGroup1002() {
+    }
+    
+    public BizCarGroup1002(String id) {
+        this.id = id;
+    }
+    
+    public BizCarGroup1002(String id, String groupName, String groupInfo, String orderNum, String deleteflag, String cancleflag, String holdflag, Date createtime, Date updatetime, String operatorId) {
+        this.id = id;
+        this.groupName = groupName;
+        this.groupInfo = groupInfo;
+        this.orderNum = orderNum;
+        this.deleteflag = deleteflag;
+        this.cancleflag = cancleflag;
+        this.holdflag = holdflag;
+        this.createtime = createtime;
+        this.updatetime = updatetime;
+        this.operatorId = operatorId;
+    }
+    
+    @Id
+    
+    @Column(name = "id", unique = true, nullable = false, length = 50)
+    public String getId() {
+        return this.id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    @Column(name = "group_name", length = 50)
+    public String getGroupName() {
+        return this.groupName;
+    }
+    
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+    
+    @Column(name = "group_info")
+    public String getGroupInfo() {
+        return this.groupInfo;
+    }
+    
+    public void setGroupInfo(String groupInfo) {
+        this.groupInfo = groupInfo;
+    }
+    
+    @Column(name = "order_num", length = 50)
+    public String getOrderNum() {
+        return this.orderNum;
+    }
+    
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+    
+    @Column(name = "deleteflag", length = 2)
+    public String getDeleteflag() {
+        return this.deleteflag;
+    }
+    
+    public void setDeleteflag(String deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+    
+    @Column(name = "cancleflag", length = 2)
+    public String getCancleflag() {
+        return this.cancleflag;
+    }
+    
+    public void setCancleflag(String cancleflag) {
+        this.cancleflag = cancleflag;
+    }
+    
+    @Column(name = "holdflag", length = 2)
+    public String getHoldflag() {
+        return this.holdflag;
+    }
+    
+    public void setHoldflag(String holdflag) {
+        this.holdflag = holdflag;
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "createtime", length = 19)
+    public Date getCreatetime() {
+        return this.createtime;
+    }
+    
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updatetime", length = 19)
+    public Date getUpdatetime() {
+        return this.updatetime;
+    }
+    
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+    
+    @Column(name = "operator_id", length = 50)
+    public String getOperatorId() {
+        return this.operatorId;
+    }
+    
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+    }
+    
 }

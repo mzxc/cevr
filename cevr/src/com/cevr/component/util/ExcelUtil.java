@@ -18,8 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cevr.component.logger.NestLogger;
 
-public class ExcelUtil
-{
+public class ExcelUtil {
     private static final Logger logger = Logger.getLogger(ExcelUtil.class);
     
     private Workbook workBook = null;
@@ -30,7 +29,7 @@ public class ExcelUtil
     
     private Integer cellIndex = null;
     
-    private boolean ifInit = false;//是否初始化数据
+    private boolean ifInit = false;// 是否初始化数据
     
     private final List<String[]> dataList = new ArrayList<String[]>();
     
@@ -38,8 +37,7 @@ public class ExcelUtil
     /**
      * 无参构造方法
      */
-    public ExcelUtil()
-    {
+    public ExcelUtil() {
     }
     
     /**
@@ -47,36 +45,29 @@ public class ExcelUtil
      * 
      * @param intput 输入流
      */
-    public ExcelUtil(String type, InputStream intput)
-    {
+    public ExcelUtil(String type, InputStream intput) {
         ClassLoader classloader = org.apache.poi.poifs.filesystem.POIFSFileSystem.class.getClassLoader();
         URL res = classloader.getResource("org/apache/poi/poifs/filesystem/POIFSFileSystem.class");
         String path = res.getPath();
         classloader = org.apache.poi.POIXMLDocument.class.getClassLoader();
         res = classloader.getResource("org/apache/poi/POIXMLDocument.class");
         path = res.getPath();
-        try
-        {
-            if (type.equals("xls"))
-            {
+        try {
+            if (type.equals("xls")) {
                 workBook = new HSSFWorkbook(intput);
             }
-            else if (type.equals("xlsx"))
-            {
+            else if (type.equals("xlsx")) {
                 workBook = new XSSFWorkbook(intput);
             }
-            else
-            {
+            else {
                 throw new RuntimeException("文档格式错误");
             }
         }
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             NestLogger.showException(e);
             logger.error("file not found...info:" + e.toString());
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             NestLogger.showException(e);
             logger.error("io exception...info:" + e.toString());
         }
@@ -91,30 +82,24 @@ public class ExcelUtil
      * @param sheetIndex sheet页坐标
      * @return 当前sheet页所有内容
      */
-    public List<String[]> getAllData(int sheetIndex)
-    {
+    public List<String[]> getAllData(int sheetIndex) {
         dataList.clear();
         int columnNum = 0;
         this.ifInit = true;
         this.sheetIndex = sheetIndex;
         Sheet sheet = workBook.getSheetAt(sheetIndex);
-        if (sheet.getRow(0) != null)
-        {
+        if (sheet.getRow(0) != null) {
             columnNum = sheet.getRow(0).getLastCellNum() - sheet.getRow(0).getFirstCellNum();
         }
-        if (columnNum <= 0)
-        {
+        if (columnNum <= 0) {
             return new ArrayList<String[]>();
         }
-        for (Row row : sheet)
-        {
+        for (Row row : sheet) {
             String[] singleRow = new String[columnNum];
             int n = 0;
-            for (int i = 0; i < columnNum; i++)
-            {
+            for (int i = 0; i < columnNum; i++) {
                 Cell cell = row.getCell(i, Row.CREATE_NULL_AS_BLANK);
-                switch (cell.getCellType())
-                {
+                switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_BLANK:
                         singleRow[n] = "";
                         break;
@@ -122,20 +107,16 @@ public class ExcelUtil
                         singleRow[n] = Boolean.toString(cell.getBooleanCellValue());
                         break;
                     case Cell.CELL_TYPE_NUMERIC:
-                        if (DateUtil.isCellDateFormatted(cell))
-                        {
+                        if (DateUtil.isCellDateFormatted(cell)) {
                             singleRow[n] = String.valueOf(cell.getDateCellValue());
                         }
-                        else
-                        {
+                        else {
                             cell.setCellType(Cell.CELL_TYPE_STRING);
                             String temp = cell.getStringCellValue();
-                            if (temp.indexOf(".") > -1)
-                            {
+                            if (temp.indexOf(".") > -1) {
                                 singleRow[n] = String.valueOf(new Double(temp)).trim();
                             }
-                            else
-                            {
+                            else {
                                 singleRow[n] = temp.trim();
                             }
                         }
@@ -149,8 +130,7 @@ public class ExcelUtil
                     case Cell.CELL_TYPE_FORMULA:
                         cell.setCellType(Cell.CELL_TYPE_STRING);
                         singleRow[n] = cell.getStringCellValue();
-                        if (singleRow[n] != null)
-                        {
+                        if (singleRow[n] != null) {
                             singleRow[n] = singleRow[n].replaceAll("#N/A", "").trim();
                         }
                         break;
@@ -170,8 +150,7 @@ public class ExcelUtil
      * 
      * @return 返回最大行数
      */
-    public int getRowNum(int sheetIndex)
-    {
+    public int getRowNum(int sheetIndex) {
         Sheet sheet = workBook.getSheetAt(sheetIndex);
         return sheet.getLastRowNum() + 1;
     }
@@ -181,12 +160,10 @@ public class ExcelUtil
      * 
      * @return 返回最大列数
      */
-    public int getColumnNum(int sheetIndex)
-    {
+    public int getColumnNum(int sheetIndex) {
         Sheet sheet = workBook.getSheetAt(sheetIndex);
         Row row = sheet.getRow(0);
-        if (row != null && row.getLastCellNum() > 0)
-        {
+        if (row != null && row.getLastCellNum() > 0) {
             return row.getLastCellNum();
         }
         return 0;
@@ -199,14 +176,11 @@ public class ExcelUtil
      * @param rowIndex 行坐标
      * @return 行数据
      */
-    public String[] getRowData(int sheetIndex, int rowIndex)
-    {
-        if (this.sheetIndex != sheetIndex || !this.ifInit)
-        {
+    public String[] getRowData(int sheetIndex, int rowIndex) {
+        if (this.sheetIndex != sheetIndex || !this.ifInit) {
             this.getAllData(sheetIndex);
         }
-        if (rowIndex > this.getRowNum(sheetIndex) || this.dataList == null || this.dataList.size() <= 0)
-        {
+        if (rowIndex > this.getRowNum(sheetIndex) || this.dataList == null || this.dataList.size() <= 0) {
             return new String[0];
         }
         return this.dataList.get(rowIndex);
@@ -220,24 +194,19 @@ public class ExcelUtil
      * @param beginIndex 开始读取下标
      * @return 列数据
      */
-    public String[] getColumnData(int sheetIndex, int colIndex, int beginIndex)
-    {
-        if (this.sheetIndex != sheetIndex || !this.ifInit)
-        {
+    public String[] getColumnData(int sheetIndex, int colIndex, int beginIndex) {
+        if (this.sheetIndex != sheetIndex || !this.ifInit) {
             this.getAllData(sheetIndex);
         }
         String[] dataArray = null;
-        if (colIndex > this.getColumnNum(sheetIndex) || this.dataList == null || this.dataList.size() <= 0)
-        {
+        if (colIndex > this.getColumnNum(sheetIndex) || this.dataList == null || this.dataList.size() <= 0) {
             return new String[0];
         }
         dataArray = new String[this.getRowNum(sheetIndex) - beginIndex];
         int index = 0;
-        for (int i = beginIndex; i < dataList.size(); i = i + 1)
-        {
+        for (int i = beginIndex; i < dataList.size(); i = i + 1) {
             String[] rowData = dataList.get(i);
-            if (rowData != null)
-            {
+            if (rowData != null) {
                 dataArray[index] = rowData[colIndex];
                 index++;
             }
@@ -252,10 +221,8 @@ public class ExcelUtil
      * 
      * @return ExcelUtil
      */
-    public ExcelUtil HSSFWorkBook()
-    {
-        if (this.getWorkBook() == null)
-        {
+    public ExcelUtil HSSFWorkBook() {
+        if (this.getWorkBook() == null) {
             this.setWorkBook(new HSSFWorkbook());
         }
         return this;
@@ -266,14 +233,11 @@ public class ExcelUtil
      * 
      * @return ExcelUtil
      */
-    public ExcelUtil sheet()
-    {
-        try
-        {
+    public ExcelUtil sheet() {
+        try {
             this.getWorkBook().getSheetAt(sheetIndex);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             this.getWorkBook().createSheet();
         }
         return this;
@@ -284,10 +248,8 @@ public class ExcelUtil
      * 
      * @return ExcelUtil
      */
-    public ExcelUtil row()
-    {
-        if (this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex) == null)
-        {
+    public ExcelUtil row() {
+        if (this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex) == null) {
             this.getWorkBook().getSheetAt(sheetIndex).createRow(rowIndex);
         }
         return this;
@@ -298,10 +260,8 @@ public class ExcelUtil
      * 
      * @return ExcelUtil
      */
-    public ExcelUtil cell()
-    {
-        if (this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex).getCell(cellIndex) == null)
-        {
+    public ExcelUtil cell() {
+        if (this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex).getCell(cellIndex) == null) {
             this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex).createCell(cellIndex);
         }
         return this;
@@ -315,8 +275,7 @@ public class ExcelUtil
      * @param cellIndex 列索引
      * @return ExcelUtil
      */
-    public ExcelUtil location(int sheetIndex, int rowIndex, int cellIndex)
-    {
+    public ExcelUtil location(int sheetIndex, int rowIndex, int cellIndex) {
         this.sheetIndex = sheetIndex;
         this.rowIndex = rowIndex;
         this.cellIndex = cellIndex;
@@ -329,8 +288,7 @@ public class ExcelUtil
      * @param cellValue
      * @return ExcelUtil
      */
-    public ExcelUtil cellVal(String cellValue)
-    {
+    public ExcelUtil cellVal(String cellValue) {
         this.getWorkBook().getSheetAt(sheetIndex).getRow(rowIndex).getCell(cellIndex).setCellValue(cellValue);
         return this;
     }
@@ -344,8 +302,7 @@ public class ExcelUtil
      * @param cellValue Cell值
      * @return ExcelUtil
      */
-    public ExcelUtil cellVal(int sheetIndex, int rowIndex, int cellIndex, String cellValue)
-    {
+    public ExcelUtil cellVal(int sheetIndex, int rowIndex, int cellIndex, String cellValue) {
         this.location(sheetIndex, rowIndex, cellIndex).HSSFWorkBook().sheet().row().cell().cellVal(cellValue);
         return this;
     }
@@ -353,43 +310,35 @@ public class ExcelUtil
     // Excel导出END【====================================================================】
     
     // 公有GET,SET方法BEGIN【====================================================================】
-    public Workbook getWorkBook()
-    {
+    public Workbook getWorkBook() {
         return workBook;
     }
     
-    public void setWorkBook(Workbook workBook)
-    {
+    public void setWorkBook(Workbook workBook) {
         this.workBook = workBook;
     }
     
-    public Integer getSheetIndex()
-    {
+    public Integer getSheetIndex() {
         return sheetIndex;
     }
     
-    public void setSheetIndex(Integer sheetIndex)
-    {
+    public void setSheetIndex(Integer sheetIndex) {
         this.sheetIndex = sheetIndex;
     }
     
-    public Integer getRowIndex()
-    {
+    public Integer getRowIndex() {
         return rowIndex;
     }
     
-    public void setRowIndex(Integer rowIndex)
-    {
+    public void setRowIndex(Integer rowIndex) {
         this.rowIndex = rowIndex;
     }
     
-    public Integer getCellIndex()
-    {
+    public Integer getCellIndex() {
         return cellIndex;
     }
     
-    public void setCellIndex(Integer cellIndex)
-    {
+    public void setCellIndex(Integer cellIndex) {
         this.cellIndex = cellIndex;
     }
     // 公有GET,SET方法END【====================================================================】

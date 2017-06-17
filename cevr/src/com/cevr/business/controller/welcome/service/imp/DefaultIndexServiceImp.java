@@ -44,99 +44,103 @@ import com.cevr.component.util.IdUtil;
  * @since 1.0
  */
 @Service(value = "DefaultIndexServiceImp")
-public class DefaultIndexServiceImp extends BaseDao implements IIndexService
-{
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Map<String, Object>> searchCarInfo(TicketInfo ti) {
-		// TODO 查询车辆信息
-		String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "serachAll_car"), ti);
-		return this.createSqlQuery(sql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
-		//return this.findAll(BizCar.class);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public ResultMessage addTicketInfo(TicketInfo ti) {
-		// TODO 新增投票信息,先判断是否投过
-		try{
-			BizCar1001 bc = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
-			ti.setGroupId(bc.getGroupId());
-			String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "findTicketInfo"), ti);
-			BigInteger num = (BigInteger)this.createSqlQuery(sql).uniqueResult();
-			if(num != null && num.intValue() > 0){
-				return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
-			}
-		}catch(Exception e){
-			NestLogger.showException(e);
-			return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
-		}
-		Map<String, Object> param = this.initParams();
-		//param.put("userName", ti.getUserName());//去掉用户名称
-		param.put("userTel", ti.getUserTel());
-		List<BizTicketPeople2002> btps = (List<BizTicketPeople2002>)this.findByProperties(BizTicketPeople2002.class, param);
-		BizTicketPeople2002 btp = null;
-		if(btps == null || btps.size() < 1){
-			btp = new BizTicketPeople2002(IdUtil.getUUID(), ti.getUserName(), ti.getUserTel(), "0", ti.getUserEmail(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
-			try{
-				this.save(btp);
-			}catch(Exception e){
-				NestLogger.showException(e);
-				return ResultMessage.initMsg(false, "5001", "新增投票人信息失败");
-			}
-		}else{
-			btp = btps.get(0);
-		}
-		BizCar1001 bz = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
-		if(bz == null){
-			return ResultMessage.initMsg(false, "4001", "违法的车辆id");
-		}
-		BizTicketType2003 btt = (BizTicketType2003)this.findByPrimaryKey(BizTicketType2003.class, ti.getTicketTypeId());
-		if(btt == null){
-			return ResultMessage.initMsg(false, "4002", "违法的活动id");
-		}
-		BizTicket2001 bt = new BizTicket2001(IdUtil.getUUID(), ti.getFromIp() ,ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
-		try{
-			this.save(bt);
-		}catch(Exception e){
-			NestLogger.showException(e);
-			return ResultMessage.initMsg(false, "5002", "新增投票信息失败");
-		}
-		return ResultMessage.initMsg(true, "2000", "投票成功");
-	}
-
-	@Override
-	public ResultMessage delTicketInfo(TicketInfo ti) {
-		// TODO 取消投票
-		try{
-			Map<String, Object> param = this.initParams();
-			Map<String, Object> ticketTime = new HashMap<String, Object>();
-			ticketTime.put(SYMBOL, ">");
-			ticketTime.put(VALUE, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"));
-			param.put("fromIp", ti.getFromIp());
-			param.put("clickTime", ticketTime);
-			param.put("cancleflag", "0");
-			param.put("clickCarId", ti.getCarId());
-			param.put("ticketTypeId", ti.getTicketTypeId());
-			BizTicket2001 bt = (BizTicket2001)this.findByProperties(BizTicket2001.class, param).get(0);
-			bt.setCancleflag("1");
-			bt.setUpdatetime(new Date());
-			bt.setOperatorId("0000");
-			this.update(bt);
-			return ResultMessage.initMsg(true, "2000", "取消成功");
-		}catch(Exception e){
-			return ResultMessage.initMsg(false, "5000", "不可取消");
-		}
-	}
-
-	@Override
-	public BizCarVideo1004 findVideoByCarId(TicketInfo ti) {
-		// TODO 查询车辆信息
-		Map<String, Object> param = this.initParams();
-		param.put("carId", ti.getCarId());
-		BizCarVideo1004 bt = (BizCarVideo1004)this.findByProperties(BizCarVideo1004.class, param).get(0);
-
-		return bt;
-	}
+public class DefaultIndexServiceImp extends BaseDao implements IIndexService {
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Map<String, Object>> searchCarInfo(TicketInfo ti) {
+        // TODO 查询车辆信息
+        String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "serachAll_car"), ti);
+        return this.createSqlQuery(sql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP).list();
+        // return this.findAll(BizCar.class);
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public ResultMessage addTicketInfo(TicketInfo ti) {
+        // TODO 新增投票信息,先判断是否投过
+        try {
+            BizCar1001 bc = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
+            ti.setGroupId(bc.getGroupId());
+            String sql = CkSQLBuilder.initSql(CkXmlGetter.getXmlNodes("sql", "findTicketInfo"), ti);
+            BigInteger num = (BigInteger)this.createSqlQuery(sql).uniqueResult();
+            if (num != null && num.intValue() > 0) {
+                return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
+            }
+        }
+        catch (Exception e) {
+            NestLogger.showException(e);
+            return ResultMessage.initMsg(false, "3000", "本组别投票权已用完");
+        }
+        Map<String, Object> param = this.initParams();
+        // param.put("userName", ti.getUserName());//去掉用户名称
+        param.put("userTel", ti.getUserTel());
+        List<BizTicketPeople2002> btps = (List<BizTicketPeople2002>)this.findByProperties(BizTicketPeople2002.class, param);
+        BizTicketPeople2002 btp = null;
+        if (btps == null || btps.size() < 1) {
+            btp = new BizTicketPeople2002(IdUtil.getUUID(), ti.getUserName(), ti.getUserTel(), "0", ti.getUserEmail(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
+            try {
+                this.save(btp);
+            }
+            catch (Exception e) {
+                NestLogger.showException(e);
+                return ResultMessage.initMsg(false, "5001", "新增投票人信息失败");
+            }
+        }
+        else {
+            btp = btps.get(0);
+        }
+        BizCar1001 bz = (BizCar1001)this.findByPrimaryKey(BizCar1001.class, ti.getCarId());
+        if (bz == null) {
+            return ResultMessage.initMsg(false, "4001", "违法的车辆id");
+        }
+        BizTicketType2003 btt = (BizTicketType2003)this.findByPrimaryKey(BizTicketType2003.class, ti.getTicketTypeId());
+        if (btt == null) {
+            return ResultMessage.initMsg(false, "4002", "违法的活动id");
+        }
+        BizTicket2001 bt = new BizTicket2001(IdUtil.getUUID(), ti.getFromIp(), ti.getTicketTime(), ti.getTicketNum(), ti.getTicketTypeId(), btp.getId(), ti.getCarId(), "0", "0", "0", ti.getTicketTime(), ti.getTicketTime(), "0000");
+        try {
+            this.save(bt);
+        }
+        catch (Exception e) {
+            NestLogger.showException(e);
+            return ResultMessage.initMsg(false, "5002", "新增投票信息失败");
+        }
+        return ResultMessage.initMsg(true, "2000", "投票成功");
+    }
+    
+    @Override
+    public ResultMessage delTicketInfo(TicketInfo ti) {
+        // TODO 取消投票
+        try {
+            Map<String, Object> param = this.initParams();
+            Map<String, Object> ticketTime = new HashMap<String, Object>();
+            ticketTime.put(SYMBOL, ">");
+            ticketTime.put(VALUE, DateUtil.getDate(DateUtil.nowStr("yyyy-MM-dd"), "yyyy-MM-dd"));
+            param.put("fromIp", ti.getFromIp());
+            param.put("clickTime", ticketTime);
+            param.put("cancleflag", "0");
+            param.put("clickCarId", ti.getCarId());
+            param.put("ticketTypeId", ti.getTicketTypeId());
+            BizTicket2001 bt = (BizTicket2001)this.findByProperties(BizTicket2001.class, param).get(0);
+            bt.setCancleflag("1");
+            bt.setUpdatetime(new Date());
+            bt.setOperatorId("0000");
+            this.update(bt);
+            return ResultMessage.initMsg(true, "2000", "取消成功");
+        }
+        catch (Exception e) {
+            return ResultMessage.initMsg(false, "5000", "不可取消");
+        }
+    }
+    
+    @Override
+    public BizCarVideo1004 findVideoByCarId(TicketInfo ti) {
+        // TODO 查询车辆信息
+        Map<String, Object> param = this.initParams();
+        param.put("carId", ti.getCarId());
+        BizCarVideo1004 bt = (BizCarVideo1004)this.findByProperties(BizCarVideo1004.class, param).get(0);
+        
+        return bt;
+    }
 }

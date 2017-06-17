@@ -36,13 +36,13 @@ import com.cevr.business.model.to.TicketInfo;
  */
 @Controller
 @RequestMapping(value = "common")
-public class CommonDispatcher
-{
+public class CommonDispatcher {
     @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "页面通用跳转")
     @RequestMapping(value = "forward/{view}/{page}", method = RequestMethod.GET)
-    public String gotoMain(@PathVariable final String view, @PathVariable final String page)
-    {
+    public String gotoMain(@PathVariable
+    final String view, @PathVariable
+    final String page) {
         return view + "/" + page;
     }
-
+    
 }

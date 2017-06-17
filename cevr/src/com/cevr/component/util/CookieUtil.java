@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see #CookieUtil
  * @since 1.0
  */
-public class CookieUtil
-{
+public class CookieUtil {
     
     /**
      * 设置cookie
@@ -27,8 +26,7 @@ public class CookieUtil
      * @param value cookie值
      * @param maxAge cookie生命周期 以秒为单位
      */
-    public static Cookie addCookie(final HttpServletResponse response, final String name, final String value, final int maxAge)
-    {
+    public static Cookie addCookie(final HttpServletResponse response, final String name, final String value, final int maxAge) {
         final Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
@@ -43,16 +41,13 @@ public class CookieUtil
      * @param name cookie名字
      * @return Cookie Cookie对象
      */
-    public static Cookie getCookieByName(final HttpServletRequest request, final String name)
-    {
+    public static Cookie getCookieByName(final HttpServletRequest request, final String name) {
         final Map<String, Cookie> cookieMap = ReadCookieMap(request);
-        if (cookieMap.containsKey(name))
-        {
+        if (cookieMap.containsKey(name)) {
             final Cookie cookie = cookieMap.get(name);
             return cookie;
         }
-        else
-        {
+        else {
             return null;
         }
     }
@@ -63,14 +58,11 @@ public class CookieUtil
      * @param request 请求对象
      * @return Map<String, Cookie> key为cookie的name
      */
-    private static Map<String, Cookie> ReadCookieMap(final HttpServletRequest request)
-    {
+    private static Map<String, Cookie> ReadCookieMap(final HttpServletRequest request) {
         final Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
         final Cookie[] cookies = request.getCookies();
-        if (null != cookies)
-        {
-            for (final Cookie cookie : cookies)
-            {
+        if (null != cookies) {
+            for (final Cookie cookie : cookies) {
                 cookieMap.put(cookie.getName(), cookie);
             }
         }

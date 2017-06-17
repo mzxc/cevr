@@ -14,8 +14,7 @@ import java.util.Map;
  * @since [产品/模块版本]
  */
 @SuppressWarnings("rawtypes")
-public class PageUtil
-{
+public class PageUtil {
     private Adapter adapter = new Adapter();
     
     private PageInfo pageInfo = new PageInfo();
@@ -30,8 +29,7 @@ public class PageUtil
     
     private List records = null;// 记录集合
     
-    public static class Adapter
-    {
+    public static class Adapter {
         
         /**
          * 数据
@@ -58,8 +56,7 @@ public class PageUtil
          * 
          * @return 返回 dataName
          */
-        public String getDataName()
-        {
+        public String getDataName() {
             return data;
         }
         
@@ -68,8 +65,7 @@ public class PageUtil
          * 
          * @param 对dataName进行赋值
          */
-        public void setDataName(String data)
-        {
+        public void setDataName(String data) {
             this.data = data;
         }
         
@@ -78,8 +74,7 @@ public class PageUtil
          * 
          * @return 返回 currPage
          */
-        public String getCurrPage()
-        {
+        public String getCurrPage() {
             return currPage;
         }
         
@@ -88,8 +83,7 @@ public class PageUtil
          * 
          * @param 对currPage进行赋值
          */
-        public void setCurrPage(String currPage)
-        {
+        public void setCurrPage(String currPage) {
             this.currPage = currPage;
         }
         
@@ -98,8 +92,7 @@ public class PageUtil
          * 
          * @return 返回 totalPages
          */
-        public String getTotalPages()
-        {
+        public String getTotalPages() {
             return totalPages;
         }
         
@@ -108,8 +101,7 @@ public class PageUtil
          * 
          * @param 对totalPages进行赋值
          */
-        public void setTotalPages(String totalPages)
-        {
+        public void setTotalPages(String totalPages) {
             this.totalPages = totalPages;
         }
         
@@ -118,8 +110,7 @@ public class PageUtil
          * 
          * @return 返回 totalRecords
          */
-        public String getTotalRecords()
-        {
+        public String getTotalRecords() {
             return totalRecords;
         }
         
@@ -128,28 +119,24 @@ public class PageUtil
          * 
          * @param 对totalRecords进行赋值
          */
-        public void setTotalRecords(String totalRecords)
-        {
+        public void setTotalRecords(String totalRecords) {
             this.totalRecords = totalRecords;
         }
     }
     
-    public static class PageInfo
-    {
+    public static class PageInfo {
         
         /**
          * <默认构造函数>
          */
-        public PageInfo()
-        {
+        public PageInfo() {
             super();
         }
         
         /**
          * <默认构造函数>
          */
-        public PageInfo(int page, int rows)
-        {
+        public PageInfo(int page, int rows) {
             super();
             this.page = page;
             this.rows = rows;
@@ -158,8 +145,7 @@ public class PageUtil
         /**
          * <默认构造函数>
          */
-        public PageInfo(int page, int rows, String sidx, String sord)
-        {
+        public PageInfo(int page, int rows, String sidx, String sord) {
             super();
             this.page = page;
             this.rows = rows;
@@ -192,8 +178,7 @@ public class PageUtil
          * 
          * @return 返回 page
          */
-        public int getPage()
-        {
+        public int getPage() {
             return page;
         }
         
@@ -202,8 +187,7 @@ public class PageUtil
          * 
          * @param 对page进行赋值
          */
-        public void setPage(int page)
-        {
+        public void setPage(int page) {
             this.page = page;
         }
         
@@ -212,8 +196,7 @@ public class PageUtil
          * 
          * @return 返回 rows
          */
-        public int getRows()
-        {
+        public int getRows() {
             return rows;
         }
         
@@ -222,8 +205,7 @@ public class PageUtil
          * 
          * @param 对rows进行赋值
          */
-        public void setRows(int rows)
-        {
+        public void setRows(int rows) {
             this.rows = rows;
         }
         
@@ -232,8 +214,7 @@ public class PageUtil
          * 
          * @return 返回 sidx
          */
-        public String getSidx()
-        {
+        public String getSidx() {
             return sidx;
         }
         
@@ -242,8 +223,7 @@ public class PageUtil
          * 
          * @param 对sidx进行赋值
          */
-        public void setSidx(String sidx)
-        {
+        public void setSidx(String sidx) {
             this.sidx = sidx;
         }
         
@@ -252,8 +232,7 @@ public class PageUtil
          * 
          * @return 返回 sord
          */
-        public String getSord()
-        {
+        public String getSord() {
             return sord;
         }
         
@@ -262,28 +241,24 @@ public class PageUtil
          * 
          * @param 对sord进行赋值
          */
-        public void setSord(String sord)
-        {
+        public void setSord(String sord) {
             this.sord = sord;
         }
     }
     
-    public void setAdapter(Adapter adapter)
-    {
+    public void setAdapter(Adapter adapter) {
         this.adapter = adapter;
     }
     
-    public void setPageInfo(PageInfo pageInfo)
-    {
+    public void setPageInfo(PageInfo pageInfo) {
         this.pageInfo = pageInfo;
     }
-
+    
     /**
      * 
      * <默认构造函数>
      */
-    public PageUtil(List records, int totalCount, int pageIndex, int pageSize)
-    {
+    public PageUtil(List records, int totalCount, int pageIndex, int pageSize) {
         this.totalPageCount = totalCount / pageSize;
         this.totalPageCount = (totalCount > this.totalPageCount * pageSize) ? this.totalPageCount + 1 : totalPageCount;
         this.setRecords(records);
@@ -291,7 +266,7 @@ public class PageUtil
         this.setPageIndex(pageIndex);
         this.setPageSize(pageSize);
     }
-
+    
     /**
      * 
      * 返回构建好的结果集
@@ -299,8 +274,7 @@ public class PageUtil
      * @return
      * @see [类、类#方法、类#成员]
      */
-    public Map<String, Object> initResult()
-    {
+    public Map<String, Object> initResult() {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(adapter.getCurrPage(), this.getPageIndex());
         map.put(adapter.getTotalPages(), this.getTotalPageCount());
@@ -314,11 +288,10 @@ public class PageUtil
      * 
      * @return int 总页数
      */
-    public int getTotalPageCount()
-    {
+    public int getTotalPageCount() {
         return this.totalPageCount;
     }
-
+    
     /**
      * 获取起始查询行数
      * 
@@ -326,8 +299,7 @@ public class PageUtil
      * @param pageSize 每页记录条数
      * @return 该页第一条数据的位置
      */
-    public static int getStartOfPage(int pageIndex, int pageSize)
-    {
+    public static int getStartOfPage(int pageIndex, int pageSize) {
         return (pageIndex - 1 > 0 ? (pageIndex - 1) * pageSize : 0);
     }
     
@@ -336,8 +308,7 @@ public class PageUtil
      * 
      * @return int下一页 页号
      */
-    public int getNextIndex()
-    {
+    public int getNextIndex() {
         return getPageIndex() - 1 < 1 ? 1 : getPageIndex() - 1;
     }
     
@@ -346,8 +317,7 @@ public class PageUtil
      * 
      * @return int 上一页页号
      */
-    public int getPreviousIndex()
-    {
+    public int getPreviousIndex() {
         return getPageIndex() + 1 > getTotalPageCount() ? getTotalPageCount() : getPageIndex() + 1;
     }
     
@@ -359,8 +329,7 @@ public class PageUtil
      * 
      * @return int 每页记录数
      */
-    public int getPageSize()
-    {
+    public int getPageSize() {
         return pageSize;
     }
     
@@ -369,8 +338,7 @@ public class PageUtil
      * 
      * @param pageSize 每页记录数
      */
-    public void setPageSize(int pageSize)
-    {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
     
@@ -379,8 +347,7 @@ public class PageUtil
      * 
      * @return List 集合
      */
-    public List getRecords()
-    {
+    public List getRecords() {
         return records;
     }
     
@@ -389,8 +356,7 @@ public class PageUtil
      * 
      * @param records List
      */
-    public void setRecords(List records)
-    {
+    public void setRecords(List records) {
         this.records = records;
     }
     
@@ -399,8 +365,7 @@ public class PageUtil
      * 
      * @return Int 当前页号
      */
-    public int getPageIndex()
-    {
+    public int getPageIndex() {
         return this.pageIndex;
     }
     
@@ -409,14 +374,11 @@ public class PageUtil
      * 
      * @param pageIndex int 页号
      */
-    public void setPageIndex(int pageIndex)
-    {
-        if (pageIndex <= 1)
-        {
+    public void setPageIndex(int pageIndex) {
+        if (pageIndex <= 1) {
             this.pageIndex = 1;
         }
-        else
-        {
+        else {
             this.pageIndex = getTotalPageCount() > pageIndex ? pageIndex : getTotalPageCount();
         }
     }
@@ -426,8 +388,7 @@ public class PageUtil
      * 
      * @return int 记录总数
      */
-    public int getTotalCount()
-    {
+    public int getTotalCount() {
         return totalCount;
     }
     
@@ -436,8 +397,7 @@ public class PageUtil
      * 
      * @param totalCount int 记录总数
      */
-    public void setTotalCount(int totalCount)
-    {
+    public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
 }

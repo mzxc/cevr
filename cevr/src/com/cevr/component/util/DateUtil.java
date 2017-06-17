@@ -15,10 +15,8 @@ import java.util.Date;
  * @see #DateUtil()
  * @since 1.0
  */
-public class DateUtil
-{
-    public interface DUF
-    {
+public class DateUtil {
+    public interface DUF {
         public static final String CN_DATE_FORMAT = "yyyy-MM-dd";
         
         public static final String CN_SHORT_DATE_FORMAT = "yy-MM-dd";
@@ -43,18 +41,15 @@ public class DateUtil
      * 
      * @return Date
      */
-    public static Date nowDate(final String formatter)
-    {
+    public static Date nowDate(final String formatter) {
         String str = "";
         final SimpleDateFormat sdf = new SimpleDateFormat(formatter);
         Date date = new Date();
-        try
-        {
+        try {
             str = sdf.format(date);
             date = sdf.parse(str);
         }
-        catch (final ParseException e)
-        {
+        catch (final ParseException e) {
             e.printStackTrace();
         }
         return date;
@@ -65,8 +60,7 @@ public class DateUtil
      * 
      * @return String
      */
-    public static String nowStr(final String formatter)
-    {
+    public static String nowStr(final String formatter) {
         String str = "";
         final SimpleDateFormat sdf = new SimpleDateFormat(formatter);
         final Date date = new Date();
@@ -77,8 +71,7 @@ public class DateUtil
     /**
      * 获取该日期为星期几
      */
-    public static String getWeek(final Date date)
-    {
+    public static String getWeek(final Date date) {
         final String[] weekDays = {"SUNDAY", "MONDAY", "TUESDAY", "WEDENSDAY", "THURSDAY", "FRIDAY", "SATURDAY"};
         final Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -95,16 +88,13 @@ public class DateUtil
      * @param fromFormat 格式化类型
      * @return Date
      */
-    public static Date getDate(final String strDate, final String fromFormat)
-    {
+    public static Date getDate(final String strDate, final String fromFormat) {
         final DateFormat f = new SimpleDateFormat(fromFormat);
         Date date = null;
-        try
-        {
+        try {
             date = f.parse(strDate);
         }
-        catch (final ParseException e)
-        {
+        catch (final ParseException e) {
             e.printStackTrace();
         }
         return date;
@@ -118,8 +108,7 @@ public class DateUtil
      * @param fromFormat 时间格式化类型
      * @return String
      */
-    public static String getStringDate(final Date date, final String fromFormat)
-    {
+    public static String getStringDate(final Date date, final String fromFormat) {
         final DateFormat f = new SimpleDateFormat(fromFormat);
         return f.format(date);
     }
@@ -129,8 +118,7 @@ public class DateUtil
      * 
      * @return
      */
-    public static String getYear()
-    {
+    public static String getYear() {
         String str = "";
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         final Date date = new Date();
@@ -138,20 +126,17 @@ public class DateUtil
         return str;
     }
     
-    public static String monthAdd(final String strDate, final int month)
-    {
+    public static String monthAdd(final String strDate, final int month) {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
-        try
-        {
+        try {
             date = simpleDateFormat.parse(strDate);
             final Calendar calender = Calendar.getInstance();
             calender.setTime(date);
             calender.add(Calendar.MONTH, month);
             return simpleDateFormat.format(calender.getTime());
         }
-        catch (final ParseException e)
-        {
+        catch (final ParseException e) {
             e.printStackTrace();
         }
         return null;
