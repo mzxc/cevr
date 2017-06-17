@@ -106,40 +106,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#myModal').on('hide.bs.modal', function () {
 		      $("#ExternalInterfaceExample").remove();
 		});
-		$('body').on('click','.v-layout',function(){
-			$('#myModal').modal('show');
-			var objectHtml = '<object id="ExternalInterfaceExample" style="width:100%" height="400" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-aE6D-11cf-96B8-444553540000">'
-			+'<param value="http://data.cnlive.com/export/CNLivePlayer.swf?hasBorder=false&amp;uuid=58b6bbf6ddd3426abbeb42c631ac43fe" name="movie">'
-			+'<param value="high" name="quality">'
-			+'<param value="always" name="allowScriptAccess">'
-			+'<param value="true" name="allowFullScreen">'
-			+'<embed id="embed" style="width:100%;" height="400" allowfullscreen="true" name="ExternalInterfaceExample" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" allowscriptaccess="always" quality="high" wmode="transparent">'
-			+'</object>';
-			$('.modal-body').append(objectHtml);
-			 var videoid = $(this).attr('videoid');
-		     var videoinfo = $(this).find('p').text();
-		     $('.modal-header h4').text(videoinfo);
-		     $('#embed').attr("src",videoid);
-		});
 	});
 	function tabClick(v){
 		//window.location.href='${basePath}asyn/index/voteframe/'+v;
 		top.window.location ='${basePath}asyn/index/voteframe/'+v;
 	}
 
-	function showMovie(id){
-		$("#hideCarMovie").attr('src',"asyn/index/player/"+id); 
-		layer.open({
-			type: 1,
-			closeBtn: false,
-			title: false,
-			shadeClose: true,
-			area: ['660px', '390px'], 
-			content: $('#hideCarMovie'),
-			end: function(){
-				$("#hideCarMovie").attr('src',""); 
-			}
-		});
+	function showMovie(_this){
+		$('#myModal').modal('show');
+		var videoid = $(_this).attr('videoid');
+		var videoinfo = $(_this).find('p').text();
+		var objectHtml = '<iframe height=498 width=510 src="' + videoid + '" frameborder=0 "allowfullscreen"></iframe>';
+		$('.modal-body').append(objectHtml);
+		$('.modal-header h4').text(videoinfo);
 	}
 
 	function initCarInfo(){
@@ -157,10 +136,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(index ==0 || (index)%2==0){
 						carInfos = carInfos + divPrefix;
 					}
-					carInfos = carInfos + '<div class="v-layout" videoid="'+carInfo[index].src+'">';
+					carInfos = carInfos + '<div onclick="showMovie(this)" class="v-layout" videoid="'+carInfo[index].src+'">';
 					var imgHtml = "";
 					if($.ckIsEmpty(carInfo[index].carImgs)){
-						imgHtml = '<img onclick="showMovie()" src="' + carInfo[index].carImgs + '">';
+						imgHtml = '<img src="' + carInfo[index].carImgs + '">';
 					}else{
 						var carImgs = carInfo[index].carImgs.split("|");
 						//var swiperHtmlHead = '<div class="swiper-container"><div class="swiper-wrapper">'
