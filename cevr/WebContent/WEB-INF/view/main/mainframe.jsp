@@ -102,6 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	$(function(){
 		initCarInfo();
+		//$('#myModal').modal('hide');
+		$('#myModal').on('hide.bs.modal', function () {
+	        $("iframe").remove();
+	    });
 	});
 	function tabClick(v){
 		//window.location.href='${basePath}asyn/index/voteframe/'+v;
@@ -113,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#myModal').modal('show');
 		var videoid = $(_this).attr('videoid');
 		var videoinfo = $(_this).find('p').text();
-		var objectHtml = '<iframe height=498 width=510 src="' + videoid + '" frameborder=0 "allowfullscreen"></iframe>';
+		var objectHtml = '<iframe  height=400 style="width:100%" src="' + videoid + '" frameborder=0 "allowfullscreen"></iframe>';
 		$('.modal-body').append(objectHtml);
 		$('.modal-header h4').text(videoinfo);
 	}
