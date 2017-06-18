@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						carInfoDiv = carInfoDiv + divPrefix;
 					}
 					carInfoDiv = carInfoDiv +  '<div class="v-layout text-center" >'
-					                + '<p>' +carInfo[index].carGroup + '  ' + carInfo[index].carNo + '  ' + carInfo[index].carName + '</p>'
+					                + '<p>' +carInfo[index].carGroup +  '  ' + carInfo[index].carName + '</p>'
 					                + '<p><span id="clickSpan_' + carInfo[index].carId + '">' + carInfo[index].ticketNum*10 + '</span>票</p>'
 					                + '<button id="clickInput_' + carInfo[index].carId + '" mes="0" group="group' + carInfo[index].carGroupId + '" onclick="clickTicket(\'' + carInfo[index].carId + '\')">投票</button>'
 		            		     + '</div>';
