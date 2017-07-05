@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import org.aspectj.lang.JoinPoint;
 
-import com.gomyck.component.context.spring.AOPMethodUtil;
+import com.gomyck.component.context.spring.aop.AOPMethodUtil;
 import com.gomyck.component.core.redis.annotation.RedisManager;
 import com.gomyck.component.core.redis.utils.RedisCache;
 

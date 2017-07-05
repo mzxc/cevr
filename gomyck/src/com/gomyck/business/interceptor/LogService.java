@@ -11,7 +11,7 @@ import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.gomyck.component.context.spring.AOPMethodUtil;
+import com.gomyck.component.context.spring.aop.AOPMethodUtil;
 import com.gomyck.component.logger.LogInfo;
 import com.gomyck.component.logger.NestLogger;
 import com.gomyck.component.util.DateUtil;

@@ -1,4 +1,4 @@
-package com.gomyck.component.context.spring;
+package com.gomyck.component.context.spring.aop;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
