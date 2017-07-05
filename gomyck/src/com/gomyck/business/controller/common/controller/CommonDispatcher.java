@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.business.model.to.TicketInfo;
+import com.gomyck.component.logger.LogInfo;
 
 /**
  * 通用转发器

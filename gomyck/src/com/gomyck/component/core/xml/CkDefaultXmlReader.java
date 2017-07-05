@@ -21,8 +21,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.gomyck.component.core.DuplicateLabelException;
-import com.gomyck.component.core.XmlNotFoundException;
+import com.gomyck.component.core.xml.exception.DuplicateLabelException;
+import com.gomyck.component.core.xml.exception.XmlNotFoundException;
 import com.gomyck.component.util.StringUtil;
 
 /**

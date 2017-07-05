@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.controller.common.message.ResultMessage;
 import com.gomyck.business.controller.welcome.service.IIndexService;
-import com.gomyck.business.interceptor.LogInfo;
 import com.gomyck.business.model.entity.BizCarVideo1004;
 import com.gomyck.business.model.to.TicketInfo;
+import com.gomyck.component.logger.LogInfo;
 import com.gomyck.component.util.IpUtil;
 import com.gomyck.component.util.ResultBuild;
 

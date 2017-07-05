@@ -118,7 +118,7 @@
             </list>
         </property>
         <property name="objectMapper">
-            <bean class="com.gomyck.business.interceptor.JsonConverter"></bean>
+            <bean class="com.gomyck.component.context.spring.json.converter.JsonConverter"></bean>
         </property>
     </bean>
     <!-- 支持返回json -->
@@ -129,6 +129,16 @@
 		<aop:aspect id="myAspect" ref="logService">
 			<aop:pointcut id="logPointCut" expression="execution(* com.gomyck.business.controller.*.controller.*.*(..))" />
 			<aop:before pointcut-ref="logPointCut" method="logIt" />
+		</aop:aspect>
+	</aop:config>  
+	
+	<!-- 注入redis资源管理器-->
+    <bean id="redisResourceManager" class="com.gomyck.component.core.redis.RedisResourceManager"></bean>
+    <aop:config>
+		<aop:aspect id="myAspect" ref="redisResourceManager">
+			<aop:pointcut id="logPointCut" expression="execution(* com.gomyck.business.controller.*.controller.*.*(..))" />
+			<aop:before pointcut-ref="logPointCut" method="startDoIt" />
+			<aop:after  pointcut-ref="logPointCut" method="finishDoIt"/>
 		</aop:aspect>
 	</aop:config>  
 </beans>

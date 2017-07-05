@@ -1,4 +1,4 @@
-package com.gomyck.business.interceptor;
+package com.gomyck.component.logger;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

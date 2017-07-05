@@ -12,7 +12,7 @@ package com.gomyck.component.core.xml;
 
 import java.util.Map;
 
-import com.gomyck.component.core.NodesShapeException;
+import com.gomyck.component.core.xml.exception.NodesShapeException;
 import com.gomyck.component.util.StringUtil;
 
 /**

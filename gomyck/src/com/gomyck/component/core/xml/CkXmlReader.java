@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.gomyck.component.core.XmlNotFoundException;
+import com.gomyck.component.core.xml.exception.XmlNotFoundException;
 
 /**
  * xml文件读取工具类

@@ -1,6 +1,5 @@
 package com.gomyck.business.interceptor;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -12,6 +11,8 @@ import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.gomyck.component.context.spring.AOPMethodUtil;
+import com.gomyck.component.logger.LogInfo;
 import com.gomyck.component.logger.NestLogger;
 import com.gomyck.component.util.DateUtil;
 import com.gomyck.component.util.DateUtil.DUF;
@@ -27,12 +28,12 @@ import com.gomyck.component.util.IpUtil;
  * @since 1.0
  */
 public class LogService {
+    
     private static final Logger logger = Logger.getLogger(LogService.class);
     
-    @SuppressWarnings("rawtypes")
     public void logIt(final JoinPoint joinPoint) {
         try {
-            Method method = getPointMethod(joinPoint);
+            Method method = AOPMethodUtil.getPointMethod(joinPoint);
             final StringBuilder sb = new StringBuilder();
             if (method.isAnnotationPresent(LogInfo.class)) {
                 final LogInfo logInfo = method.getAnnotation(LogInfo.class);
@@ -60,49 +61,10 @@ public class LogService {
             logger.info(sb.toString());
             NestLogger.locationLog(sb.toString());
         }
-        catch (
-        
-        final Exception e) {
+        catch (final Exception e) {
             NestLogger.showException(e);
             logger.error(NestLogger.buildLog("日志记录异常", e, true));
         }
-    }
-    
-    public Method getPointMethod(JoinPoint joinPoint)
-        throws Exception {
-        final String temp = joinPoint.getStaticPart().toShortString();
-        final String longTemp = joinPoint.getStaticPart().toLongString();
-        joinPoint.getStaticPart().toString();
-        final String classType = joinPoint.getTarget().getClass().getName();
-        final String methodName = temp.substring(10, temp.length() - 1);
-        final Class<?> className = Class.forName(classType);
-        final Class<?>[] args = new Class[joinPoint.getArgs().length];
-        final String[] sArgs = (longTemp.substring(longTemp.lastIndexOf("(") + 1, longTemp.length() - 2)).split(",");
-        for (int i = 0; i < args.length; i++) {
-            String argName = sArgs[i];
-            if (argName.endsWith("[]")) {
-                args[i] = Array.newInstance(Class.forName(argName.substring(0, argName.length() - 2)), 1).getClass();
-            }
-            else if (argName.indexOf(".") == -1) {
-                args[i] = isBaseType(argName);
-            }
-            else {
-                args[i] = Class.forName(argName);
-            }
-        }
-        final Method method = className.getMethod(methodName.substring(methodName.indexOf(".") + 1, methodName.indexOf("(")), args);
-        return method;
-    }
-    
-    private Class<?> isBaseType(String typeName) {
-        final Object[][] baseTypes = {{"byte", byte.class}, {"short", short.class}, {"char", char.class}, {"int", int.class}, {"long", long.class}, {"float", float.class}, {"double", double.class}, {"boolean", boolean.class}};
-        for (int i = 0; i < baseTypes.length; i = i + 1) {
-            Object[] type = baseTypes[i];
-            if (type[0].equals(typeName)) {
-                return (Class<?>)type[1];
-            }
-        }
-        return null;
     }
     
 }

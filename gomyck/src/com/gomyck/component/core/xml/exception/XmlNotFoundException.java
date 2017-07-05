@@ -8,7 +8,7 @@
  * 修改单号:  <修改单号>
  * 修改内容:  <修改内容>
  */
-package com.gomyck.component.core;
+package com.gomyck.component.core.xml.exception;
 
 /**
  * <一句话功能简述> <功能详细描述>

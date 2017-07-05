@@ -1,4 +1,4 @@
-package com.gomyck.business.interceptor;
+package com.gomyck.component.context.spring.json.converter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
