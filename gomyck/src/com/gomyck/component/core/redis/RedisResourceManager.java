@@ -21,7 +21,7 @@ public class RedisResourceManager {
         }
     }
     
-    public void finishDoIt(final JoinPoint joinPoint)
+    public void finishDoIt(final JoinPoint joinPoint) 
         throws Exception {
         Method pointMethod = AOPMethodUtil.getPointMethod(joinPoint);
         if (pointMethod.isAnnotationPresent(RedisManager.class)) {
