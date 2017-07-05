@@ -9,7 +9,7 @@ import com.gomyck.component.core.redis.annotation.RedisManager;
 import com.gomyck.component.core.redis.utils.RedisCache;
 
 
-public class RedisResourceManager {
+public class RedisResourceManager { 
     
     public void startDoIt(final JoinPoint joinPoint)
         throws Exception {
