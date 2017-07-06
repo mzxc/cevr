@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonConverter extends ObjectMapper {
     
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 5355549055696231702L;
+    
     public JsonConverter() {
         super();
         // 允许单引号
