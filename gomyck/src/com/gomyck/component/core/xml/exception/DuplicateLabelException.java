@@ -19,38 +19,32 @@ package com.gomyck.component.core.xml.exception;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class DuplicateLabelException extends XmlReaderException
-{
+public class DuplicateLabelException extends XmlReaderException {
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException()
-    {
+    public DuplicateLabelException() {
         super();
     }
     
-    
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(final String message, final Throwable cause)
-    {
+    public DuplicateLabelException(final String message, final Throwable cause) {
         super(message, cause);
     }
     
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(final String message)
-    {
+    public DuplicateLabelException(final String message) {
         super(message);
     }
     
     /**
      * <默认构造函数>
      */
-    public DuplicateLabelException(final Throwable cause)
-    {
+    public DuplicateLabelException(final Throwable cause) {
         super(cause);
     }
     

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gomyck.business.model.to.TicketInfo;
-import com.gomyck.component.logger.LogInfo;
+import com.gomyck.component.logger.annotation.LogInfo;
 
 /**
  * 通用转发器
@@ -36,13 +36,13 @@ import com.gomyck.component.logger.LogInfo;
  */
 @Controller
 @RequestMapping(value = "common")
-public class CommonDispatcher
-{
+public class CommonDispatcher {
     @LogInfo(operateModelNm = "通用跳转", operateFuncNm = "页面通用跳转")
     @RequestMapping(value = "forward/{view}/{page}", method = RequestMethod.GET)
-    public String gotoMain(@PathVariable final String view, @PathVariable final String page)
-    {
+    public String gotoMain(@PathVariable
+    final String view, @PathVariable
+    final String page) {
         return view + "/" + page;
     }
-
+    
 }

@@ -18,8 +18,7 @@ package com.gomyck.component.core.xml;
  * @see #CkXmlNodes
  * @since 1.0
  */
-public abstract class CkXmlNodes implements XmlNodes
-{
+public abstract class CkXmlNodes implements XmlNodes {
     @Override
     public abstract void setXML_TAGS(final Object xml_tags);
     

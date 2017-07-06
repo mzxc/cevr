@@ -29,9 +29,9 @@ import com.gomyck.business.controller.common.message.ResultMessage;
 import com.gomyck.business.controller.welcome.service.IIndexService;
 import com.gomyck.business.model.entity.BizCarVideo1004;
 import com.gomyck.business.model.to.TicketInfo;
-import com.gomyck.component.logger.LogInfo;
-import com.gomyck.component.util.IpUtil;
-import com.gomyck.component.util.ResultBuild;
+import com.gomyck.component.core.dao.utils.ResultBuild;
+import com.gomyck.component.logger.annotation.LogInfo;
+import com.gomyck.component.utils.IpUtil;
 
 /**
  * 首页
@@ -44,63 +44,64 @@ import com.gomyck.component.util.ResultBuild;
 @Controller
 @RequestMapping(value = "asyn/index")
 public class IndexHandler {
-	
-	@Autowired
-	@Qualifier("DefaultIndexServiceImp")
-	private IIndexService iis;
-	
-	@LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
-	@RequestMapping(value="getCarInfo", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> searchCarInfo(TicketInfo ti){
-		List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
-		return ResultBuild.init(true, "查询成功", searchCarInfo);
-	}
-//	@LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
-//	@RequestMapping(value="tab/{tab}", method=RequestMethod.GET)
-//	public String tab(@PathVariable String tab){
-//		System.out.println(tab);
-//		//List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
-//    	
-//		//response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
-//		return "main/exteriorDesign";
-//	}
-	@LogInfo(operateModelNm="投票首页", operateFuncNm="新增投票")
-	@RequestMapping(value="ticketCar", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> ticketCar(TicketInfo ti, HttpServletRequest request){
-		ti.setFromIp(IpUtil.getRemoteAddr(request));
-		ti.setTicketNum(1);
-		ResultMessage rm = iis.addTicketInfo(ti);
-		return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
-	}
+    
+    @Autowired
+    @Qualifier("DefaultIndexServiceImp")
+    private IIndexService iis;
+    
+    @LogInfo(operateModelNm = "投票首页", operateFuncNm = "访问首页")
+    @RequestMapping(value = "getCarInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> searchCarInfo(TicketInfo ti) {
+        List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
+        return ResultBuild.init(true, "查询成功", searchCarInfo);
+    }
+    
+    // @LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
+    // @RequestMapping(value="tab/{tab}", method=RequestMethod.GET)
+    // public String tab(@PathVariable String tab){
+    // System.out.println(tab);
+    // //List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
+    //
+    // //response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
+    // return "main/exteriorDesign";
+    // }
+    @LogInfo(operateModelNm = "投票首页", operateFuncNm = "新增投票")
+    @RequestMapping(value = "ticketCar", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> ticketCar(TicketInfo ti, HttpServletRequest request) {
+        ti.setFromIp(IpUtil.getRemoteAddr(request));
+        ti.setTicketNum(1);
+        ResultMessage rm = iis.addTicketInfo(ti);
+        return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
+    }
     
     @LogInfo(operateModelNm = "投票首页", operateFuncNm = "带参数页面通用跳转")
     @RequestMapping(value = "voteframe/{tab}", method = RequestMethod.GET)
-    public String gotoVoteframe(HttpServletRequest request, HttpServletResponse response,@PathVariable final String tab)
-    {
-		request.setAttribute("tab", tab);
+    public String gotoVoteframe(HttpServletRequest request, HttpServletResponse response, @PathVariable
+    final String tab) {
+        request.setAttribute("tab", tab);
         return "main/voteframe";
     }
     
     @LogInfo(operateModelNm = "投票首页", operateFuncNm = "带参数页面通用跳转")
     @RequestMapping(value = "player/{id}", method = RequestMethod.GET)
-    public String gotoPlayer(HttpServletRequest request, HttpServletResponse response,@PathVariable final String id)
-    {
-    	TicketInfo ti = new TicketInfo();
-    	ti.setCarId(id);
-    	BizCarVideo1004 bcv = iis.findVideoByCarId(ti);
-		request.setAttribute("src", bcv.getSrc());
+    public String gotoPlayer(HttpServletRequest request, HttpServletResponse response, @PathVariable
+    final String id) {
+        TicketInfo ti = new TicketInfo();
+        ti.setCarId(id);
+        BizCarVideo1004 bcv = iis.findVideoByCarId(ti);
+        request.setAttribute("src", bcv.getSrc());
         return "main/playerJsp";
     }
     
-	@LogInfo(operateModelNm="投票首页", operateFuncNm="删除投票")
-	@RequestMapping(value="unTicketCar", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> unTicketCar(TicketInfo ti, HttpServletRequest request){
-		ti.setFromIp(IpUtil.getRemoteAddr(request));
-		ti.setTicketNum(1);
-		ResultMessage rm = iis.delTicketInfo(ti);
-		return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
-	}
+    @LogInfo(operateModelNm = "投票首页", operateFuncNm = "删除投票")
+    @RequestMapping(value = "unTicketCar", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> unTicketCar(TicketInfo ti, HttpServletRequest request) {
+        ti.setFromIp(IpUtil.getRemoteAddr(request));
+        ti.setTicketNum(1);
+        ResultMessage rm = iis.delTicketInfo(ti);
+        return ResultBuild.init(rm.isIfSuccess(), rm.getMsg(), rm);
+    }
 }

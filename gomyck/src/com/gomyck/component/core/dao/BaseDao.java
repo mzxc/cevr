@@ -34,7 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 
-import com.gomyck.component.util.PageUtil;
+import com.gomyck.component.core.dao.utils.PageUtil;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 /**
@@ -47,8 +47,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
  * @since 2.1
  */
 @SuppressWarnings("rawtypes")
-public class BaseDao
-{
+public class BaseDao {
     @Autowired
     @Qualifier("sqlClient")
     public SqlMapClient sqlSession;
@@ -58,45 +57,38 @@ public class BaseDao
     private SessionFactory sessionFactory;
     
     public static final String SYMBOL = "symbol";
-
+    
     public static final String VALUE = "value";
     
     public static final String BEFORE_VALUE = "beforeValue";
     
     public static final String AFTER_VALUE = "aftervalue";
     
-    private SessionFactory getSessionFactory()
-    {
+    private SessionFactory getSessionFactory() {
         return this.sessionFactory;
     }
     
-    public Session getSession()
-    {
+    public Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
     
-    public void save(final Object entity)
-    {
+    public void save(final Object entity) {
         getSession().save(entity);
     }
     
-    public void saveOrUpdate(final Object entity)
-    {
+    public void saveOrUpdate(final Object entity) {
         getSession().saveOrUpdate(entity);
     }
     
-    public void delete(final Object entity)
-    {
+    public void delete(final Object entity) {
         getSession().delete(entity);
     }
     
-    public void update(final Object entity)
-    {
+    public void update(final Object entity) {
         getSession().update(entity);
     }
     
-    public List findAll(final Class clazz)
-    {
+    public List findAll(final Class clazz) {
         return getSession().createCriteria(clazz).list();
         
     }
@@ -111,18 +103,15 @@ public class BaseDao
      * @return 更新条数
      * @see [类、类#方法、类#成员]
      */
-    public int update(final Class clazz, final Map<String, String> map, final String sqlWhere)
-    {
+    public int update(final Class clazz, final Map<String, String> map, final String sqlWhere) {
         final StringBuffer sql = new StringBuffer();
         sql.append(" UPDATE ").append(getTableName(clazz)).append(" SET ");
         final Set<String> keySet = map.keySet();
         final Iterator<String> it = keySet.iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             final String column = it.next();
             sql.append(column).append(" = '").append(map.get(column) + "'");
-            if (it.hasNext())
-            {
+            if (it.hasNext()) {
                 sql.append(",");
             }
         }
@@ -140,8 +129,7 @@ public class BaseDao
      * @return 删除的条数
      * @see [类、类#方法、类#成员]
      */
-    public int deleteByIds(final Class clazz, final String bills)
-    {
+    public int deleteByIds(final Class clazz, final String bills) {
         final StringBuffer sql = new StringBuffer();
         sql.append(" DELETE FROM ").append(getTableName(clazz)).append(" WHERE ");
         sql.append(" ID IN (").append(bills).append(") ");
@@ -157,8 +145,7 @@ public class BaseDao
      * @return 删除的条数
      * @see [类、类#方法、类#成员]
      */
-    public int deleteByPrimaryKey(final Class clazz, final Serializable id)
-    {
+    public int deleteByPrimaryKey(final Class clazz, final Serializable id) {
         return deleteByProperty(clazz, getSessionFactory().getClassMetadata(clazz).getIdentifierPropertyName(), id.toString());
     }
     
@@ -172,8 +159,7 @@ public class BaseDao
      * @return 删除的条数
      * @see [类、类#方法、类#成员]
      */
-    public int deleteByProperty(final Class clazz, final String propertyName, final String propertyValue)
-    {
+    public int deleteByProperty(final Class clazz, final String propertyName, final String propertyValue) {
         final String sql = " DELETE FROM " + getTableName(clazz) + " WHERE " + propertyName + " = '" + propertyValue + "'";
         return executeNativeSql(sql);
     }
@@ -187,23 +173,18 @@ public class BaseDao
      * @return 删除条数
      * @see [类、类#方法、类#成员]
      */
-    public int deleteByPropertys(final Class clazz, final Map<String, Object> propertys)
-    {
-        if (propertys.size() < 1)
-        {
+    public int deleteByPropertys(final Class clazz, final Map<String, Object> propertys) {
+        if (propertys.size() < 1) {
             return -1;
         }
         final StringBuffer sql = new StringBuffer();
         sql.append(" DELETE FROM ").append(getTableName(clazz)).append(" WHERE 1=1");
-        for (final String propertyName : propertys.keySet())
-        {
+        for (final String propertyName : propertys.keySet()) {
             sql.append(" AND ").append(propertyName).append(" = ");
-            if (propertys.get(propertyName) instanceof String)
-            {
+            if (propertys.get(propertyName) instanceof String) {
                 sql.append("'").append(propertys.get(propertyName)).append("'");
             }
-            else
-            {
+            else {
                 sql.append(propertys.get(propertyName));
             }
         }
@@ -220,23 +201,18 @@ public class BaseDao
      * @return 删除得到条数
      * @see [类、类#方法、类#成员]
      */
-    public int deleteByPropertysAndSqlStr(final Class clazz, final Map<String, Object> propertys, final String sqlWhere)
-    {
-        if (propertys.size() < 1)
-        {
+    public int deleteByPropertysAndSqlStr(final Class clazz, final Map<String, Object> propertys, final String sqlWhere) {
+        if (propertys.size() < 1) {
             return -1;
         }
         final StringBuffer sql = new StringBuffer();
         sql.append(" DELETE FROM ").append(getTableName(clazz)).append(" WHERE 1=1");
-        for (final String propertyName : propertys.keySet())
-        {
+        for (final String propertyName : propertys.keySet()) {
             sql.append(" AND ").append(propertyName).append(" = ");
-            if (propertys.get(propertyName) instanceof String)
-            {
+            if (propertys.get(propertyName) instanceof String) {
                 sql.append("'").append(propertys.get(propertyName)).append("'");
             }
-            else
-            {
+            else {
                 sql.append(propertys.get(propertyName));
             }
         }
@@ -254,12 +230,10 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public List findByCriteria(final Class clazz, final DetachedCriteria dcriteria)
-    {
+    public List findByCriteria(final Class clazz, final DetachedCriteria dcriteria) {
         final Criteria exeCriteria = dcriteria.getExecutableCriteria(getSession());
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
-        if (cache != null)
-        {
+        if (cache != null) {
             exeCriteria.setCacheable(true);
             exeCriteria.setCacheRegion(cache.region());
         }
@@ -278,14 +252,12 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public List findByCriteria(final Class clazz, final DetachedCriteria dcriteria, final int begin, final int rows)
-    {
+    public List findByCriteria(final Class clazz, final DetachedCriteria dcriteria, final int begin, final int rows) {
         final Criteria exeCriteria = dcriteria.getExecutableCriteria(getSession());
         exeCriteria.setFirstResult(begin);
         exeCriteria.setMaxResults(rows);
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
-        if (cache != null)
-        {
+        if (cache != null) {
             exeCriteria.setCacheable(true);
             exeCriteria.setCacheRegion(cache.region());
         }
@@ -301,8 +273,7 @@ public class BaseDao
      * @return 返回的结果
      * @see [类、类#方法、类#成员]
      */
-    public Object findByPrimaryKey(final Class clazz, final Serializable id)
-    {
+    public Object findByPrimaryKey(final Class clazz, final Serializable id) {
         return getSession().get(clazz, id);
     }
     
@@ -316,8 +287,7 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public List findByProperty(final Class clazz, final String propertyName, final Object propertyValue)
-    {
+    public List findByProperty(final Class clazz, final String propertyName, final Object propertyValue) {
         return findByCriteria(clazz, DetachedCriteria.forClass(clazz).add(Restrictions.eq(propertyName, propertyValue)));
     }
     
@@ -331,8 +301,7 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findByCriteria(final Class clazz, final DetachedCriteria criteria, final PageUtil pageUtil)
-    {
+    public PageUtil findByCriteria(final Class clazz, final DetachedCriteria criteria, final PageUtil pageUtil) {
         final int limit = pageUtil.getPageSize();
         pageUtil.setTotalCount(findCountByCriteria(clazz, criteria).intValue());
         final int beginRowNum = PageUtil.getStartOfPage(pageUtil.getPageIndex(), pageUtil.getPageSize());
@@ -353,14 +322,12 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public List findByExample(final Class clazz, final Class entity, final int from, final int limit)
-    {
+    public List findByExample(final Class clazz, final Class entity, final int from, final int limit) {
         final Criteria criteria = getSession().createCriteria(clazz).add(Example.create(entity));
         criteria.setFirstResult(from);
         criteria.setFetchSize(limit);
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
-        if (cache != null)
-        {
+        if (cache != null) {
             criteria.setCacheable(true);
             criteria.setCacheRegion(cache.region());
         }
@@ -377,35 +344,38 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public List findByProperties(final Class clazz, final Map<String, Object> properties)
-    {
+    public List findByProperties(final Class clazz, final Map<String, Object> properties) {
         final Criteria criteria = getSession().createCriteria(clazz);
-        for (final String propName : properties.keySet())
-        {
-        	if(properties.get(propName) instanceof Map){
-        		Map<String, Object> param = (Map<String, Object>)properties.get(propName);
-        		String symbol = (String)param.get(SYMBOL);
-        		Object value = param.get(VALUE);
-        		if(symbol.equals("<")){
-        			criteria.add(Restrictions.lt(propName, value));
-        		}else if(symbol.equals("<=")){
-        			criteria.add(Restrictions.le(propName, value));
-        		}else if(symbol.equals(">")){
-        			criteria.add(Restrictions.gt(propName, value));
-        		}else if(symbol.equals(">=")){
-        			criteria.add(Restrictions.ge(propName, value));
-        		}else if(symbol.equals("<>")){
-        			criteria.add(Restrictions.ne(propName, value));
-        		}else {
-        			criteria.add(Restrictions.eq(propName, value));
-        		}
-        	}else{
-        		criteria.add(Restrictions.eq(propName, properties.get(propName)));
-        	}
+        for (final String propName : properties.keySet()) {
+            if (properties.get(propName) instanceof Map) {
+                Map<String, Object> param = (Map<String, Object>)properties.get(propName);
+                String symbol = (String)param.get(SYMBOL);
+                Object value = param.get(VALUE);
+                if (symbol.equals("<")) {
+                    criteria.add(Restrictions.lt(propName, value));
+                }
+                else if (symbol.equals("<=")) {
+                    criteria.add(Restrictions.le(propName, value));
+                }
+                else if (symbol.equals(">")) {
+                    criteria.add(Restrictions.gt(propName, value));
+                }
+                else if (symbol.equals(">=")) {
+                    criteria.add(Restrictions.ge(propName, value));
+                }
+                else if (symbol.equals("<>")) {
+                    criteria.add(Restrictions.ne(propName, value));
+                }
+                else {
+                    criteria.add(Restrictions.eq(propName, value));
+                }
+            }
+            else {
+                criteria.add(Restrictions.eq(propName, properties.get(propName)));
+            }
         }
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
-        if (cache != null)
-        {
+        if (cache != null) {
             criteria.setCacheable(true);
             criteria.setCacheRegion(cache.region());
         }
@@ -422,11 +392,9 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findByProperties(final Class clazz, final Map<String, Object> properties, final PageUtil pageUtil)
-    {
+    public PageUtil findByProperties(final Class clazz, final Map<String, Object> properties, final PageUtil pageUtil) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
-        for (final String propName : properties.keySet())
-        {
+        for (final String propName : properties.keySet()) {
             criteria.add(Restrictions.eq(propName, properties.get(propName)));
         }
         findCountByCriteria(clazz, criteria);
@@ -442,8 +410,7 @@ public class BaseDao
      * @return PageUtil
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findAll(final Class clazz, final PageUtil pageUtil)
-    {
+    public PageUtil findAll(final Class clazz, final PageUtil pageUtil) {
         return findByCriteria(clazz, DetachedCriteria.forClass(clazz), pageUtil);
     }
     
@@ -455,8 +422,7 @@ public class BaseDao
      * @return 记录数
      * @see [类、类#方法、类#成员]
      */
-    public Long findAllCount(final Class clazz)
-    {
+    public Long findAllCount(final Class clazz) {
         return findCountByCriteria(clazz, DetachedCriteria.forClass(clazz));
     }
     
@@ -472,22 +438,18 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public List findByNativeSQL(final Class clazz, final Class toClass, final String sql, final Map<String, Type> columns)
-    {
+    public List findByNativeSQL(final Class clazz, final Class toClass, final String sql, final Map<String, Type> columns) {
         final SQLQuery query = getSession().createSQLQuery(sql);
         final Cache cache = (Cache)clazz.getAnnotation(Cache.class);
-        if (cache != null)
-        {
+        if (cache != null) {
             query.setCacheable(true);
             query.setCacheRegion(cache.region());
         }
         final Set<String> keys = columns.keySet();
-        for (final String name : keys)
-        {
+        for (final String name : keys) {
             query.addScalar(name, columns.get(name));
         }
-        if (toClass != null)
-        {
+        if (toClass != null) {
             query.setResultTransformer(new AliasToBeanResultTransformer(toClass));
         }
         return query.list();
@@ -502,8 +464,7 @@ public class BaseDao
      * @return 总条数
      * @see [类、类#方法、类#成员]
      */
-    public Long findCountByCriteria(final Class clazz, final DetachedCriteria criteria)
-    {
+    public Long findCountByCriteria(final Class clazz, final DetachedCriteria criteria) {
         final Long count = (Long)findByCriteria(clazz, criteria.setProjection(Projections.rowCount())).get(0);
         criteria.setProjection(null);
         criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
@@ -519,8 +480,7 @@ public class BaseDao
      * @return 记录数
      * @see [类、类#方法、类#成员]
      */
-    public Long findCountByExample(final Class clazz, final Class entity)
-    {
+    public Long findCountByExample(final Class clazz, final Class entity) {
         return (Long)findByCriteria(clazz, DetachedCriteria.forClass(clazz).add(Example.create(entity)).setProjection(Projections.rowCount())).get(0);
     }
     
@@ -535,21 +495,16 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public List findListJoinOtherByCriteria(final Class clazz, final String foreignProp, final String alias, final JoinType joinType, final List<Criterion> selfCriterions, final List<Criterion> otherCriterions)
-    {
+    public List findListJoinOtherByCriteria(final Class clazz, final String foreignProp, final String alias, final JoinType joinType, final List<Criterion> selfCriterions, final List<Criterion> otherCriterions) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
-        if (selfCriterions != null)
-        {
-            for (final Criterion criterion : selfCriterions)
-            {
+        if (selfCriterions != null) {
+            for (final Criterion criterion : selfCriterions) {
                 criteria.add(criterion);
             }
         }
         final DetachedCriteria criteria2 = criteria.createCriteria(foreignProp, alias, joinType);
-        if (otherCriterions != null)
-        {
-            for (final Criterion criterion : otherCriterions)
-            {
+        if (otherCriterions != null) {
+            for (final Criterion criterion : otherCriterions) {
                 criteria2.add(criterion);
             }
         }
@@ -567,8 +522,7 @@ public class BaseDao
      * @return 查询结果PageUtil
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findByCriteriaProjectionsPage(final Class clazz, final DetachedCriteria criteria, final Projection projection, final PageUtil pageUtil)
-    {
+    public PageUtil findByCriteriaProjectionsPage(final Class clazz, final DetachedCriteria criteria, final Projection projection, final PageUtil pageUtil) {
         final int maxResults = pageUtil.getPageSize();
         pageUtil.setTotalCount(findCountByCriteria(clazz, criteria).intValue());
         criteria.setProjection(projection);
@@ -588,11 +542,9 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public List findSomeColumn(final Class clazz, final DetachedCriteria criteria, final Map<String, String> columnsAndAlias)
-    {
+    public List findSomeColumn(final Class clazz, final DetachedCriteria criteria, final Map<String, String> columnsAndAlias) {
         final ProjectionList projectionList = Projections.projectionList();
-        for (final String key : columnsAndAlias.keySet())
-        {
+        for (final String key : columnsAndAlias.keySet()) {
             projectionList.add(Projections.property(key).as(columnsAndAlias.get(key)));
         }
         criteria.setProjection(projectionList);
@@ -611,11 +563,9 @@ public class BaseDao
      * @return 查询结果PageUtil
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findSomeColumn(final Class clazz, final DetachedCriteria criteria, final Map<String, String> columnsAndAlias, final PageUtil pageUtil)
-    {
+    public PageUtil findSomeColumn(final Class clazz, final DetachedCriteria criteria, final Map<String, String> columnsAndAlias, final PageUtil pageUtil) {
         final ProjectionList projectionList = Projections.projectionList();
-        for (final String key : columnsAndAlias.keySet())
-        {
+        for (final String key : columnsAndAlias.keySet()) {
             projectionList.add(Projections.property(key).as(columnsAndAlias.get(key)));
         }
         final int maxResults = pageUtil.getPageSize();
@@ -637,11 +587,9 @@ public class BaseDao
      * @return 查询结果PageUtil
      * @see [类、类#方法、类#成员]
      */
-    public List findSomeColumn(final Class clazz, final DetachedCriteria criteria, final String[] columnsAndAlias)
-    {
+    public List findSomeColumn(final Class clazz, final DetachedCriteria criteria, final String[] columnsAndAlias) {
         final ProjectionList projectionList = Projections.projectionList();
-        for (final String string : columnsAndAlias)
-        {
+        for (final String string : columnsAndAlias) {
             projectionList.add(Projections.property(string).as(string));
         }
         criteria.setProjection(projectionList);
@@ -660,11 +608,9 @@ public class BaseDao
      * @return 查询结果PageUtil
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findSomeColumn(final Class clazz, final DetachedCriteria criteria, final String[] columnsAndAlias, final PageUtil pageUtil)
-    {
+    public PageUtil findSomeColumn(final Class clazz, final DetachedCriteria criteria, final String[] columnsAndAlias, final PageUtil pageUtil) {
         final ProjectionList projectionList = Projections.projectionList();
-        for (final String string : columnsAndAlias)
-        {
+        for (final String string : columnsAndAlias) {
             projectionList.add(Projections.property(string).as(string));
         }
         final int maxResults = pageUtil.getPageSize();
@@ -688,11 +634,9 @@ public class BaseDao
      * @return 查询结果LIST
      * @see [类、类#方法、类#成员]
      */
-    public List findSomeColumn(final Class clazz, final DetachedCriteria dcriteria, final String[] columnsAndAlias, final PageUtil pageUtil, final Order order)
-    {
+    public List findSomeColumn(final Class clazz, final DetachedCriteria dcriteria, final String[] columnsAndAlias, final PageUtil pageUtil, final Order order) {
         final ProjectionList projectionList = Projections.projectionList();
-        for (final String string : columnsAndAlias)
-        {
+        for (final String string : columnsAndAlias) {
             projectionList.add(Projections.property(string).as(string));
         }
         final int maxResults = pageUtil.getPageSize();
@@ -712,8 +656,7 @@ public class BaseDao
      * @return 执行条数
      * @see [类、类#方法、类#成员]
      */
-    public Integer executeNativeSql(final String sql)
-    {
+    public Integer executeNativeSql(final String sql) {
         return getSession().createSQLQuery(sql).executeUpdate();
     }
     
@@ -726,12 +669,10 @@ public class BaseDao
      * @return Query对象
      * @see [类、类#方法、类#成员]
      */
-    public Query createQuery(final String hql, final Object... values)
-    {
+    public Query createQuery(final String hql, final Object... values) {
         Assert.hasText(hql);
         final Query query = getSession().createQuery(hql);
-        for (int i = 0; i < values.length; i++)
-        {
+        for (int i = 0; i < values.length; i++) {
             query.setParameter(i, values[i]);
         }
         return query;
@@ -746,12 +687,10 @@ public class BaseDao
      * @return Query对象
      * @see [类、类#方法、类#成员]
      */
-    public Query createSqlQuery(final String sql, final Object... values)
-    {
+    public Query createSqlQuery(final String sql, final Object... values) {
         Assert.hasText(sql);
         final Query query = getSession().createSQLQuery(sql);
-        for (int i = 0; i < values.length; i++)
-        {
+        for (int i = 0; i < values.length; i++) {
             query.setParameter(i, values[i]);
         }
         return query;
@@ -766,12 +705,10 @@ public class BaseDao
      * @return Query对象
      * @see [类、类#方法、类#成员]
      */
-    public Query createQueryByCache(final String hql, final Object... values)
-    {
+    public Query createQueryByCache(final String hql, final Object... values) {
         Assert.hasText(hql);
         final Query query = getSession().createQuery(hql);
-        for (int i = 0; i < values.length; i++)
-        {
+        for (int i = 0; i < values.length; i++) {
             query.setParameter(i, values[i]);
         }
         query.setCacheable(true);
@@ -789,13 +726,11 @@ public class BaseDao
      * @return 分页对象
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findPageByQuery(final String hql, final int pageNo, final int pageSize, final Object... values)
-    {
+    public PageUtil findPageByQuery(final String hql, final int pageNo, final int pageSize, final Object... values) {
         
         final String countQueryString = " SELECT COUNT(*) FROM( " + hql + " ) x ";
         final int totalCount = ((Long)createQuery(countQueryString, values).uniqueResult()).intValue();
-        if (totalCount < 1)
-        {
+        if (totalCount < 1) {
             return new PageUtil(new ArrayList(), 0, 0, pageSize);
         }
         final int start = PageUtil.getStartOfPage(pageNo, pageSize);
@@ -816,13 +751,11 @@ public class BaseDao
      * @return 分页对象
      * @see [类、类#方法、类#成员]
      */
-    public PageUtil findPageBySqlQuery(final String sql, final int pageNo, final int pageSize, final Object... values)
-    {
+    public PageUtil findPageBySqlQuery(final String sql, final int pageNo, final int pageSize, final Object... values) {
         
         final String countQueryString = " SELECT COUNT(*) FROM( " + sql + " ) x ";
         final int totalCount = ((BigInteger)createSqlQuery(countQueryString, values).uniqueResult()).intValue();
-        if (totalCount < 1)
-        {
+        if (totalCount < 1) {
             return new PageUtil(new ArrayList(), 0, 0, pageSize);
         }
         final int start = PageUtil.getStartOfPage(pageNo, pageSize);
@@ -838,8 +771,7 @@ public class BaseDao
      * 
      * @see [类、类#方法、类#成员]
      */
-    public void flush()
-    {
+    public void flush() {
         getSession().flush();
     }
     
@@ -849,8 +781,7 @@ public class BaseDao
      * 
      * @see [类、类#方法、类#成员]
      */
-    public void clear()
-    {
+    public void clear() {
         getSession().clear();
     }
     
@@ -863,8 +794,7 @@ public class BaseDao
      * @see [类、类#方法、类#成员]
      */
     @SuppressWarnings("unchecked")
-    public String getTableName(final Class clazz)
-    {
+    public String getTableName(final Class clazz) {
         final Table entity = (Table)clazz.getAnnotation(Table.class);
         return " " + entity.name() + " ";
     }
@@ -876,22 +806,21 @@ public class BaseDao
      * @return 缓存
      * @see [类、类#方法、类#成员]
      */
-    public org.hibernate.Cache getCache()
-    {
+    public org.hibernate.Cache getCache() {
         return getSessionFactory().getCache();
     }
     
-    public void addAwaysParam(Map<String, Object> param){
-    	param.put("deleteflag", "0");
-		param.put("cancleflag", "0");
-		param.put("holdflag", "0");
+    public void addAwaysParam(Map<String, Object> param) {
+        param.put("deleteflag", "0");
+        param.put("cancleflag", "0");
+        param.put("holdflag", "0");
     }
     
-    public Map<String, Object> initParams(){
-    	Map<String, Object> param = new HashMap<String, Object>();
-    	param.put("deleteflag", "0");
-		param.put("cancleflag", "0");
-		param.put("holdflag", "0");
-		return param;
+    public Map<String, Object> initParams() {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("deleteflag", "0");
+        param.put("cancleflag", "0");
+        param.put("holdflag", "0");
+        return param;
     }
 }

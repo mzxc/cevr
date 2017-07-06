@@ -133,7 +133,7 @@
 	</aop:config>  
 	
 	<!-- 注入redis资源管理器-->
-    <bean id="redisResourceManager" class="com.gomyck.component.core.redis.RedisResourceManager"></bean>
+    <bean id="redisResourceManager" class="com.gomyck.component.context.spring.aop.redis.RedisResourceManager"></bean>
     <aop:config>
 		<aop:aspect id="myAspect" ref="redisResourceManager">
 			<aop:pointcut id="logPointCut" expression="execution(* com.gomyck.business.controller.*.controller.*.*(..))" />

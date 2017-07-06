@@ -18,8 +18,7 @@ package com.gomyck.component.core.xml;
  * @see #XmlNodes
  * @since 1.0
  */
-public interface XmlNodes
-{
+public interface XmlNodes {
     public void setXML_TAGS(final Object xml_tags);
     
     public String getElementValue(final String propName, final String elId);

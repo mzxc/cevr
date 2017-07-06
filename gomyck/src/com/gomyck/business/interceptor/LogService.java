@@ -11,12 +11,12 @@ import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.gomyck.component.context.spring.aop.AOPMethodUtil;
-import com.gomyck.component.logger.LogInfo;
+import com.gomyck.component.context.spring.aop.utils.AOPMethodUtil;
 import com.gomyck.component.logger.NestLogger;
-import com.gomyck.component.util.DateUtil;
-import com.gomyck.component.util.DateUtil.DUF;
-import com.gomyck.component.util.IpUtil;
+import com.gomyck.component.logger.annotation.LogInfo;
+import com.gomyck.component.utils.DateUtil;
+import com.gomyck.component.utils.IpUtil;
+import com.gomyck.component.utils.DateUtil.DUF;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class LogService {
                 final HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
                 Object operName = request.getSession().getAttribute("userName");
                 operName = operName == null ? "no sign" : operName;
-                sb.append(DateUtil.nowStr(DUF.CN_DATETIME_FORMAT) + ": " + operateModelNm + ": " + operateFuncNm + ", 操作人: " + operName + ", ");
+                sb.append(DateUtil.now2Str(DUF.CN_DATETIME_FORMAT) + ": " + operateModelNm + ": " + operateFuncNm + ", 操作人: " + operName + ", ");
                 sb.append("方法名: " + joinPoint.getSignature().getName() + ", 请求参数: ");
                 final Set<Entry<String, String[]>> entrySet = request.getParameterMap().entrySet();
                 for (final Entry<String, String[]> entry : entrySet) {

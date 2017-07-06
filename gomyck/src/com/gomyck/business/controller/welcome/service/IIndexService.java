@@ -25,30 +25,29 @@ import com.gomyck.business.model.to.TicketInfo;
  * @see #saveObj
  * @since 1.0
  */
-public interface IIndexService
-{
-	/**
-	 * 查询所有车辆信息
-	 * 
-	 * @return
-	 */
-	List<Map<String, Object>> searchCarInfo(TicketInfo ti);
-	
-	BizCarVideo1004 findVideoByCarId(TicketInfo ti);
-	
-	/**
-	 * 新增投票
-	 * 
-	 * @param ti
-	 * @return
-	 */
-	ResultMessage addTicketInfo(TicketInfo ti);
-	
-	/**
-	 * 删除投票
-	 * 
-	 * @param ti
-	 * @return
-	 */
-	ResultMessage delTicketInfo(TicketInfo ti);
+public interface IIndexService {
+    /**
+     * 查询所有车辆信息
+     * 
+     * @return
+     */
+    List<Map<String, Object>> searchCarInfo(TicketInfo ti);
+    
+    BizCarVideo1004 findVideoByCarId(TicketInfo ti);
+    
+    /**
+     * 新增投票
+     * 
+     * @param ti
+     * @return
+     */
+    ResultMessage addTicketInfo(TicketInfo ti);
+    
+    /**
+     * 删除投票
+     * 
+     * @param ti
+     * @return
+     */
+    ResultMessage delTicketInfo(TicketInfo ti);
 }

@@ -23,7 +23,7 @@ import org.w3c.dom.NodeList;
 
 import com.gomyck.component.core.xml.exception.DuplicateLabelException;
 import com.gomyck.component.core.xml.exception.XmlNotFoundException;
-import com.gomyck.component.util.StringUtil;
+import com.gomyck.component.utils.StringUtil;
 
 /**
  * 默认xml加载器
@@ -36,8 +36,7 @@ import com.gomyck.component.util.StringUtil;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class CkDefaultXmlReader extends CkXmlReader
-{
+public class CkDefaultXmlReader extends CkXmlReader {
     /**
      * 日志服务
      */
@@ -66,8 +65,7 @@ public class CkDefaultXmlReader extends CkXmlReader
     /**
      * <默认构造函数>
      */
-    public CkDefaultXmlReader()
-    {
+    public CkDefaultXmlReader() {
         super();
     }
     
@@ -78,8 +76,8 @@ public class CkDefaultXmlReader extends CkXmlReader
      * @throws ServletException
      */
     @Override
-    public void init(final ServletConfig config) throws ServletException
-    {
+    public void init(final ServletConfig config)
+        throws ServletException {
         log.info("xmlLoader is Start...");
         super.init(config);
         final String thisXmlPath = config.getInitParameter(INIT_PARAM);
@@ -99,21 +97,16 @@ public class CkDefaultXmlReader extends CkXmlReader
      * @throws XmlNotFoundException
      */
     @Override
-    public void refresh()
-    {
-        for (final String tagName : TAG_NAMES)
-        {
+    public void refresh() {
+        for (final String tagName : TAG_NAMES) {
             final NodeList tagList = this.currentDocument.getElementsByTagName(tagName);
             final Map<String, String> nodeMap = new HashMap<String, String>();
-            for (int i = 0; i < tagList.getLength(); i = i + 1)
-            {
+            for (int i = 0; i < tagList.getLength(); i = i + 1) {
                 final Node node = tagList.item(i);
-                if (node.hasChildNodes() && node.getNodeType() == Node.ELEMENT_NODE && node.getChildNodes().getLength() == 1)
-                {
+                if (node.hasChildNodes() && node.getNodeType() == Node.ELEMENT_NODE && node.getChildNodes().getLength() == 1) {
                     final Element el = (Element)node;
                     final String tagId = el.getAttribute("id");
-                    if (!StringUtil.isEmpty(nodeMap.get(tagId)))
-                    {
+                    if (!StringUtil.isEmpty(nodeMap.get(tagId))) {
                         throw new DuplicateLabelException("tag id same as >>>" + tagId + "<<<");
                     }
                     nodeMap.put(tagId, el.getTextContent());

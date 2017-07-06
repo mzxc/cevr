@@ -19,29 +19,25 @@ package com.gomyck.component.core.xml.exception;
  * @since 1.0
  */
 @SuppressWarnings("serial")
-public class XmlNotFoundException extends XmlReaderException
-{
+public class XmlNotFoundException extends XmlReaderException {
     /**
      * <默认构造函数>
      */
-    public XmlNotFoundException()
-    {
+    public XmlNotFoundException() {
         super();
     }
     
     /**
      * <默认构造函数>
      */
-    public XmlNotFoundException(final String message)
-    {
+    public XmlNotFoundException(final String message) {
         super(message);
     }
     
     /**
      * <默认构造函数>
      */
-    public XmlNotFoundException(final String message, final Throwable cause)
-    {
+    public XmlNotFoundException(final String message, final Throwable cause) {
         super(message, cause);
     }
     

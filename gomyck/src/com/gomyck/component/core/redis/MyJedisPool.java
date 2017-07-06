@@ -19,7 +19,7 @@ public class MyJedisPool {
     
     private static int port = 6379;
     
-//    private static String host = "127.0.0.1";
+    // private static String host = "127.0.0.1";
     private static String host = "192.168.1.19";
     
     private final static int EXRP_HOUR = 60 * 60;
@@ -85,6 +85,7 @@ public class MyJedisPool {
     
     /**
      * 根据索引值，切换数据库，打开连接
+     * 
      * @param index 索引值
      * @return
      */
@@ -113,14 +114,15 @@ public class MyJedisPool {
         return jedis;
     }
     
-    public static void release(Jedis jedis, boolean isBroken) {  
-        if (jedis != null) {  
-            if (isBroken) {  
-                jedisPool.returnBrokenResource(jedis);  
-            } else {  
-                jedisPool.returnResource(jedis);  
-            }  
-        }  
-    }  
+    public static void release(Jedis jedis, boolean isBroken) {
+        if (jedis != null) {
+            if (isBroken) {
+                jedisPool.returnBrokenResource(jedis);
+            }
+            else {
+                jedisPool.returnResource(jedis);
+            }
+        }
+    }
     
 }
