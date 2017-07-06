@@ -15,7 +15,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.PicturesManager;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
@@ -34,13 +33,12 @@ public class WordToHtml {
             while ((n = f.read(b)) != -1) {
                 out.write(b, 0, n);
             }
-            String data = Hex.encodeHexString(out.toByteArray());
-            byte[] tempDoc = Hex.decodeHex(data.toCharArray());
+            // String data = Hex.encodeHexString(out.toByteArray());
+            // byte[] tempDoc = Hex.decodeHex(data.toCharArray());
             f.close();
             out.close();
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -6,7 +6,7 @@ import com.gomyck.component.core.redis.utils.RedisCache.Todo;
 public class Test {
     public static void main(String[] args) {
         RedisCache.startDoIt();
-        RedisCache.cache("who", "123123123");
+        RedisCache.cache("who", "asdas");
         System.out.println(RedisCache.get("who"));
         RedisCache.finishDoIt();
         // RedisCache.cache("who1", "45345353");

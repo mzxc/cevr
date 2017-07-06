@@ -176,9 +176,6 @@ public class ConnectionPool extends Thread {
                 }
             }
             catch (final SQLException e) {
-                conn = createConnection();
-                connPool.remove(i);
-                connPool.add(i, conn);
                 NestLogger.showException(e);
                 logger.info("连接池状态检查时出现异常,重新初始化并更新..当前空闲连接数 : " + getFreeConnNum());
             }
@@ -207,9 +204,6 @@ public class ConnectionPool extends Thread {
                 }
             }
             catch (final SQLException e) {
-                conn = createConnection();
-                connPool.remove(i);
-                connPool.add(i, conn);
                 NestLogger.showException(e);
                 logger.info("获取数据库连接时出现异常..重新获取连接,当前空闲连接数 : " + getFreeConnNum());
             }

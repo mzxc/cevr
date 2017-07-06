@@ -3,7 +3,6 @@ package com.gomyck.component.utils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +46,9 @@ public class ExcelUtil {
      */
     public ExcelUtil(String type, InputStream intput) {
         ClassLoader classloader = org.apache.poi.poifs.filesystem.POIFSFileSystem.class.getClassLoader();
-        URL res = classloader.getResource("org/apache/poi/poifs/filesystem/POIFSFileSystem.class");
-        String path = res.getPath();
+        classloader.getResource("org/apache/poi/poifs/filesystem/POIFSFileSystem.class");
         classloader = org.apache.poi.POIXMLDocument.class.getClassLoader();
-        res = classloader.getResource("org/apache/poi/POIXMLDocument.class");
-        path = res.getPath();
+        classloader.getResource("org/apache/poi/POIXMLDocument.class");
         try {
             if (type.equals("xls")) {
                 workBook = new HSSFWorkbook(intput);

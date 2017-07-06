@@ -629,7 +629,7 @@ public abstract class RedisCache {
         if (getIfDoSomeThing())
             return;
         setIfReturn(true);
-        MyJedisPool.release(jedis, true);
+        MyJedisPool.release(jedis);
     }
     
     public static void selectDB(int index) {

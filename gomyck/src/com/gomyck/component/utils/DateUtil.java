@@ -198,10 +198,9 @@ public class DateUtil {
         return ret;
     }
     
-    @SuppressWarnings("unchecked")
-    private static List getYmd(String date1, String date2) {
+    public static List<String> getYmd(String date1, String date2) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         try {
             Date d1 = sdf.parse(date1);
             Date d2 = sdf.parse(date2);

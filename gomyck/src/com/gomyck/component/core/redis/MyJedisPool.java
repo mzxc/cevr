@@ -20,13 +20,14 @@ public class MyJedisPool {
     private static int port = 6379;
     
     // private static String host = "127.0.0.1";
+    
     private static String host = "192.168.1.19";
     
-    private final static int EXRP_HOUR = 60 * 60;
+    // private final static int EXRP_HOUR = 60 * 60;
     
     private final static int EXRP_DAY = 60 * 60 * 24;
     
-    private final static int EXRP_MONTH = 60 * 60 * 24 * 30;
+    // private final static int EXRP_MONTH = 60 * 60 * 24 * 30;
     
     private static ReentrantLock lockPool = new ReentrantLock();
     
@@ -74,7 +75,7 @@ public class MyJedisPool {
         catch (Exception e) {
             e.printStackTrace();
             if (jedis != null && jedisPool != null) {
-                jedisPool.returnResource(jedis);
+                jedis.close();
             }
         }
         finally {
@@ -104,7 +105,7 @@ public class MyJedisPool {
         catch (Exception e) {
             e.printStackTrace();
             if (jedis != null && jedisPool != null) {
-                jedisPool.returnResource(jedis);
+                jedis.close();
             }
         }
         finally {
@@ -114,15 +115,8 @@ public class MyJedisPool {
         return jedis;
     }
     
-    public static void release(Jedis jedis, boolean isBroken) {
-        if (jedis != null) {
-            if (isBroken) {
-                jedisPool.returnBrokenResource(jedis);
-            }
-            else {
-                jedisPool.returnResource(jedis);
-            }
-        }
+    public static void release(Jedis jedis) {
+        jedis.close();
     }
     
 }
