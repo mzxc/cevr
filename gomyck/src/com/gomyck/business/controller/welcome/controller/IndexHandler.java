@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,15 +56,6 @@ public class IndexHandler {
         return ResultBuild.init(true, "查询成功", searchCarInfo);
     }
     
-    // @LogInfo(operateModelNm="投票首页", operateFuncNm="访问首页")
-    // @RequestMapping(value="tab/{tab}", method=RequestMethod.GET)
-    // public String tab(@PathVariable String tab){
-    // System.out.println(tab);
-    // //List<Map<String, Object>> searchCarInfo = iis.searchCarInfo(ti);
-    //
-    // //response.sendRedirect(request.getContextPath() + "/common/forward/main/mainframe");
-    // return "main/exteriorDesign";
-    // }
     @LogInfo(operateModelNm = "投票首页", operateFuncNm = "新增投票")
     @RequestMapping(value = "ticketCar", method = RequestMethod.POST)
     @ResponseBody
