@@ -112,8 +112,7 @@
         </aop:aspect>
     </aop:config>  
     
-    <!-- 
-    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=UTF-8</value>
@@ -131,7 +130,6 @@
             </list>
         </property>
     </bean>
-     -->
     
     <bean id="redisResourceManager" class="com.gomyck.component.context.spring.aop.redis.RedisResourceManager"></bean>
     <aop:config>
